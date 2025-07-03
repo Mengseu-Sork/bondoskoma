@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class JobAnnouncement extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'jd', 'end_date'];
 }

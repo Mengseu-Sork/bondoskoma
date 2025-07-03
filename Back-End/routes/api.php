@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\JobAnnouncementController;
+use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\VideoController;
+use App\Models\JobAnnouncement;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +29,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource( 'homes' , HomeController::class);
 Route::apiResource( 'images' , ImageController::class);
 Route::apiResource( 'videos' , VideoController::class);
+Route::apiResource( 'partner' , PartnersController::class);
+Route::apiResource( 'contact' , ContactController::class);
+Route::apiResource( 'job' , JobAnnouncementController::class);
