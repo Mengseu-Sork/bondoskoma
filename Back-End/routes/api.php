@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,5 @@ Route::apiResource( 'videos' , VideoController::class);
 Route::apiResource( 'partner' , PartnersController::class);
 Route::apiResource( 'contact' , ContactController::class);
 Route::apiResource( 'job' , JobAnnouncementController::class);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/create_admin', [AuthController::class, 'store']);
