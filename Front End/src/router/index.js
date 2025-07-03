@@ -50,8 +50,8 @@ const router = createRouter({
       component: () => import('../views/PhotoView.vue'),
     },
     {
-      path: '/program',
-      name: 'program',
+      path: '/our-program',
+      name: 'our-program',
       component: () => import('../views/ProgramView.vue'),
     },
     {
