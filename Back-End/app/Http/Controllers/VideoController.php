@@ -22,21 +22,17 @@ class VideoController extends Controller
 
         $path = $request->file('video_file')->store('videos', 'public');
 
-        $url = asset('storage/' . $path);
-
         $video = Video::create([
             'video_file' => $path,
-            'url' => $url,
             'description' => $request->description,
         ]);
 
         return response()->json([
             'message' => 'Video uploaded successfully',
             'data' => [
-                'id' => $video->id,
                 'video_file' => $video->video_file,
                 'description' => $video->description,
-                'url' => $url,
+                'url' => asset('storage/' . $path)
             ],
         ], 201);
     }

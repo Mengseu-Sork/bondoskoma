@@ -42,36 +42,29 @@ class ImageController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Find the image record or return 404
         $image = Image::findOrFail($id);
 
-        // Validate the request
         $request->validate([
             'image_file' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif|max:20480',
             'description' => 'sometimes|nullable|string',
         ]);
 
-        // Handle image file update if a new file is uploaded
         if ($request->hasFile('image_file')) {
-            // Delete the old file from storage
             if ($image->image_file && Storage::disk('public')->exists($image->image_file)) {
                 Storage::disk('public')->delete($image->image_file);
             }
-
-            // Store the new file and update the path
             $path = $request->file('image_file')->store('images', 'public');
             $image->image_file = $path;
         }
-
-        // Update description if it's included in the request
         if ($request->has('description')) {
             $image->description = trim($request->input('description'));
         }
 
-        // Save changes to the database
         $image->save();
-
-        // Return JSON response with updated image and file URL
+        if (!$image->wasChanged()) {
+            return response()->json(['message' => 'No changes made'], 200);
+        }
+        
         return response()->json([
             'message' => 'Updated',
             'data' => $image->fresh(),
