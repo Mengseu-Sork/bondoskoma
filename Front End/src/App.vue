@@ -16,174 +16,67 @@
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden lg:block">
-          <ul class="flex items-center space-x-1">
-            <li>
-              <a 
-                href="#" 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-                :class="{ 'bg-blue-700': activeItem === 'home' }"
-                @click="setActive('home')"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#" 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-                :class="{ 'bg-blue-700': activeItem === 'history' }"
-                @click="setActive('history')"
-              >
-                History
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#" 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-                :class="{ 'bg-blue-700': activeItem === 'about' }"
-                @click="setActive('about')"
-              >
-                About Us
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#" 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-                :class="{ 'bg-blue-700': activeItem === 'program' }"
-                @click="setActive('program')"
-              >
-                Our Program
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#" 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-                :class="{ 'bg-blue-700': activeItem === 'hr' }"
-                @click="setActive('hr')"
-              >
-                HR
-              </a>
-            </li>
-            
-            <!-- Dropdown: Info & Resources -->
-            <li class="relative" @mouseenter="showDropdown('info')" @mouseleave="hideDropdown('info')">
-              <button 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200 flex items-center space-x-1"
-                :class="{ 'bg-blue-700': dropdowns.info }"
-                @click="toggleDropdown('info')"
-              >
-                <span>Info & Resources</span>
-                <svg 
-                  class="w-4 h-4 transition-transform duration-200" 
-                  :class="{ 'rotate-180': dropdowns.info }"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div 
-                v-show="dropdowns.info"
-                class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
-                :class="dropdowns.info ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
-              >
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Reports
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Partners
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Resources
-                </a>
-              </div>
-            </li>
+        <div class="hidden lg:flex items-center space-x-1">
+          <router-link 
+            v-for="item in navItems" 
+            :key="item.name"
+            :to="item.path"
+            class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
+            :class="{ 'bg-blue-700': $route.path === item.path }"
+            @click="setActive(item.name)"
+          >
+            {{ item.label }}
+          </router-link>
 
-            <!-- Dropdown: Get Involved -->
-            <li class="relative" @mouseenter="showDropdown('involved')" @mouseleave="hideDropdown('involved')">
-              <button 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200 flex items-center space-x-1"
-                :class="{ 'bg-blue-700': dropdowns.involved }"
-                @click="toggleDropdown('involved')"
+          <!-- Dropdown Menus -->
+          <div 
+            v-for="dropdown in dropdowns" 
+            :key="dropdown.name"
+            class="relative"
+            @mouseenter="showDropdown(dropdown.name)"
+            @mouseleave="hideDropdown(dropdown.name)"
+          >
+            <button 
+              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200 flex items-center space-x-1"
+              :class="{ 'bg-blue-700': activeDropdowns[dropdown.name] }"
+              @click="toggleDropdown(dropdown.name)"
+            >
+              <span>{{ dropdown.label }}</span>
+              <svg 
+                class="w-4 h-4 transition-transform duration-200" 
+                :class="{ 'rotate-180': activeDropdowns[dropdown.name] }"
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                <span>Get Involved</span>
-                <svg 
-                  class="w-4 h-4 transition-transform duration-200" 
-                  :class="{ 'rotate-180': dropdowns.involved }"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div 
-                v-show="dropdowns.involved"
-                class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
-                :class="dropdowns.involved ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div 
+              v-show="activeDropdowns[dropdown.name]"
+              class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
+              :class="{ 'opacity-100 scale-100': activeDropdowns[dropdown.name], 'opacity-0 scale-95': !activeDropdowns[dropdown.name] }"
+            >
+              <router-link 
+                v-for="subItem in dropdown.items"
+                :key="subItem.name"
+                :to="subItem.path"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150"
               >
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Volunteer
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Donate
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Events
-                </a>
-              </div>
-            </li>
-
-            <!-- Dropdown: Gallery -->
-            <li class="relative" @mouseenter="showDropdown('gallery')" @mouseleave="hideDropdown('gallery')">
-              <button 
-                class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200 flex items-center space-x-1"
-                :class="{ 'bg-blue-700': dropdowns.gallery }"
-                @click="toggleDropdown('gallery')"
-              >
-                <span>Gallery</span>
-                <svg 
-                  class="w-4 h-4 transition-transform duration-200" 
-                  :class="{ 'rotate-180': dropdowns.gallery }"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div 
-                v-show="dropdowns.gallery"
-                class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
-                :class="dropdowns.gallery ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
-              >
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Photos
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Videos
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150">
-                   Kids' Art
-                </a>
-              </div>
-            </li>
-          </ul>
+                {{ subItem.label }}
+              </router-link>
+            </div>
+          </div>
         </div>
 
-        <!-- Contact Button (Desktop) -->
+        <!-- Donate Button (Desktop) -->
         <div class="hidden lg:block">
-          <a 
-            href="#" 
+          <router-link 
+            to="/donate"
             class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 shadow-md hover:shadow-lg"
           >
             Donate
-          </a>
+          </router-link>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -219,35 +112,33 @@
     <div 
       v-show="mobileMenuOpen"
       class="lg:hidden bg-blue-800 border-t border-blue-700 transform transition-all duration-300 ease-in-out"
-      :class="mobileMenuOpen ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0'"
+      :class="{ 'opacity-100 max-h-screen': mobileMenuOpen, 'opacity-0 max-h-0': !mobileMenuOpen }"
     >
       <div class="px-4 py-3 space-y-1">
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200">
-           Home
-        </a>
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200">
-           History
-        </a>
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200">
-           About Us
-        </a>
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200">
-           Our Program
-        </a>
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200">
-           HR
-        </a>
-        
+        <router-link 
+          v-for="item in navItems"
+          :key="item.name"
+          :to="item.path"
+          class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200"
+          @click="mobileMenuOpen = false"
+        >
+          {{ item.label }}
+        </router-link>
+
         <!-- Mobile Dropdowns -->
-        <div class="border-t border-blue-700 pt-2 mt-2">
+        <div 
+          v-for="dropdown in dropdowns"
+          :key="dropdown.name"
+          class="border-t border-blue-700 pt-2 mt-2"
+        >
           <button 
-            @click="toggleMobileDropdown('info')"
+            @click="toggleMobileDropdown(dropdown.name)"
             class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center justify-between"
           >
-            <span> Info & Resources</span>
+            <span>{{ dropdown.label }}</span>
             <svg 
               class="w-4 h-4 transition-transform duration-200" 
-              :class="{ 'rotate-180': mobileDropdowns.info }"
+              :class="{ 'rotate-180': mobileDropdowns[dropdown.name] }"
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -255,80 +146,49 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div v-show="mobileDropdowns.info" class="pl-6 space-y-1">
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Reports</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Partners</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Resources</a>
-          </div>
-        </div>
-
-        <div>
-          <button 
-            @click="toggleMobileDropdown('involved')"
-            class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center justify-between"
+          <div 
+            v-show="mobileDropdowns[dropdown.name]"
+            class="pl-6 space-y-1"
           >
-            <span> Get Involved</span>
-            <svg 
-              class="w-4 h-4 transition-transform duration-200" 
-              :class="{ 'rotate-180': mobileDropdowns.involved }"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+            <router-link 
+              v-for="subItem in dropdown.items"
+              :key="subItem.name"
+              :to="subItem.path"
+              class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200"
+              @click="mobileMenuOpen = false"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div v-show="mobileDropdowns.involved" class="pl-6 space-y-1">
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Volunteer</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Donate</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Events</a>
+              {{ subItem.label }}
+            </router-link>
           </div>
         </div>
 
-        <div>
-          <button 
-            @click="toggleMobileDropdown('gallery')"
-            class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center justify-between"
-          >
-            <span> Gallery</span>
-            <svg 
-              class="w-4 h-4 transition-transform duration-200" 
-              :class="{ 'rotate-180': mobileDropdowns.gallery }"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div v-show="mobileDropdowns.gallery" class="pl-6 space-y-1">
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Photos</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Videos</a>
-            <a href="#" class="block px-3 py-2 text-sm hover:bg-blue-700 rounded-md transition-colors duration-200">Kids' Art</a>
-          </div>
-        </div>
-
-        <!-- Mobile Contact Button -->
+        <!-- Mobile Donate Button -->
         <div class="pt-4 border-t border-blue-700">
-          <a 
-            href="#" 
+          <router-link 
+            to="/donate"
             class="block w-full text-center bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-4 py-3 rounded-lg font-semibold transition-colors duration-200"
+            @click="mobileMenuOpen = false"
           >
-           Donate
-          </a>
+            Donate
+          </router-link>
         </div>
       </div>
     </div>
   </nav>
+
+  <!-- Main routed content -->
+  <router-view />
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 // Reactive state
+const route = useRoute()
 const mobileMenuOpen = ref(false)
 const activeItem = ref('home')
-const dropdowns = ref({
+const activeDropdowns = ref({
   info: false,
   involved: false,
   gallery: false
@@ -339,9 +199,53 @@ const mobileDropdowns = ref({
   gallery: false
 })
 
+// Navigation items
+const navItems = [
+  { name: 'home', label: 'Home', path: '/' },
+  { name: 'history', label: 'History', path: '/history' },
+  { name: 'about', label: 'About Us', path: '/about' },
+  { name: 'program', label: 'Our Program', path: '/our-program' },
+  { name: 'hr', label: 'HR', path: '/hr' }
+]
+
+// Dropdown items
+const dropdowns = [
+  {
+    name: 'info',
+    label: 'Info & Resources',
+    items: [
+      { name: 'reports', label: 'Reports', path: '/report' },
+      { name: 'partners', label: 'Partners', path: '/partner' },
+      { name: 'resources', label: 'Resources', path: '/resource' }
+    ]
+  },
+  {
+    name: 'involved',
+    label: 'Get Involved',
+    items: [
+      { name: 'volunteer', label: 'Volunteer', path: '/volunteer' },
+      { name: 'events', label: 'Events', path: '/event' }
+    ]
+  },
+  {
+    name: 'gallery',
+    label: 'Gallery',
+    items: [
+      { name: 'photos', label: 'Photos', path: '/photo' },
+      { name: 'videos', label: 'Videos', path: '/video' },
+      { name: 'kids-art', label: "Kids' Art", path: '/kid-art' }
+    ]
+  }
+]
+
 // Methods
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
+  if (mobileMenuOpen.value) {
+    Object.keys(mobileDropdowns.value).forEach(key => {
+      mobileDropdowns.value[key] = false
+    })
+  }
 }
 
 const setActive = (item) => {
@@ -349,17 +253,17 @@ const setActive = (item) => {
 }
 
 const showDropdown = (dropdown) => {
-  dropdowns.value[dropdown] = true
+  activeDropdowns.value[dropdown] = true
 }
 
 const hideDropdown = (dropdown) => {
   setTimeout(() => {
-    dropdowns.value[dropdown] = false
+    activeDropdowns.value[dropdown] = false
   }, 150)
 }
 
 const toggleDropdown = (dropdown) => {
-  dropdowns.value[dropdown] = !dropdowns.value[dropdown]
+  activeDropdowns.value[dropdown] = !activeDropdowns.value[dropdown]
 }
 
 const toggleMobileDropdown = (dropdown) => {
@@ -367,11 +271,15 @@ const toggleMobileDropdown = (dropdown) => {
 }
 
 const closeAllDropdowns = () => {
-  Object.keys(dropdowns.value).forEach(key => {
-    dropdowns.value[key] = false
+  Object.keys(activeDropdowns.value).forEach(key => {
+    activeDropdowns.value[key] = false
+  })
+  Object.keys(mobileDropdowns.value).forEach(key => {
+    mobileDropdowns.value[key] = false
   })
 }
 
+// Handle click outside
 const handleClickOutside = (event) => {
   if (!event.target.closest('nav')) {
     closeAllDropdowns()
@@ -379,7 +287,7 @@ const handleClickOutside = (event) => {
   }
 }
 
-// Lifecycle
+// Lifecycle hooks
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
@@ -388,3 +296,21 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<style scoped>
+/* Smooth transitions for dropdowns */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Ensure mobile menu is hidden by default */
+.max-h-0 {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.max-h-screen {
+  max-height: 100vh;
+}
+
+</style>
