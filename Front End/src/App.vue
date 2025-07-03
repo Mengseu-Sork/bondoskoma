@@ -1,28 +1,25 @@
 <template>
-  <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg sticky top-0 z-50">
+  <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-xl sticky top-0 z-50 backdrop-blur-md border-b border-blue-900/40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo Section -->
-        <div class="flex items-center space-x-3 flex-shrink-0">
+        <div class="flex items-center space-x-2 flex-shrink-0">
           <img 
             src="https://www.bandoskomar.org/wp-content/uploads/2017/12/cropped-cropped-bandos-komar-logo-1-1_white_bg-2.jpg" 
             alt="Bandos Komar Logo" 
-            class="h-10 w-auto rounded-md shadow-sm"
+            class="h-8 w-auto rounded shadow"
           />
-          <div class="hidden sm:block">
-            <h1 class="font-bold text-lg tracking-wide">Bandos Komar</h1>
-            <p class="text-xs text-blue-200">Helping Kids Grow</p>
-          </div>
+
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden lg:flex items-center space-x-1">
+        <div class="hidden lg:flex items-center space-x-6">
           <router-link 
             v-for="item in navItems" 
             :key="item.name"
             :to="item.path"
-            class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200"
-            :class="{ 'bg-blue-700': $route.path === item.path }"
+            class="px-2 py-2 rounded-md text-xs font-bold uppercase tracking-wide hover:bg-blue-900/60 hover:text-yellow-400 hover:underline transition-all duration-200"
+            :class="{ 'text-yellow-400 underline bg-blue-900/70': $route.path === item.path }"
             @click="setActive(item.name)"
           >
             {{ item.label }}
@@ -37,8 +34,8 @@
             @mouseleave="hideDropdown(dropdown.name)"
           >
             <button 
-              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors duration-200 flex items-center space-x-1"
-              :class="{ 'bg-blue-700': activeDropdowns[dropdown.name] }"
+              class="px-2 py-2 rounded-md text-xs font-bold uppercase tracking-wide hover:bg-blue-900/60 hover:text-yellow-400 hover:underline transition-all duration-200 flex items-center space-x-1"
+              :class="{ 'text-yellow-400 underline bg-blue-900/70': activeDropdowns[dropdown.name] }"
               @click="toggleDropdown(dropdown.name)"
             >
               <span>{{ dropdown.label }}</span>
@@ -54,14 +51,14 @@
             </button>
             <div 
               v-show="activeDropdowns[dropdown.name]"
-              class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
+              class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
               :class="{ 'opacity-100 scale-100': activeDropdowns[dropdown.name], 'opacity-0 scale-95': !activeDropdowns[dropdown.name] }"
             >
               <router-link 
                 v-for="subItem in dropdown.items"
                 :key="subItem.name"
                 :to="subItem.path"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150"
+                class="block px-4 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150"
               >
                 {{ subItem.label }}
               </router-link>
@@ -69,14 +66,30 @@
           </div>
         </div>
 
-        <!-- Donate Button (Desktop) -->
-        <div class="hidden lg:block">
+        <!-- Donate Button (Desktop) & Language Selector -->
+        <div class="hidden lg:flex items-center space-x-3">
           <router-link 
             to="/donate"
-            class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 shadow-md hover:shadow-lg"
+            class="bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-5 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg transition-all duration-200 border-2 border-orange-300"
           >
-            Donate
+            <span>DONATE</span>
+   
           </router-link>
+          <!-- Language Selector -->
+          <div class="relative group">
+            <button class="flex items-center px-2 py-2 rounded-full bg-white bg-opacity-20 hover:bg-opacity-40 transition">
+              <img src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/gb.svg" alt="English" class="w-5 h-5 rounded-full" />
+              <svg class="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="absolute right-0 mt-2 w-32 bg-white rounded shadow-lg py-1 z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 border border-blue-100">
+              <button class="flex items-center w-full px-3 py-2 text-xs text-gray-700 hover:bg-blue-50">
+                <img src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/fr.svg" alt="French" class="w-5 h-5 rounded-full mr-2" /> Français
+              </button>
+              <!-- Add more languages as needed -->
+            </div>
+          </div>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -313,4 +326,29 @@ onUnmounted(() => {
   max-height: 100vh;
 }
 
+/* Navbar underline effect for active/hover */
+.router-link-exact-active,
+.router-link-active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #fbbf24 !important; /* yellow-400 */
+}
+
+/* Language dropdown */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.group .group-hover\:opacity-100 {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+/* Subtle blur for sticky nav */
+nav {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-clip: padding-box;
+}
 </style>
