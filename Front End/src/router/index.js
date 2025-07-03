@@ -12,10 +12,67 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
+    },
+    {
+      path: '/donate',
+      name: 'donate',
+      component: () => import('../views/DonateView.vue'),
+    },
+    {
+      path: '/event',
+      name: 'event',
+      component: () => import('../views/EventView.vue'),
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('../views/HistoryView.vue'),
+    },
+    {
+      path: '/hr',
+      name: 'hr',
+      component: () => import('../views/HrView.vue'),
+    },
+    {
+      path: '/kid-art',
+      name: 'kid-art',
+      component: () => import('../views/KidArtView.vue'),
+    },
+    {
+      path: '/partner',
+      name: 'partner',
+      component: () => import('../views/PartnerView.vue'),
+    },
+    {
+      path: '/photo',
+      name: 'photo',
+      component: () => import('../views/PhotoView.vue'),
+    },
+    {
+      path: '/program',
+      name: 'program',
+      component: () => import('../views/ProgramView.vue'),
+    },
+    {
+      path: '/report',
+      name: 'report',
+      component: () => import('../views/ReportView.vue'),
+    },
+    {
+      path: '/resource',
+      name: 'resource',
+      component: () => import('../views/ResourceView.vue'),
+    },
+    {
+      path: '/video',
+      name: 'video',
+      component: () => import('../views/VideoView.vue'),
+    },
+    {
+      path: '/volunteer',
+      name: 'volunteer',
+      component: () => import('../views/VolunteerView.vue'),
     },
   ],
 })
