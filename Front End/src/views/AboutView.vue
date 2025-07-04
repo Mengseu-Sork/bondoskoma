@@ -23,7 +23,7 @@
           <div class="md:flex">
             <div class="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="https://www.bandoskomar.org/wp-content/uploads/2017/10/sub-banner.jpg"
                 alt="Children learning in a classroom"
                 class="w-full h-64 md:h-full object-cover"
               />
@@ -128,135 +128,6 @@
                 Since 2002, BK has expanded its programs to new target provinces such as Pursat in 2002 and Siem Reap in 2008, focusing on pre-schools and primary schools in rural areas.
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Enhanced Partners Section -->
-      <div class="max-w-7xl mx-auto mb-12">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <!-- Header with gradient background -->
-          <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-8 md:p-12 text-white text-center">
-            <div class="flex items-center justify-center mb-6">
-              <div class="bg-white/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                <Handshake class="w-10 h-10 text-white" />
-              </div>
-              <h2 class="text-3xl md:text-4xl font-bold">Partners</h2>
-            </div>
-            <p class="text-lg text-indigo-100 max-w-3xl mx-auto leading-relaxed">
-              Collaborating with world-class organizations to amplify our impact and create sustainable change in communities across Cambodia
-            </p>
-          </div>
-
-          <!-- Partners Grid -->
-          <div class="p-8 md:p-12 bg-gradient-to-br from-gray-50 to-white">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div
-                v-for="(partner, index) in partners"
-                :key="partner.name"
-                class="group relative"
-              >
-                <!-- Main Card -->
-                <div class="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-3 transition-all duration-500 overflow-hidden border border-gray-100 hover:border-transparent">
-                  <!-- Gradient overlay that appears on hover -->
-                  <div 
-                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-                    :class="getPartnerGradient(index)"
-                  ></div>
-                  
-                  <!-- Content -->
-                  <div class="relative z-10 p-6">
-                    <!-- Logo container with enhanced styling -->
-                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-white group-hover:to-white p-6 rounded-xl shadow-inner group-hover:shadow-lg transition-all duration-300 mb-4">
-                      <div class="relative">
-                        <img
-                          :src="partner.logo"
-                          :alt="partner.name"
-                          class="w-full h-20 object-contain filter group-hover:brightness-110 transition-all duration-300"
-                        />
-                        <!-- Subtle glow effect on hover -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-transparent to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"></div>
-                      </div>
-                    </div>
-                    
-                    <!-- Partner name with enhanced typography -->
-                    <h3 class="text-center text-base font-bold text-gray-800 group-hover:text-white transition-colors duration-300 leading-tight">
-                      {{ partner.name }}
-                    </h3>
-                    
-                    <!-- Partnership type badge -->
-                    <div class="mt-3 text-center">
-                      <span 
-                        class="inline-block px-3 py-1 text-xs font-medium rounded-full transition-all duration-300"
-                        :class="getPartnerBadgeClass(index)"
-                      >
-                        {{ getPartnerType(index) }}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <!-- Decorative elements -->
-                  <div class="absolute top-0 right-0 w-20 h-20 transform translate-x-10 -translate-y-10">
-                    <div 
-                      class="w-full h-full rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300"
-                      :class="getPartnerAccentColor(index)"
-                    ></div>
-                  </div>
-                  
-                  <!-- Bottom accent line -->
-                  <div 
-                    class="absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                    :class="getPartnerAccentColor(index)"
-                  ></div>
-                </div>
-                
-                <!-- Floating partnership duration indicator -->
-                <div class="absolute -top-2 -right-2 bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300 z-20">
-                  <div 
-                    class="w-3 h-3 rounded-full"
-                    :class="getPartnerAccentColor(index)"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Partnership stats -->
-            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
-                <div class="text-2xl font-bold text-blue-600 mb-1">{{ partners.length }}+</div>
-                <div class="text-sm text-gray-600">Active Partners</div>
-              </div>
-              <div class="text-center p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl">
-                <div class="text-2xl font-bold text-emerald-600 mb-1">15+</div>
-                <div class="text-sm text-gray-600">Years Experience</div>
-              </div>
-              <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
-                <div class="text-2xl font-bold text-purple-600 mb-1">50+</div>
-                <div class="text-sm text-gray-600">Joint Projects</div>
-              </div>
-              <div class="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
-                <div class="text-2xl font-bold text-orange-600 mb-1">100K+</div>
-                <div class="text-sm text-gray-600">Lives Impacted</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Call to Action -->
-      <div class="max-w-4xl mx-auto mb-12">
-        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl shadow-2xl p-8 md:p-12 text-center text-white">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Mission</h2>
-          <p class="text-xl text-emerald-100 mb-8 leading-relaxed">
-            Together, we can create a brighter future for children and youth in Cambodia
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="bg-white text-emerald-600 px-8 py-4 rounded-full font-semibold hover:bg-emerald-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
-              Get Involved
-            </button>
-            <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-emerald-600 transform hover:scale-105 transition-all duration-300">
-              Learn More
-            </button>
           </div>
         </div>
       </div>
