@@ -19,10 +19,19 @@
           <button v-for="(dot, index) in bannerImages.length" :key="index" @click="currentSlide = index" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all duration-200" :class="{ 'opacity-100 scale-125': currentSlide === index }"></button>
         </div>
       </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-2 drop-shadow-lg text-center">Welcome to Simply for Speech</h1>
-        <p class="text-lg md:text-2xl text-white mb-6 drop-shadow text-center max-w-2xl">Empowering children in Myanmar since 1989 with education and therapy.<br>Join us at 01:44 PM +07 on Thursday, July 03, 2025, for our live event.</p>
-        <a href="#" class="pointer-events-auto bg-gradient-to-r from-blue-700 to-indigo-600 text-white px-8 py-3 rounded-full hover:from-blue-800 hover:to-indigo-700 transition-all font-bold shadow-lg animate-bounce-slow">Get Involved</a>
+      <div class="absolute inset-0 flex flex-col justify-center pointer-events-none">
+        <div class="w-full flex flex-col items-start justify-center h-full px-4 md:px-16">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-2 drop-shadow-lg text-left">
+            <span class="text-sky-500">Welcome to </span><br>
+            <span class="text-white">Bondos Komar</span>
+          </h1>
+          <p class="text-lg md:text-xl text-white mb-8 drop-shadow text-left max-w-2xl">
+            Partage has been operating programs in Cambodia since November 1989.
+          </p>
+          <a href="#" class="pointer-events-auto bg-orange-400 hover:bg-orange-500 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all duration-200 text-lg md:text-xl">
+            Learn More
+          </a>
+        </div>
       </div>
     </section>
 
