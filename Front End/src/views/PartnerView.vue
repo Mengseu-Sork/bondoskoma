@@ -1,26 +1,28 @@
 <template>
-  <div class="overflow-hidden whitespace-nowrap relative">
-    <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
-      Our Partner
-    </h1>
-    <div class="inline-flex animate-marquee items-center ml-20 gap-6 min-w-[200%] h-64 bg-yellow-400">
-      <div 
-        v-for="(partner, index) in duplicatedPartners"
-        :key="`partner-${index}`"
-        class="flex-shrink-0"
-      >
-        <PartnerCard :partner="partner" />
-      </div>
+    <div class="overflow-hidden whitespace-nowrap relative">
+        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
+        Our Partner
+        </h1>
+        <div class="h-64 bg-yellow-400 flex items-center overflow-hidden w-full">
+            <div class="inline-flex animate-marquee gap-6 min-w-[200%]">
+            <div 
+                v-for="(partner, index) in duplicatedPartners"
+                :key="`partner-${index}`"
+                class="flex-shrink-0"
+            >
+                <PartnerCard :partner="partner" />
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="mt-6">
-    <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
-      Our Visitors
-    </h1>
-    <div class="p-8">
-      <FlagCounter :visitors="visitorData" />
+    <div class="mt-6">
+        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
+        Our Visitors
+        </h1>
+        <div class="p-8">
+        <FlagCounter :visitors="visitorData" />
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
