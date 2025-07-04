@@ -2,23 +2,7 @@
   <div id="app">
     <!-- Full-Width Banner -->
 <!-- Full-Width Banner -->
-<div class="relative w-full h-64 sm:h-80 lg:h-96 overflow-hidden">
-  <img
-    src="https://www.bandoskomar.org/wp-content/uploads/2017/10/Screen-Shot-2017-10-06-at-11.00.31-AM.png "
-    alt="Support Our Mission Banner"
-    class="absolute inset-0 w-full h-full object-cover"
-  />
-  <div class="absolute inset-0 bg-black  bg-opacity-40 flex items-center justify-start px-6 sm:px-12">
-    <div class="text-left max-w-2xl">
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
-        Join Us in Making a Difference
-      </h1>
-      <p class="text-white text-sm sm:text-base">
-        Every donation helps empower Cambodian children and support community development.
-      </p>
-    </div>
-  </div>
-</div>
+
 
     <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -130,6 +114,7 @@
 </template>
 
 <script setup>
+
 import { ref, computed } from 'vue';
 
 // Constants

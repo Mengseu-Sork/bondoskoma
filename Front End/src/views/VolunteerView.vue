@@ -1,3 +1,3 @@
-<template>
-    <h1>Hello Volunteer</h1>
-</template>
+    <template>
+        <h1>Hello Volunteer</h1>
+    </template>
