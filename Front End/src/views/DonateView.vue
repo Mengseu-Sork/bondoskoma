@@ -1,5 +1,5 @@
 <template>
-   <div id="app">
+  <div id="app">
     <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <!-- Header Section -->
       <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 relative overflow-hidden">
@@ -74,7 +74,10 @@
                   id="phone"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50"
                   placeholder="(555) 123-4567"
+                  :class="{ 'border-red-500': contactErrors.phone }"
+                  @input="clearError('phone')"
                 />
+                <p v-if="contactErrors.phone" class="text-red-500 text-xs mt-1">{{ contactErrors.phone }}</p>
               </div>
 
               <div>
@@ -173,7 +176,7 @@
                   </div>
                   <div>
                     <p class="font-semibold text-gray-900">Office Hours</p>
-                    <p class="text-gray-600 text-sm">Mon - Fri: 9:00 AM - 5:00 PM<br>Sat: 10:00 AM - 2:00</p>
+                    <p class="text-gray-600 text-sm">Mon - Fri: 9:00 AM - 5:00 PM<br>Sat: 10:00 AM - 2:00 PM</p>
                   </div>
                 </div>
               </div>
@@ -228,7 +231,7 @@
             <!-- Donation Form -->
             <div class="bg-white rounded-2xl p-8 border border-indigo-100">
               <h3 class="text-2xl font-semibold text-gray-900 mb-6">Donation Information</h3>
-              <div class="space-y-6">
+              <form @submit.prevent="saveDonationInfo" class="space-y-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label for="donorName" class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
@@ -263,11 +266,12 @@
                 <div>
                   <label for="donationAmount" class="block text-sm font-medium text-gray-700 mb-2">Donation Amount ($)*</label>
                   <input
-                    v-model="donationInfo.amount"
+                    v-model.number="donationInfo.amount"
                     type="number"
                     id="donationAmount"
                     required
                     min="1"
+                    step="0.01"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50"
                     placeholder="Enter amount"
                     :class="{ 'border-red-500': donationErrors.amount }"
@@ -285,6 +289,7 @@
                         type="radio"
                         value="one-time"
                         class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                        required
                       />
                       <span class="ml-2 text-sm text-gray-600">One-Time</span>
                     </label>
@@ -298,6 +303,7 @@
                       <span class="ml-2 text-sm text-gray-600">Recurring</span>
                     </label>
                   </div>
+                  <p v-if="donationErrors.type" class="text-red-500 text-xs mt-1">{{ donationErrors.type }}</p>
                 </div>
 
                 <div>
@@ -312,15 +318,15 @@
                 </div>
 
                 <button
-                  @click="saveDonationInfo"
+                  type="submit"
                   class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
                 >
                   Save Donation Information
                 </button>
+              </form>
 
-                <div v-if="donationMessage" class="p-4 rounded-lg animate__animated animate__fadeIn" :class="donationMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
-                  {{ donationMessage.text }}
-                </div>
+              <div v-if="donationMessage" class="mt-6 p-4 rounded-lg animate__animated animate__fadeIn" :class="donationMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                {{ donationMessage.text }}
               </div>
             </div>
 
@@ -375,11 +381,10 @@
       </footer>
     </div>
   </div>
-
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 // Contact form data
 const contactForm = ref({
@@ -388,23 +393,39 @@ const contactForm = ref({
   email: '',
   phone: '',
   subject: '',
-  message: ''
-})
+  message: '',
+});
 
-const isSubmittingContact = ref(false)
-const contactMessage = ref(null)
+const contactErrors = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+});
+
+const isSubmittingContact = ref(false);
+const contactMessage = ref(null);
 
 // Donation data
 const donationInfo = ref({
   name: '',
   email: '',
   amount: '',
+  type: 'one-time',
   message: '',
-  type: 'one-time'
-})
+});
 
-const donationMessage = ref(null)
-const selectedPaymentMethod = ref('paypal')
+const donationErrors = ref({
+  name: '',
+  email: '',
+  amount: '',
+  type: '',
+});
+
+const donationMessage = ref(null);
+const selectedPaymentMethod = ref('paypal');
 
 // Payment methods with QR codes
 const paymentMethods = [
@@ -413,55 +434,125 @@ const paymentMethods = [
     name: 'PayPal',
     account: 'donations@organization.org',
     instruction: 'Open PayPal app and scan this code to send money',
-    qrCode: '/placeholder.svg?height=192&width=192&text=PayPal+QR'
+    qrCode: 'https://via.placeholder.com/192x192.png?text=PayPal+QR', // Replace with actual QR code URL
   },
   {
     id: 'venmo',
     name: 'Venmo',
     account: '@YourOrganization',
     instruction: 'Open Venmo app and scan to pay @YourOrganization',
-    qrCode: '/placeholder.svg?height=192&width=192&text=Venmo+QR'
+    qrCode: 'https://via.placeholder.com/192x192.png?text=Venmo+QR', // Replace with actual QR code URL
   },
   {
     id: 'cashapp',
     name: 'Cash App',
     account: '$YourOrganization',
     instruction: 'Open Cash App and scan to pay $YourOrganization',
-    qrCode: '/placeholder.svg?height=192&width=192&text=CashApp+QR'
+    qrCode: 'https://via.placeholder.com/192x192.png?text=CashApp+QR', // Replace with actual QR code URL
   },
   {
     id: 'zelle',
     name: 'Zelle',
     account: 'donations@organization.org',
     instruction: 'Use this email in your banking app for Zelle transfer',
-    qrCode: '/placeholder.svg?height=192&width=192&text=Zelle+Info'
-  }
-]
+    qrCode: 'https://via.placeholder.com/192x192.png?text=Zelle+QR', // Replace with actual QR code URL
+  },
+];
 
 // Computed properties
 const currentQRCode = computed(() => {
-  const method = paymentMethods.find(m => m.id === selectedPaymentMethod.value)
-  return method ? method.qrCode : paymentMethods[0].qrCode
-})
+  const method = paymentMethods.find((m) => m.id === selectedPaymentMethod.value);
+  return method ? method.qrCode : paymentMethods[0].qrCode;
+});
 
 const getCurrentPaymentMethod = () => {
-  return paymentMethods.find(m => m.id === selectedPaymentMethod.value) || paymentMethods[0]
-}
+  return paymentMethods.find((m) => m.id === selectedPaymentMethod.value) || paymentMethods[0];
+};
+
+// Form validation
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+const validatePhone = (phone) => {
+  if (!phone) return true; // Phone is optional
+  const re = /^\(\d{3}\)\s?\d{3}-\d{4}$/;
+  return re.test(phone);
+};
+
+// Contact form error clearing
+const clearError = (field) => {
+  contactErrors.value[field] = '';
+};
+
+// Donation form error clearing
+const clearDonationError = (field) => {
+  donationErrors.value[field] = '';
+};
 
 // Contact form submission
 const submitContact = async () => {
-  isSubmittingContact.value = true
-  contactMessage.value = null
-  
+  // Reset errors
+  contactErrors.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  };
+
+  // Validate form
+  let isValid = true;
+  if (!contactForm.value.firstName.trim()) {
+    contactErrors.value.firstName = 'First name is required';
+    isValid = false;
+  }
+  if (!contactForm.value.lastName.trim()) {
+    contactErrors.value.lastName = 'Last name is required';
+    isValid = false;
+  }
+  if (!contactForm.value.email.trim()) {
+    contactErrors.value.email = 'Email is required';
+    isValid = false;
+  } else if (!validateEmail(contactForm.value.email)) {
+    contactErrors.value.email = 'Please enter a valid email address';
+    isValid = false;
+  }
+  if (!validatePhone(contactForm.value.phone)) {
+    contactErrors.value.phone = 'Please enter a valid phone number (e.g., (555) 123-4567)';
+    isValid = false;
+  }
+  if (!contactForm.value.subject) {
+    contactErrors.value.subject = 'Please select a subject';
+    isValid = false;
+  }
+  if (!contactForm.value.message.trim()) {
+    contactErrors.value.message = 'Message is required';
+    isValid = false;
+  }
+
+  if (!isValid) {
+    contactMessage.value = {
+      type: 'error',
+      text: 'Please correct the errors in the form.',
+    };
+    return;
+  }
+
+  isSubmittingContact.value = true;
+  contactMessage.value = null;
+
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
+    // Simulate API call (replace with actual backend API call)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     contactMessage.value = {
       type: 'success',
-      text: 'Thank you for your message! We\'ll get back to you within 24 hours.'
-    }
-    
+      text: "Thank you for your message! We'll get back to you within 24 hours.",
+    };
+
     // Reset form
     contactForm.value = {
       firstName: '',
@@ -469,43 +560,95 @@ const submitContact = async () => {
       email: '',
       phone: '',
       subject: '',
-      message: ''
-    }
+      message: '',
+    };
   } catch (error) {
     contactMessage.value = {
       type: 'error',
-      text: 'Sorry, there was an error sending your message. Please try again.'
-    }
+      text: 'Sorry, there was an error sending your message. Please try again.',
+    };
   } finally {
-    isSubmittingContact.value = false
+    isSubmittingContact.value = false;
   }
-}
+};
 
 // Save donation information
-const saveDonationInfo = () => {
-  if (!donationInfo.value.name || !donationInfo.value.email || !donationInfo.value.amount) {
-    donationMessage.value = {
-      type: 'error',
-      text: 'Please fill in all required fields (Name, Email, and Amount).'
-    }
-    return
+const saveDonationInfo = async () => {
+  // Reset errors
+  donationErrors.value = {
+    name: '',
+    email: '',
+    amount: '',
+    type: '',
+  };
+
+  // Validate form
+  let isValid = true;
+  if (!donationInfo.value.name.trim()) {
+    donationErrors.value.name = 'Full name is required';
+    isValid = false;
+  }
+  if (!donationInfo.value.email.trim()) {
+    donationErrors.value.email = 'Email is required';
+    isValid = false;
+  } else if (!validateEmail(donationInfo.value.email)) {
+    donationErrors.value.email = 'Please enter a valid email address';
+    isValid = false;
+  }
+  if (!donationInfo.value.amount || donationInfo.value.amount <= 0) {
+    donationErrors.value.amount = 'Please enter a valid donation amount';
+    isValid = false;
+  }
+  if (!donationInfo.value.type) {
+    donationErrors.value.type = 'Please select a donation type';
+    isValid = false;
   }
 
-  // Save to localStorage or send to your system
+  if (!isValid) {
+    donationMessage.value = {
+      type: 'error',
+      text: 'Please correct the errors in the form.',
+    };
+    return;
+  }
+
+  // Save to localStorage or send to backend
   const donationData = {
     ...donationInfo.value,
     paymentMethod: selectedPaymentMethod.value,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    // Simulate API call (replace with actual backend API call)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    localStorage.setItem('donationInfo', JSON.stringify(donationData));
+
+    donationMessage.value = {
+      type: 'success',
+      text: `Thank you, ${donationInfo.value.name}! Your donation information has been saved. Please complete the payment of $${donationInfo.value.amount} using the ${getCurrentPaymentMethod().name} QR code.`,
+    };
+
+    // Reset form
+    donationInfo.value = {
+      name: '',
+      email: '',
+      amount: '',
+      type: 'one-time',
+      message: '',
+    };
+  } catch (error) {
+    donationMessage.value = {
+      type: 'error',
+      text: 'Sorry, there was an error saving your donation information. Please try again.',
+    };
   }
-  
-  // Store locally (you can modify this to send to your backend)
-  localStorage.setItem('donationInfo', JSON.stringify(donationData))
-  
-  donationMessage.value = {
-    type: 'success',
-    text: `Thank you ${donationInfo.value.name}! Your donation information has been saved. Please complete the payment of $${donationInfo.value.amount} using the ${getCurrentPaymentMethod().name} QR code.`
-  }
-  
-  console.log('Donation Info Saved:', donationData)
-}
+};
 </script>
+
+<style scoped>
+/* Ensure Animate.css classes are applied only if library is included */
+.animate__animated {
+  --animate-duration: 1s;
+}
+</style>

@@ -1,4 +1,5 @@
 <template>
+    <Banner />
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 py-10 bg-gray-50 min-h-screen">
     <Card
       v-for="(program, idx) in programs"
@@ -86,6 +87,7 @@
 
 <script setup>
 import Card from '../components/CardProgram.vue'
+import Banner from '../components/BannerProgram.vue'
 
 const programs = [
   {
