@@ -16,20 +16,24 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
             'description' => 'nullable|string',
         ]);
 
-        // Store file
-        $filePath = $request->file('image_file')->store('images', 'public');
+        $path = $request->file('image_file')->store('images', 'public');
 
         $image = Image::create([
-            'image_file' => $filePath,
+            'image_file' => $path,
             'description' => $request->description,
         ]);
 
-        return response()->json($image, 201);
+        return response()->json([
+            'message' => 'Image uploaded successfully',
+            'url' => asset('storage/' . $path),
+            'image' => $image,
+        ]);
     }
+
 
     public function show($id)
     {
@@ -41,21 +45,31 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
 
         $request->validate([
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string',
+            'image_file' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif|max:20480',
+            'description' => 'sometimes|nullable|string',
         ]);
 
         if ($request->hasFile('image_file')) {
-            // Delete old image
-            Storage::disk('public')->delete($image->image_file);
-            $filePath = $request->file('image_file')->store('images', 'public');
-            $image->image_file = $filePath;
+            if ($image->image_file && Storage::disk('public')->exists($image->image_file)) {
+                Storage::disk('public')->delete($image->image_file);
+            }
+            $path = $request->file('image_file')->store('images', 'public');
+            $image->image_file = $path;
+        }
+        if ($request->has('description')) {
+            $image->description = trim($request->input('description'));
         }
 
-        $image->description = $request->description ?? $image->description;
         $image->save();
-
-        return response()->json($image);
+        if (!$image->wasChanged()) {
+            return response()->json(['message' => 'No changes made'], 200);
+        }
+        
+        return response()->json([
+            'message' => 'Updated',
+            'data' => $image->fresh(),
+            'url' => asset('storage/' . $image->image_file),
+        ]);
     }
 
     public function destroy($id)

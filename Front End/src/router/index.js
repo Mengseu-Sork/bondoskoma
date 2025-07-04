@@ -51,7 +51,7 @@ const router = createRouter({
     },
     {
       path: '/our-program',
-      name: 'program',
+      name: 'our-program',
       component: () => import('../views/ProgramView.vue'),
     },
     {

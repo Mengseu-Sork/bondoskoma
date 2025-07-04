@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('job_announcements', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('jd'); 
+            $table->date('end_date');
             $table->timestamps();
         });
     }

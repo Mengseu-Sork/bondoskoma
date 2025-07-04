@@ -9,7 +9,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return response()->json(Home::all());
+        $homes = Home::all();
+        return response()->json([
+            'status' => 'List of homes retrieved successfully',
+            'data' => $homes
+        ]);
     }
 
     public function store(Request $request)
@@ -34,13 +38,18 @@ class HomeController extends Controller
         $home = Home::findOrFail($id);
 
         $data = $request->validate([
-            'paragraph1' => 'required|string',
-            'paragraph2' => 'required|string',
+            'paragraph1' => 'sometimes|required|string',
+            'paragraph2' => 'sometimes|required|string',
         ]);
 
         $home->update($data);
-        return response()->json($home);
+
+        return response()->json([
+            'message' => 'Home updated successfully',
+            'data' => $home,
+        ]);
     }
+
 
     public function destroy($id)
     {

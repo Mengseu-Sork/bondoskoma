@@ -13,10 +13,10 @@ class VideoController extends Controller
         return response()->json(Video::all());
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $request->validate([
-            'video_file' => 'required|mimes:mp4,mov,avi,wmv|max:51200', // max:50MB
+            'video_file' => 'required|mimes:mp4,mov,avi,wmv|max:51200', // Max 50MB
             'description' => 'nullable|string',
         ]);
 
@@ -27,8 +27,17 @@ class VideoController extends Controller
             'description' => $request->description,
         ]);
 
-        return response()->json($video, 201);
+        return response()->json([
+            'message' => 'Video uploaded successfully',
+            'data' => [
+                'video_file' => $video->video_file,
+                'description' => $video->description,
+                'url' => asset('storage/' . $path)
+            ],
+        ], 201);
     }
+
+
 
     public function show($id)
     {
@@ -41,20 +50,33 @@ class VideoController extends Controller
 
         $request->validate([
             'video_file' => 'nullable|mimes:mp4,mov,avi,wmv|max:51200',
-            'description' => 'nullable|string',
+            'description' => 'sometimes|nullable|string',
         ]);
 
         if ($request->hasFile('video_file')) {
-            Storage::disk('public')->delete($video->video_file);
+            if ($video->video_file && Storage::disk('public')->exists($video->video_file)) {
+                Storage::disk('public')->delete($video->video_file);
+            }
+
             $path = $request->file('video_file')->store('videos', 'public');
             $video->video_file = $path;
         }
 
-        $video->description = $request->description ?? $video->description;
+        if ($request->has('description')) {
+            $video->description = $request->input('description');
+        }
+
         $video->save();
 
-        return response()->json($video);
+        return response()->json([
+            'message' => 'Video updated successfully',
+            'data' => $video,
+            'url' => asset('storage/' . $video->video_file),
+        ]);
     }
+
+
+
 
     public function destroy($id)
     {
