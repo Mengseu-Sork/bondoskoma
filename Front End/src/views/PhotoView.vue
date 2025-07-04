@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 bg-gray-50 min-h-screen">
+  <div class="p-8 min-h-screen">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">Photo Gallery</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
