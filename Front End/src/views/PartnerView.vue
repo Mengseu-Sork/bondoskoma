@@ -1,7 +1,6 @@
 <script setup>
 import PartnerCard from '@/components/PartnerCard.vue'
 import FlagCounter from '@/components/FlagCounter.vue'
-import Banner from '@/components/BannerProgram.vue'
 
 const partners = [
   {
@@ -38,7 +37,6 @@ const visitorData = [
 </script>
 
 <template>
-    <banner />
     <div class="mt-6">
         <h1 class="text-2xl w-[155px] uppercase py-4 ml-8 mb-4 border-b border-gray-400">
         Our Partner
