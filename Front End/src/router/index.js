@@ -50,7 +50,7 @@ const router = createRouter({
       component: () => import('../views/PhotoView.vue'),
     },
     {
-      path: '/program',
+      path: '/our-program',
       name: 'program',
       component: () => import('../views/ProgramView.vue'),
     },
