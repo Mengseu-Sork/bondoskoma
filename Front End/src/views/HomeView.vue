@@ -1,7 +1,6 @@
 <template>
   <div class="bg-white">
     <!-- Banner Component -->
-    <Banner />
 
     <!-- Welcome Section (was Our Purpose) -->
     <section class="py-20 bg-gray-50">
@@ -28,6 +27,7 @@
         </div>
       </div>
     </section>
+
     <!-- Life Skills Section (balanced text and images) -->
     <section class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,15 +130,12 @@
       </div>
     </section>
 
-    <!-- Footer Component -->
 
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import Banner from '@/components/Banner.vue' // Import the Banner component
-
 
 // Take Action data
 const takeActions = ref([
