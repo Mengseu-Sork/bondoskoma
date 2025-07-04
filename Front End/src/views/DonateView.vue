@@ -1,5 +1,25 @@
 <template>
   <div id="app">
+    <!-- Full-Width Banner -->
+<!-- Full-Width Banner -->
+<div class="relative w-full h-64 sm:h-80 lg:h-96 overflow-hidden">
+  <img
+    src="https://www.bandoskomar.org/wp-content/uploads/2017/10/Screen-Shot-2017-10-06-at-11.00.31-AM.png "
+    alt="Support Our Mission Banner"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black  bg-opacity-40 flex items-center justify-start px-6 sm:px-12">
+    <div class="text-left max-w-2xl">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
+        Join Us in Making a Difference
+      </h1>
+      <p class="text-white text-sm sm:text-base">
+        Every donation helps empower Cambodian children and support community development.
+      </p>
+    </div>
+  </div>
+</div>
+
     <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section class="rounded-2xl">
@@ -100,28 +120,9 @@
           </div>
 
           <!-- Where Your Donation Goes -->
-          <div class="mt-8 bg-white rounded-2xl p-6 border border-indigo-100">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">🧡 Where Your Donation Goes</h3>
-            <p class="text-gray-700 text-center mb-4 text-sm">Your donation supports Cambodian children and communities:</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="bg-gray-50 p-3 rounded-lg">
-                <p class="text-gray-900 font-medium text-sm">📚 $10</p>
-                <p class="text-gray-600 text-xs">School supplies for 1 child</p>
-              </div>
-              <div class="bg-gray-50 p-3 rounded-lg">
-                <p class="text-gray-900 font-medium text-sm">🥣 $25</p>
-                <p class="text-gray-600 text-xs">Lunch for 10 students</p>
-              </div>
-              <div class="bg-gray-50 p-3 rounded-lg">
-                <p class="text-gray-900 font-medium text-sm">🏥 $50</p>
-                <p class="text-gray-600 text-xs">Health checkups for 5 children</p>
-              </div>
-              <div class="bg-gray-50 p-3 rounded-lg">
-                <p class="text-gray-900 font-medium text-sm">🏫 $100</p>
-                <p class="text-gray-600 text-xs">Classroom support for 1 month</p>
-              </div>
-            </div>
-          </div>
+        <!-- Where Your Donation Goes -->
+
+
         </section>
       </main>
     </div>
