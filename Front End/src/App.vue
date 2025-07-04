@@ -227,9 +227,10 @@ const dropdowns = [
     name: 'info',
     label: 'Info & Resources',
     items: [
+      { name: 'jobs', label: 'Jobs Announcements', path: '/jobs' },
       { name: 'reports', label: 'Reports', path: '/report' },
       { name: 'partners', label: 'Partners', path: '/partner' },
-      { name: 'resources', label: 'Resources', path: '/resource' }
+      { name: 'resources', label: 'Resources', path: '/resource' },
     ]
   },
   {
