@@ -14,7 +14,7 @@
       <tbody>
         <tr>
             <td class="py-2 px-4">
-                <a href="#" class="text-blue-800 font-semibold no-underline hover:text-blue-600">
+                <a href="https://www.linkedin.com/in/mom-khiev-3310a2207/?originalSubdomain=kh" class="text-blue-800 font-semibold no-underline hover:text-blue-600">
                     Job Announcement
                 </a>
             </td>

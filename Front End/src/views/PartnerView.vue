@@ -1,6 +1,34 @@
+<template>
+    <div class="overflow-hidden whitespace-nowrap relative">
+        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
+        Our Partner
+        </h1>
+        <div class="h-64 bg-yellow-400 flex items-center overflow-hidden w-full">
+            <div class="inline-flex animate-marquee gap-6 min-w-[200%]">
+            <div 
+                v-for="(partner, index) in duplicatedPartners"
+                :key="`partner-${index}`"
+                class="flex-shrink-0"
+            >
+                <PartnerCard :partner="partner" />
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-6">
+        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
+        Our Visitors
+        </h1>
+        <div class="p-8">
+        <FlagCounter :visitors="visitorData" />
+        </div>
+    </div>
+</template>
+
 <script setup>
 import PartnerCard from '@/components/PartnerCard.vue'
 import FlagCounter from '@/components/FlagCounter.vue'
+import { computed } from 'vue'
 
 const partners = [
   {
@@ -19,7 +47,10 @@ const partners = [
     image: "https://www.ccc-cambodia.org/backend/web/uploads/ngo_logo/16444741836204af47cc91b3.44484496.jpeg",
     link: "https://plan-international.org/cambodia/"
   }
-];
+]
+
+const duplicatedPartners = computed(() => [...partners, ...partners])
+
 const visitorData = [
   { code: 'KH', country: 'Cambodia', count: 5108, flag: 'https://flagcdn.com/w40/kh.png', link: 'https://s05.flagcounter.com/more/fq5U/' },
   { code: 'US', country: 'United States', count: 2824, flag: 'https://flagcdn.com/w40/us.png', link: 'https://s05.flagcounter.com/more/fq5U/' },
@@ -36,26 +67,17 @@ const visitorData = [
 ]
 </script>
 
-<template>
-    <div class="mt-6">
-        <h1 class="text-2xl w-[155px] uppercase py-4 ml-8 mb-4 border-b border-gray-400">
-        Our Partner
-        </h1>
-        <div class="flex flex-wrap gap-8 p-6 bg-yellow-300">
-        <PartnerCard
-            v-for="(partner, index) in partners"
-            :key="index"
-            :partner="partner"
-        />
-        </div>
-    </div>
-    <div class="mt-6">
-        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
-            Our Visitors
-        </h1>
-        <div class="p-8">
-            <FlagCounter :visitors="visitorData" />
-        </div>
-    </div>
-</template>
+<style scoped>
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+</style>
