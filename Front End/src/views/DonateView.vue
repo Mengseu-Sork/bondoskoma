@@ -1,16 +1,7 @@
 <template>
   <div id="app">
     <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <!-- Header Section -->
-      <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://source.unsplash.com/random/1920x1080/?community')] opacity-20"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div class="text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 animate__animated animate__fadeIn">Connect With Us</h1>
-            <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">Join our mission to make a difference. Contact us or support our cause with a donation.</p>
-          </div>
-        </div>
-      </header>
+      
 
       <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <!-- Contact Section -->
@@ -372,18 +363,12 @@
           </div>
         </section>
       </main>
-
-      <!-- Footer -->
-      <footer class="bg-gray-900 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p class="text-sm">© 2025 Your Organization. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   </div>
 </template>
 
 <script setup>
+
 import { ref, computed } from 'vue';
 
 // Contact form data

@@ -1,7 +1,6 @@
 <template>
   <div class="bg-white">
     <!-- Banner Component -->
-    <Banner />
 
     <!-- Welcome Section (was Our Purpose) -->
     <section class="py-20 bg-gray-50">
@@ -131,15 +130,12 @@
       </div>
     </section>
 
-    <!-- Footer Component -->
 
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import Banner from '@/components/Banner.vue' // Import the Banner component
-
 
 // Take Action data
 const takeActions = ref([
