@@ -12,7 +12,7 @@ class ImageController extends Controller
     {
         return response()->json(Image::all());
     }
-
+    
     public function store(Request $request)
     {
         $request->validate([

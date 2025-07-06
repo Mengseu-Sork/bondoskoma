@@ -15,7 +15,7 @@ class HomeController extends Controller
             'data' => $homes
         ]);
     }
-
+ 
     public function store(Request $request)
     {
         $data = $request->validate([

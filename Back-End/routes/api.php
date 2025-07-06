@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\JobAnnouncementController;
+// use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\VideoController;
 use App\Models\JobAnnouncement;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +37,6 @@ Route::apiResource( 'contact' , ContactController::class);
 Route::apiResource( 'job' , JobAnnouncementController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
+// use App\Http\Controllers\NotificationController;
+
+Route::resource('notifications', NotificationController::class); // ✅ CORRECT

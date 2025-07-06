@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class notification extends Model
 {
     use HasFactory;
-    protected $fillable = ['contact_id'];
-    function contact(){
+    // app/Models/Notification.php
+
+    public function contact()
+    {
         return $this->belongsTo(Contact::class);
-    }   
+    }
+
+    protected $fillable = ['contact_id'];
 }

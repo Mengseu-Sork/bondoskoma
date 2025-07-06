@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PartnersController extends Controller
 {
-    // List all partners with image URL
+    // 📄 List all partners with full image URL
     public function index()
     {
         $partners = Partners::all();
@@ -21,7 +21,16 @@ class PartnersController extends Controller
         return response()->json(['partners' => $partners]);
     }
 
-    // Store a new partner
+    // 🔍 Get a single partner by ID
+    public function show($id)
+    {
+        $partner = Partners::findOrFail($id);
+        $partner->image_url = $partner->image_file ? asset('storage/' . $partner->image_file) : null;
+
+        return response()->json(['data' => $partner]);
+    }
+
+    // ➕ Store a new partner (image optional)
     public function store(Request $request)
     {
         $request->validate([
@@ -45,7 +54,7 @@ class PartnersController extends Controller
         ], 201);
     }
 
-    // ✅ Update partner image — replace old file and return new image URL only
+    // ✏️ Update partner image
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -55,26 +64,24 @@ class PartnersController extends Controller
         $partner = Partners::findOrFail($id);
 
         if ($request->hasFile('image_file')) {
-            // Delete old image if it exists
+            // Delete old image
             if ($partner->image_file && Storage::disk('public')->exists($partner->image_file)) {
                 Storage::disk('public')->delete($partner->image_file);
             }
 
-            // Upload and store new image
+            // Store new image
             $newImagePath = $request->file('image_file')->store('partners', 'public');
-
-            // Update image path in DB
             $partner->image_file = $newImagePath;
             $partner->save();
         }
 
         return response()->json([
             'message' => 'Partner updated successfully!',
+            'data' => $partner,
             'image_url' => $partner->image_file ? asset('storage/' . $partner->image_file) : null,
         ]);
     }
 
-    // Delete partner and their image
     public function destroy($id)
     {
         $partner = Partners::findOrFail($id);
@@ -82,7 +89,6 @@ class PartnersController extends Controller
         if ($partner->image_file && Storage::disk('public')->exists($partner->image_file)) {
             Storage::disk('public')->delete($partner->image_file);
         }
-
         $partner->delete();
 
         return response()->json([

@@ -13,19 +13,23 @@ class JobAnnouncementController extends Controller
         $job= JobAnnouncement::all();
         return response()->json(['data'=>$job]);
     }
-       public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'jd' => 'required|string',
-            'end_date' => 'required|date|after:today',
-        ]);
-        $job = JobAnnouncement::create($validated);
-        return response()->json([
-            'message' => 'Job announcement created successfully',
-            'data' => $job
-        ], 201);
+    public function show($id){
+     $job= JobAnnouncement::find($id);
+     return response()->json(['data'=>$job]);   
     }
+        public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'jd' => 'required|string',
+                'end_date' => 'required|date|after:today',
+            ]);
+            $job = JobAnnouncement::create($validated);
+            return response()->json([
+                'message' => 'Job announcement created successfully',
+                'data' => $job
+            ], 201);
+        }
     public function update(Request $request, $id)
 {
     $validated = $request->validate([
