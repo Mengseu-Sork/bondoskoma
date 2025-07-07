@@ -6,7 +6,7 @@
       <div class="text-gray-500 mb-4">
         <span class="font-medium text-lg">{{ job.type }}</span> · 
         <span class="text-lg">{{ job.location }}</span> · 
-        <span class="text-lg">Posted {{ job.posted }}</span>
+        <span class="text-lg">Posted {{ job.posted_date }}</span>
       </div>
 
       <!-- Responsibilities -->
@@ -19,7 +19,7 @@
 
       <!-- Qualifications -->
       <div class="bg-blue-100 p-6 rounded-md shadow mb-6">
-        <h2 class="text-2xl font-semibold text-green-900 mb-4">QUALIFICATIONS</h2>
+        <h2 class="text-2xl font-semibold text-blue-900 mb-4">QUALIFICATIONS</h2>
         <ul class="list-disc list-inside text-lg space-y-2 text-gray-700">
           <li v-for="(item, index) in job.qualifications" :key="'qual-' + index">{{ item }}</li>
         </ul>
@@ -97,14 +97,13 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
-import jobs from '../api/job'
+import { getJobById } from '@/api/job'
 
 const route = useRoute()
-const decodedTitle = decodeURIComponent(route.params.title)
-const job = computed(() => jobs.find(j => j.title === decodedTitle))
-
+const jobId = Number(route.params.id)
+const job = ref(null)
 const showForm = ref(false)
 
 const form = ref({
@@ -112,6 +111,29 @@ const form = ref({
   email: '',
   phone: '',
   file: null
+})
+
+onMounted(async () => {
+  const data = await getJobById(jobId)
+
+  if (data) {
+    // Parse JSON strings if needed
+    try {
+      if (typeof data.responsibilities === 'string') {
+        data.responsibilities = JSON.parse(data.responsibilities)
+      }
+      if (typeof data.qualifications === 'string') {
+        data.qualifications = JSON.parse(data.qualifications)
+      }
+    } catch (e) {
+      console.error('Failed to parse responsibilities or qualifications JSON:', e)
+      data.responsibilities = []
+      data.qualifications = []
+    }
+    job.value = data
+  } else {
+    job.value = null
+  }
 })
 
 const handleFileUpload = (event) => {
