@@ -134,7 +134,7 @@
       </div>
     </section>
     <!-- Our Partners Section -->
-    <section id="partners" class="py-24 bg-gray-50">
+    <section id="partners" class="py-24 bg-gray">
       <div>
         <div class="text-center mb-20">
           <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Partners</h2>
