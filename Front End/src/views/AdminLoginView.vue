@@ -160,6 +160,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const router = useRouter()
 
@@ -178,24 +179,24 @@ const handleLogin = async () => {
   loginLoading.value = true
   loginError.value = ''
   loginSuccess.value = ''
-  
+
   try {
-    // Simulate API call - replace with your actual authentication logic
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    // Demo authentication - replace with real authentication
-    if (loginForm.value.username === 'admin' && loginForm.value.password === 'password') {
-      loginSuccess.value = 'Login successful! Redirecting...'
-      
-      // Redirect to admin dashboard after success
-      setTimeout(() => {
-        router.push('/admin/dashboard')
-      }, 1000)
-    } else {
-      loginError.value = 'Invalid username or password. Please try again.'
-    }
+    const res = await axios.post('http://localhost:8000/api/login', {
+      email: loginForm.value.username,
+      password: loginForm.value.password,
+    })
+
+    loginSuccess.value = res.data.message || 'Login successful! Redirecting...'
+
+    setTimeout(() => {
+      router.push('/home')
+    }, 1000)
   } catch (error) {
-    loginError.value = 'Login failed. Please check your connection and try again.'
+    if (error.response && error.response.status === 401) {
+      loginError.value = error.response.data.message || 'Invalid username or password. Please try again.'
+    } else {
+      loginError.value = 'Login failed. Please check your connection and try again.'
+    }
   } finally {
     loginLoading.value = false
   }

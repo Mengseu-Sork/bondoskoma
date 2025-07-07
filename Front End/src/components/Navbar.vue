@@ -82,19 +82,15 @@
           <div class="hidden lg:flex items-center space-x-3">
             <router-link 
               to="/donate"
-              class="bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-5 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg transition-all duration-200 border-2 border-orange-300"
+              class="bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wide flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200 border border-orange-300 hover:scale-105"
             >
               <span>{{ t.donate }}</span>
             </router-link>
 
-           
-
-          <div>
-            </div>
-             <!-- Admin Login Button -->
+            <!-- Admin Login Button -->
             <router-link 
               to="/admin/login"
-              class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg transition-all duration-200 border border-gray-500"
+              class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 border border-blue-500 hover:scale-105"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -201,10 +197,10 @@
           <div class="pt-4 border-t border-blue-700">
             <router-link 
               to="/donate"
-              class="block w-full text-center bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-4 py-3 rounded-lg font-semibold transition-colors duration-200"
+              class="block w-full text-center bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center shadow-md hover:shadow-lg border border-orange-300 hover:scale-105"
               @click="mobileMenuOpen = false"
             >
-              {{ t.donate }}
+              <span>{{ t.donate }}</span>
             </router-link>
           </div>
         </div>
@@ -236,7 +232,7 @@ const translations = {
     videos: 'Videos',
     'kids-art': "Kids' Art",
     donate: 'Donate',
-    adminLogin: 'Admin Login'
+    adminLogin: 'Admin'
   },
   kh: {
     home: 'ទំព័រដើម',
