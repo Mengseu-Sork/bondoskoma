@@ -30,7 +30,7 @@ class JobAnnouncementController extends Controller
                 'data' => $job
             ], 201);
         }
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)   
 {
     $validated = $request->validate([
         'name' => 'required|string|max:255',

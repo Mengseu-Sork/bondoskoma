@@ -12,6 +12,7 @@ use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\VideoController;
 use App\Models\JobAnnouncement;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,4 @@ Route::post('/create_admin', [AuthController::class, 'store']);
 // Route::middleware('auth:sanctum')->get('/admin', [AuthController::class, 'index']);
 
 Route::resource('notifications', NotificationController::class); 
+Route::apiResource('reports', ReportsController::class);

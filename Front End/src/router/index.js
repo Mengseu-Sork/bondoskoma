@@ -102,22 +102,22 @@ const router = createRouter({
     },
   ],
 })
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('adminToken')
-  const isAdminRoute = to.path.startsWith('/admin') && to.path !== '/admin/login'
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = !!localStorage.getItem('adminToken')
+//   const isAdminRoute = to.path.startsWith('/admin') && to.path !== '/admin/login'
 
-  // If trying to access admin pages without being logged in, redirect to login
-  if (isAdminRoute && !isAuthenticated) {
-    next('/admin/login')
-  } 
-  // If already logged in and trying to access login page, redirect to dashboard
-  else if (to.path === '/admin/login' && isAuthenticated) {
-    next('/admin/dashboard')
-  } 
-  else {
-    next()
-  }
-})
+//   // If trying to access admin pages without being logged in, redirect to login
+//   if (isAdminRoute && !isAuthenticated) {
+//     next('/admin/login')
+//   } 
+//   // If already logged in and trying to access login page, redirect to dashboard
+//   else if (to.path === '/admin/login' && isAuthenticated) {
+//     next('/admin/dashboard')
+//   } 
+//   else {
+//     next()
+//   }
+// })
 
 
   export default router
