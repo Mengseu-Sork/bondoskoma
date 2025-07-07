@@ -1,66 +1,188 @@
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 py-10 bg-gray-50 min-h-screen">
-    <Card
-      v-for="(program, idx) in programs"
-      :key="idx"
-      :title="program.title"
-      :goal="program.goal"
-      :justification="program.justification"
-      :image="program.image"
-      class="flex flex-col h-full"
-    />
+  <div class="min-h-screen bg-white">
+
+
+    <!-- Programs Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-6">Strategic Programs</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Each program is carefully designed to address specific needs and create sustainable impact
+          </p>
+        </div>
+
+        <div class="space-y-20">
+          <div
+            v-for="(program, index) in programs"
+            :key="index"
+            class="group"
+          >
+            <div :class="[
+              'grid lg:grid-cols-2 gap-12 items-center',
+              index % 2 === 0 ? '' : 'lg:grid-flow-col-dense'
+            ]">
+              <!-- Image Section -->
+              <div :class="[
+                'relative',
+                index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'
+              ]">
+                <div class="relative group overflow-hidden rounded-3xl">
+                  <div :class="[
+                    'absolute inset-0 rounded-3xl transform rotate-3 scale-105 opacity-70',
+                    program.gradient
+                  ]"></div>
+                  <img
+                    :src="program.image"
+                    :alt="program.title"
+                    class="relative w-full h-96 object-cover rounded-3xl shadow-2xl transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-3xl"></div>
+                </div>
+              </div>
+
+              <!-- Content Section -->
+              <div :class="[
+                'space-y-8',
+                index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'
+              ]">
+                <div>
+                  <div :class="[
+                    'inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6',
+                    program.badge
+                  ]">
+                    Program {{ index + 1 }}
+                  </div>
+                  <h3 class="text-3xl font-bold text-gray-900 mb-6 leading-tight">
+                    {{ program.title }}
+                  </h3>
+                </div>
+
+                <!-- Goal Section -->
+                <div class="bg-gray-50 rounded-2xl p-8">
+                  <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                    <div :class="['w-3 h-3 rounded-full', program.dotColor]"></div>
+                    Our Goal
+                  </h4>
+                  <p class="text-gray-700 leading-relaxed text-lg">
+                    {{ program.goal }}
+                  </p>
+                </div>
+
+                <!-- Key Highlights -->
+                <div>
+                  <h4 class="text-xl font-bold text-gray-900 mb-6">Key Highlights</h4>
+                  <div class="space-y-4">
+                    <div
+                      v-for="(highlight, i) in program.highlights"
+                      :key="i"
+                      class="flex items-start gap-4 group/item"
+                    >
+                      <div :class="[
+                        'w-2 h-2 rounded-full mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform duration-300',
+                        program.dotColor
+                      ]"></div>
+                      <p class="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-300">
+                        {{ highlight }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Impact Stats -->
+                <div v-if="program.stats" :class="['rounded-2xl p-6', program.statsBg]">
+                  <h4 class="text-lg font-bold text-gray-900 mb-4">Expected Impact</h4>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div
+                      v-for="(stat, i) in program.stats"
+                      :key="i"
+                      class="text-center"
+                    >
+                      <div :class="['text-2xl font-bold mb-1', program.statsColor]">
+                        {{ stat.number }}
+                      </div>
+                      <div class="text-sm text-gray-600">{{ stat.label }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ 
   </div>
 </template>
 
 <script setup>
-import Card from '../components/CardProgram.vue'
-
 const programs = [
   {
-    title: 'COUNTRY GOAL of Bandos Komar',
-    goal:
-      'By 2019, children and youths enjoy the full potential of their rights and live with dignity, becoming empowered individuals who contribute meaningfully to sustainable social and the nation.',
-    justification: [
-      'To enable children and youths to exercise their rights with dignity, it is essential to provide them with quality and equitable education so that they become agent of change of their society and they deal with confidence with emerging challenges in their lives after the school.',
-      'In other words, Bandos Komar is engaged to nurture and build up human capital to tackle changes that will impact on human’s livelihoods.',
+    title: 'Country Goal Strategy',
+    goal: 'By 2019, children and youths enjoy the full potential of their rights and live with dignity, becoming empowered individuals who contribute meaningfully to sustainable social development.',
+    highlights: [
+      'Quality and equitable education for all children',
+      'Building human capital for societal change',
+      'Empowering youth to tackle emerging challenges',
+      'Creating agents of positive transformation'
     ],
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEa-i-q-ni2CFVcG89ltLTBMcB-h8zi9Ahg&s',
+    gradient: 'bg-gradient-to-br from-blue-500 to-purple-600',
+    badge: 'bg-blue-100 text-blue-700',
+    dotColor: 'bg-blue-500',
+    statsBg: 'bg-blue-50',
+    statsColor: 'text-blue-600',
+    stats: [
+      { number: '2019', label: 'Target Year' },
+      { number: '5', label: 'Provinces' }
+    ]
   },
   {
-    title: 'Integrated Early Child Care and Development Programme',
-    goal:
-      'By 2019, children aged below six years old, living in the target areas have full potential and opportunity to carry on their study in primary education level with equity, quality and effectiveness.',
-    justification: [
-      'All statistical data and empirical data collected by NGOs involved in preschools development and MoEYS, visits to parents, educators, members of committees, and staff of primary schools describe the tremendous positive impact that community preschools have on cognitive, social and motor development of enrolled children aged 3 to 5.',
-      'Therefore since 2005, it became clear to IOs, NGOs and MoEYS that the scale-up of community preschools are an effective alternative for the development of young children in Cambodia and probably elsewhere.',
-      'Benefits of community preschools identified by parents and local authorities are numerous, ranging from self-confidence, sensitization and practice of basic hygiene, nutrition improvement, to good preparation to socialization in the primary school.',
-      'Often perceived as non-formal education for rural children, community preschools actually offer in most remote places unprecedented opportunities for young children to enjoy equitable rights to education.',
+    title: 'Early Child Care & Development',
+    goal: 'By 2019, children aged below six years old in target areas have full potential and opportunity to continue their primary education with equity, quality and effectiveness.',
+    highlights: [
+      'Community preschools for cognitive development',
+      'Social and motor skill enhancement',
+      'Basic hygiene and nutrition education',
+      'Preparation for primary school socialization'
     ],
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrx0iNsmyejyqzo9Vvm4ji60oizWSDnf6mDQ&s',
+    gradient: 'bg-gradient-to-br from-emerald-500 to-teal-600',
+    badge: 'bg-emerald-100 text-emerald-700',
+    dotColor: 'bg-emerald-500',
+    statsBg: 'bg-emerald-50',
+    statsColor: 'text-emerald-600',
+    stats: [
+      { number: '3-5', label: 'Age Range' },
+      { number: '100%', label: 'School Ready' }
+    ]
   },
   {
-    title: 'Integrated Quality Primary Education Programme',
-    goal:
-      'By 2019, children and youths living in the target areas acquire knowledge, skills, confidence, sense of entrepreneurship and perseverance in the national and regional context.',
-    justification: [
-      'In the context of recent regional economic integration of Cambodia, challenges ahead for youths are huge in terms of employment and economic opportunities.',
-      'School remains an avoidable instrument of skills provision and sense of entrepreneurship strengthening to turn challenges into opportunities.',
-      'By strengthening education quality, adapting life skills to market needs and developing confidence to children and youths, Bandos Komar ambitions to prepare them to harsh competition and highly selective labor market.',
-      'Five key strategies will back up this programme such as:',
-      'Strengthening capacity of local partners including awareness raising on respect and enforcement of child rights, enhancing quality of parents education, increasing pedagogical skills of teachers and supplying teaching materials, sensitizing the commune council on impact of community preschools for ECCD.',
-      'Improving nutrition of early children inspired from UNICEF and World Food Program models combining preschool and home-based parent education.',
-      'Upgrading water, sanitation and hygiene infrastructure and education at preschools and homes.',
-      'Improving community’s health through hygiene education, health center access, prevention like hand washing, de-worming, growth tracking.',
-      'Partnerships with stakeholders and networks at national and sub-national levels such as MEDICAM, NEP, child rights platform, Plan International, UNICEF.',
-      'Strengthening and scaling-up Child Friendly Schools including promotion, leadership capacity, child protection awareness, nutrition improvements.',
-      'Improving reproductive health knowledge through curriculum, posters, books, and teaching materials.',
-      'Promoting life skills and entrepreneurship in school and community.',
-      'Mainstreaming resilience and natural disaster/climate change education with supporting materials.',
-      'Continuing partnerships with relevant stakeholders to sharpen action and update good practices.',
+    title: 'Quality Primary Education',
+    goal: 'By 2019, children and youths in target areas acquire knowledge, skills, confidence, entrepreneurship and perseverance in national and regional contexts.',
+    highlights: [
+      'Strengthening education quality and life skills',
+      'Teacher capacity building and material supply',
+      'Child-friendly school environments',
+      'Life skills and entrepreneurship promotion'
     ],
     image: 'https://www.unicef.org/cambodia/sites/unicef.org.cambodia/files/styles/media_banner/public/2019-04/children-in-cambodia-1.jpg.webp?itok=lDq1PIS_',
-  },
+    gradient: 'bg-gradient-to-br from-orange-500 to-red-600',
+    badge: 'bg-orange-100 text-orange-700',
+    dotColor: 'bg-orange-500',
+    statsBg: 'bg-orange-50',
+    statsColor: 'text-orange-600',
+    stats: [
+      { number: '10+', label: 'Key Strategies' },
+      { number: '1000s', label: 'Students' }
+    ]
+  }
 ]
 </script>
 
-
+<style scoped>
+html {
+  scroll-behavior: smooth;
+}
+</style>

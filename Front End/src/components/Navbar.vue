@@ -224,7 +224,6 @@ const translations = {
     info: 'Info & Resources',
     involved: 'Get Involved',
     gallery: 'Gallery',
-    jobs: 'Jobs Announcement',
     reports: 'Reports',
     partners: 'Partners',
     resources: 'Resources',
@@ -243,7 +242,6 @@ const translations = {
     hr: 'ធនធានមនុស្ស',
     info: 'ព័ត៌មាន និងធនធាន',
     involved: 'ចូលរួម',
-    jobs: 'ការប្រកាសការងារ',
     gallery: 'វិចិត្រសាល',
     reports: 'របាយការណ៍',
     partners: 'ដៃគូ',
@@ -283,7 +281,6 @@ const dropdowns = [
   {
     name: 'info',
     items: [
-      { name: 'jobs', path: '/jobs' },
       { name: 'reports', path: '/report' },
       { name: 'partners', path: '/partner' },
       { name: 'resources', path: '/resource' }
