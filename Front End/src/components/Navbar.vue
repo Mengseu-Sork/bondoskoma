@@ -6,8 +6,8 @@
           <!-- Logo Section -->
           <div class="flex items-center space-x-2 flex-shrink-0">
             <img 
-              src="https://www.bandoskomar.org/wp-content/uploads/2017/12/cropped-cropped-bandos-komar-logo-1-1_white_bg-2.jpg" 
-              alt="Bandos Komar Logo" 
+              src="https://www.bandoskomar.org/wp-content/uploads/2017/12/cropped-cropped-bandos-komar-logo-1-1_white_bg-2.jpg"
+              alt="Bandos Komar Logo"
               class="h-8 w-auto rounded shadow"
             />
           </div>
@@ -15,19 +15,19 @@
           <!-- Desktop Menu -->
           <div class="hidden lg:flex items-center space-x-6">
             <router-link 
-              v-for="item in navItems" 
+              v-for="item in navItems"
               :key="item.name"
               :to="item.path"
               class="px-2 py-2 rounded-md text-xs font-bold uppercase tracking-wide hover:bg-blue-900/60 hover:text-yellow-400 hover:underline transition-all duration-200"
               :class="{ 'text-yellow-400 underline bg-blue-900/70': $route.path === item.path }"
-              @click="setActive(item.name); closeAllDropdowns()"
+              @click="setActive(item.name)"
             >
               {{ t[item.name] }}
             </router-link>
 
             <!-- Dropdown Menus -->
             <div 
-              v-for="dropdown in dropdowns" 
+              v-for="dropdown in dropdowns"
               :key="dropdown.name"
               class="relative"
             >
@@ -41,15 +41,16 @@
               >
                 <span>{{ t[dropdown.name] }}</span>
                 <svg 
-                  class="w-4 h-4 transition-transform duration-200" 
+                  class="w-4 h-4 transition-transform duration-200"
                   :class="{ 'rotate-180': activeDropdowns[dropdown.name] }"
-                  fill="none" 
-                  stroke="currentColor" 
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+
               <!-- Dropdown Backdrop for click-outside -->
               <div 
                 v-if="activeDropdowns[dropdown.name]"
@@ -57,6 +58,7 @@
                 @click="closeAllDropdowns"
                 style="background: transparent;"
               ></div>
+
               <div 
                 v-show="activeDropdowns[dropdown.name]"
                 class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-200"
@@ -76,7 +78,7 @@
             </div>
           </div>
 
-          <!-- Donate Button (Desktop) & Language Selector -->
+          <!-- Donate Button (Desktop) & Language Selector & Admin Login -->
           <div class="hidden lg:flex items-center space-x-3">
             <router-link 
               to="/donate"
@@ -84,31 +86,21 @@
             >
               <span>{{ t.donate }}</span>
             </router-link>
-            <!-- Language Selector -->
-            <div class="relative">
-              <button @click="toggleLangDropdown" class="flex items-center px-2 py-2 rounded-full bg-white bg-opacity-20 hover:bg-opacity-40 transition">
-                <img :src="currentLang.flag" :alt="currentLang.label" class="w-5 h-5 rounded-full" />
-                <span class="ml-2 text-xs font-semibold">{{ currentLang.label }}</span>
-                <svg class="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div
-                v-show="showLangDropdown"
-                class="absolute right-0 mt-2 w-32 bg-white rounded shadow-lg py-1 z-50 border border-blue-100"
-              >
-                <button
-                  v-for="lang in languages"
-                  :key="lang.code"
-                  @click="setLang(lang)"
-                  class="flex items-center w-full px-3 py-2 text-xs text-gray-700 hover:bg-blue-50"
-                  :class="{ 'bg-yellow-100': currentLang.code === lang.code }"
-                >
-                  <img :src="lang.flag" :alt="lang.label" class="w-5 h-5 rounded-full mr-2" />
-                  {{ lang.label }}
-                </button>
-              </div>
+
+           
+
+          <div>
             </div>
+             <!-- Admin Login Button -->
+            <router-link 
+              to="/admin/login"
+              class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg transition-all duration-200 border border-gray-500"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>{{ t.adminLogin }}</span>
+            </router-link>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -122,16 +114,16 @@
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path 
                   v-if="!mobileMenuOpen"
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
                 <path 
                   v-else
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
@@ -169,10 +161,10 @@
             >
               <span>{{ t[dropdown.name] }}</span>
               <svg 
-                class="w-4 h-4 transition-transform duration-200" 
+                class="w-4 h-4 transition-transform duration-200"
                 :class="{ 'rotate-180': mobileDropdowns[dropdown.name] }"
-                fill="none" 
-                stroke="currentColor" 
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -192,6 +184,17 @@
                 {{ t[subItem.name] }}
               </router-link>
             </div>
+          </div>
+
+          <!-- Mobile Admin Login Button -->
+          <div class="border-t border-blue-700 pt-4">
+            <router-link 
+              to="/admin/login"
+              class="block w-full text-center bg-gray-600 hover:bg-gray-700 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200"
+              @click="mobileMenuOpen = false"
+            >
+              {{ t.adminLogin }}
+            </router-link>
           </div>
 
           <!-- Mobile Donate Button -->
@@ -224,15 +227,16 @@ const translations = {
     info: 'Info & Resources',
     involved: 'Get Involved',
     gallery: 'Gallery',
-    jobs: 'Jobs Announcement',
     reports: 'Reports',
     partners: 'Partners',
     volunteer: 'Volunteer',
+    jobs: 'Job Announcements',
     events: 'Events',
     photos: 'Photos',
     videos: 'Videos',
     'kids-art': "Kids' Art",
-    donate: 'Donate'
+    donate: 'Donate',
+    adminLogin: 'Admin Login'
   },
   kh: {
     home: 'ទំព័រដើម',
@@ -242,16 +246,17 @@ const translations = {
     hr: 'ធនធានមនុស្ស',
     info: 'ព័ត៌មាន និងធនធាន',
     involved: 'ចូលរួម',
-    jobs: 'ការប្រកាសការងារ',
     gallery: 'វិចិត្រសាល',
     reports: 'របាយការណ៍',
     partners: 'ដៃគូ',
     volunteer: 'ស្ម័គ្រចិត្ត',
+    jobs: 'ការប្រកាសការងារ',
     events: 'ព្រឹត្តិការណ៍',
     photos: 'រូបថត',
     videos: 'វីដេអូ',
     'kids-art': 'សិល្បៈកុមារ',
-    donate: 'បរិច្ចាគ'
+    donate: 'បរិច្ចាគ',
+    adminLogin: 'ចូលគ្រប់គ្រង'
   }
 }
 
@@ -316,6 +321,7 @@ const languages = [
     flag: 'https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/kh.svg'
   }
 ]
+
 const currentLang = ref(languages[0])
 const t = computed(() => translations[currentLang.value.code])
 
@@ -330,6 +336,7 @@ const toggleMobileMenu = () => {
 
 const setActive = (item) => {
   activeItem.value = item
+  closeAllDropdowns()
 }
 
 const toggleDropdown = (dropdown) => {
@@ -407,6 +414,7 @@ onUnmounted(() => {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
+
 .group .group-hover\:opacity-100 {
   opacity: 0;
   pointer-events: none;
@@ -420,8 +428,10 @@ nav {
   background-clip: padding-box;
 }
 </style>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;700&display=swap');
+
 .khmer-font * {
   font-family: 'Noto Sans Khmer', 'Battambang', Arial, Helvetica, sans-serif !important;
 }
