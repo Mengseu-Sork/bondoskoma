@@ -1,35 +1,30 @@
+<!-- src/components/JobCard.vue -->
 <template>
-  <div class="p-6 max-w-full mx-auto m-4 ">
-    <h1 class="text-3xl font-light mb-4">Jobs Announcement</h1>
-    <hr class="mb-4">
+  <router-link
+    :to="`/jobs/${encodeURIComponent(job.title)}`"
+    class="flex items-center justify-between gap-4 p-4 border-b hover:bg-blue-50 transition"
+  >
+    <!-- Left: Icon + Info -->
+    <div class="flex items-center gap-6">
+      <div class="w-16 h-16 rounded-lg border-2 border-blue-400 flex items-center justify-center overflow-hidden">
+        <img :src="job.icon" class="w-full h-full p-2 object-contain" alt="Job Icon" />
+      </div>
+      <div>
+        <h2 class="text-blue-500 text-xl font-bold">{{ job.title }}</h2>
+        <p class="text-gray-500 text-lg">Posted {{ job.posted }}</p>
+      </div>
+    </div>
 
-    <table class="min-w-full text-left border border-gray-300">
-      <thead class="bg-gray-100">
-        <tr>
-          <th class="py-2 px-4 font-semibold border">Jobs Title</th>
-          <th class="py-2 px-4 font-semibold border">Location</th>
-          <th class="py-2 px-4 font-semibold border">Deadline</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td class="py-2 px-4">
-                <a href="https://www.linkedin.com/in/mom-khiev-3310a2207/?originalSubdomain=kh" class="text-blue-800 font-semibold no-underline hover:text-blue-600">
-                    Job Announcement
-                </a>
-            </td>
-            <td class="py-2 px-4 border">
-                Phnom Penh, Ratanakiri, Sihanouk Ville, Siem Reap Province
-            </td>
-            <td class="py-2 px-4 border text-red-600 font-semibold">
-                14-02-2024
-            </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- Right: Location and Type -->
+    <div class="text-right whitespace-nowrap">
+      <p class="text-gray-500 text-lg">{{ job.location }}</p>
+      <p class="text-blue-600 font-semibold text-lg">{{ job.type }}</p>
+    </div>
+  </router-link>
 </template>
 
 <script setup>
-
+defineProps({
+  job: Object,
+})
 </script>

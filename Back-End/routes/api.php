@@ -35,8 +35,10 @@ Route::apiResource( 'videos' , VideoController::class);
 Route::apiResource( 'partner' , PartnersController::class);
 Route::apiResource( 'contact' , ContactController::class);
 Route::apiResource( 'job' , JobAnnouncementController::class);
+Route::get('/admin', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
 // use App\Http\Controllers\NotificationController;
+// Route::middleware('auth:sanctum')->get('/admin', [AuthController::class, 'index']);
 
-Route::resource('notifications', NotificationController::class); // ✅ CORRECT
+Route::resource('notifications', NotificationController::class); 

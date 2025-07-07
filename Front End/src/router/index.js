@@ -61,11 +61,6 @@ const router = createRouter({
       component: () => import('../views/ReportView.vue'),
     },
     {
-      path: '/resource',
-      name: 'resource',
-      component: () => import('../views/ResourceView.vue'),
-    },
-    {
       path: '/video',
       name: 'video',
       component: () => import('../views/VideoView.vue'),
@@ -79,6 +74,11 @@ const router = createRouter({
       path: '/jobs',
       name: 'Jobs Announcement',
       component: () => import('../views/JobsAnnouncementView.vue'),
+    },
+    {
+      path: '/jobs/:title',
+      name: 'JobDetail',
+      component: () => import('../views/DetailJobView.vue'),
     },
     {
       path: '/admin/login',

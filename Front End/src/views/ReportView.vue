@@ -3,12 +3,12 @@
     <div class="bg-gray-100 rounded-lg shadow-lg">
       <table class="w-full text-left border-collapse text-base">
         <thead>
-          <tr class="bg-gray-800 text-white">
-            <th class="px-4 py-3 font-semibold sticky top-0 bg-gray-800">Title</th>
-            <th class="px-4 py-3 font-semibold sticky top-0 bg-gray-800">Year</th>
+          <tr class="bg-blue-700 text-white">
+            <th class="px-4 py-3 font-semibold sticky top-0">Title</th>
+            <th class="px-4 py-3 font-semibold sticky top-0">Year</th>
             <!-- Show description only on sm+ -->
-            <th class="px-4 py-3 font-semibold sticky top-0 bg-gray-800 hidden sm:table-cell">Description</th>
-            <th class="px-4 py-3 font-semibold sticky top-0 bg-gray-800">Download</th>
+            <th class="px-4 py-3 font-semibold sticky top-0 hidden sm:table-cell">Description</th>
+            <th class="px-4 py-3 font-semibold sticky top-0">Download</th>
           </tr>
         </thead>
         <tbody>

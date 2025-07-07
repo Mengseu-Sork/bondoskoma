@@ -11,4 +11,6 @@ class Login extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $fillable = ['email', 'password'];
+        // protected $hidden = ['password'];
+
 }
