@@ -227,7 +227,6 @@ const translations = {
     jobs: 'Jobs Announcement',
     reports: 'Reports',
     partners: 'Partners',
-    resources: 'Resources',
     volunteer: 'Volunteer',
     events: 'Events',
     photos: 'Photos',
@@ -247,7 +246,6 @@ const translations = {
     gallery: 'វិចិត្រសាល',
     reports: 'របាយការណ៍',
     partners: 'ដៃគូ',
-    resources: 'ធនធាន',
     volunteer: 'ស្ម័គ្រចិត្ត',
     events: 'ព្រឹត្តិការណ៍',
     photos: 'រូបថត',
@@ -286,7 +284,6 @@ const dropdowns = [
       { name: 'jobs', path: '/jobs' },
       { name: 'reports', path: '/report' },
       { name: 'partners', path: '/partner' },
-      { name: 'resources', path: '/resource' }
     ]
   },
   {
