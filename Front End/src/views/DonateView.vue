@@ -6,9 +6,10 @@
         <section class="rounded-2xl">
           <div class="text-center mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-3">Support Our Mission</h2>
-            <p class="text-gray-700 text-base max-w-2xl mx-auto">Your generosity fuels our community initiatives. Upload a payment confirmation to support our cause.</p>
+            <p class="text-gray-700 text-base max-w-2xl mx-auto">Your generosity fuels our community initiatives. Upload
+              a payment confirmation to support our cause.</p>
           </div>
-          
+
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Donation Form -->
             <div class="bg-white rounded-2xl p-6 border border-indigo-100">
@@ -17,62 +18,55 @@
                 <!-- Name -->
                 <div>
                   <label for="donorName" class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-                  <input
-                    v-model="donationInfo.name"
-                    type="text"
-                    id="donorName"
-                    required
+                  <input v-model="donationInfo.name" type="text" id="donorName" required
                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50 text-sm"
-                    placeholder="Your full name"
-                    :class="{ 'border-red-500': donationErrors.name }"
-                    @input="clearDonationError('name')"
-                  />
+                    placeholder="Your full name" :class="{ 'border-red-500': donationErrors.name }"
+                    @input="clearDonationError('name')" />
                   <p v-if="donationErrors.name" class="text-red-500 text-xs mt-1">{{ donationErrors.name }}</p>
                 </div>
 
                 <!-- Email -->
                 <div>
                   <label for="donorEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                  <input
-                    v-model="donationInfo.email"
-                    type="email"
-                    id="donorEmail"
-                    required
+                  <input v-model="donationInfo.email" type="email" id="donorEmail" required
                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50 text-sm"
-                    placeholder="your.email@example.com"
-                    :class="{ 'border-red-500': donationErrors.email }"
-                    @input="clearDonationError('email')"
-                  />
+                    placeholder="your.email@example.com" :class="{ 'border-red-500': donationErrors.email }"
+                    @input="clearDonationError('email')" />
                   <p v-if="donationErrors.email" class="text-red-500 text-xs mt-1">{{ donationErrors.email }}</p>
                 </div>
+                
 
                 <!-- Image -->
                 <div>
-                  <label for="donationImage" class="block text-sm font-medium text-gray-700 mb-1">Payment Confirmation Image *</label>
-                  <input
-                    type="file"
-                    id="donationImage"
-                    accept="image/*"
-                    required
+                  <label for="donationImage" class="block text-sm font-medium text-gray-700 mb-1">Payment Confirmation
+                    Image *</label>
+                  <input type="file" id="donationImage" accept="image/*" required
                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50 text-sm"
-                    :class="{ 'border-red-500': donationErrors.image }"
-                    @change="handleImageUpload"
-                  />
+                    :class="{ 'border-red-500': donationErrors.image }" @change="handleImageUpload" />
                   <p v-if="donationErrors.image" class="text-red-500 text-xs mt-1">{{ donationErrors.image }}</p>
-                  <p v-if="donationInfo.image" class="text-xs text-gray-600 mt-1">Selected: {{ donationInfo.image.name }}</p>
+                  <p v-if="donationInfo.image" class="text-xs text-gray-600 mt-1">Selected: {{ donationInfo.image.name
+                    }}</p>
+                </div>
+                <div>
+                  <div>
+                    <label for="donorMessage" class="block text-sm font-medium text-gray-700 mb-2">Message
+                      (Optional)</label>
+                    <textarea id="donorMessage" v-model="donationInfo.message" rows="4"
+                      placeholder="Write a message or note for your donation"
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-50 text-sm resize-y"></textarea>
+                  </div>
                 </div>
 
                 <!-- Submit -->
-                <button
-                  type="submit"
-                  class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 text-sm"
-                >
+                <button type="submit"
+                  class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 text-sm">
                   Submit Donation
                 </button>
               </form>
 
               <!-- Success / Error Message -->
-              <div v-if="donationMessage" class="mt-4 p-3 rounded-lg animate__animated animate__fadeIn" :class="donationMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+              <div v-if="donationMessage" class="mt-4 p-3 rounded-lg animate__animated animate__fadeIn"
+                :class="donationMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
                 {{ donationMessage.text }}
               </div>
             </div>
@@ -82,13 +76,9 @@
               <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Choose Payment Method</h3>
               <div class="flex justify-center mb-4">
                 <div class="grid grid-cols-3 gap-2 bg-gray-100 rounded-lg p-2">
-                  <button
-                    v-for="method in paymentMethods"
-                    :key="method.id"
-                    @click="selectedPaymentMethod = method.id"
+                  <button v-for="method in paymentMethods" :key="method.id" @click="selectedPaymentMethod = method.id"
                     :class="selectedPaymentMethod === method.id ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-200'"
-                    class="px-3 py-1 rounded-lg text-xs font-medium transition duration-300"
-                  >
+                    class="px-3 py-1 rounded-lg text-xs font-medium transition duration-300">
                     {{ method.name }}
                   </button>
                 </div>
@@ -96,12 +86,10 @@
 
               <!-- QR and Account Info -->
               <div class="text-center">
-                <div class="inline-block bg-white p-4 rounded-2xl border-2 border-gray-200 shadow-lg mb-4 transform transition-all hover:scale-105">
-                  <img 
-                    :src="currentQRCode" 
-                    :alt="`${getCurrentPaymentMethod().name} QR Code`"
-                    class="w-48 h-48 mx-auto"
-                  />
+                <div
+                  class="inline-block bg-white p-4 rounded-2xl border-2 border-gray-200 shadow-lg mb-4 transform transition-all hover:scale-105">
+                  <img :src="currentQRCode" :alt="`${getCurrentPaymentMethod().name} QR Code`"
+                    class="w-48 h-48 mx-auto" />
                 </div>
                 <p class="text-base font-medium text-gray-900 mb-1">
                   Scan with {{ getCurrentPaymentMethod().name }}
@@ -110,7 +98,8 @@
                   Account: {{ getCurrentPaymentMethod().account }}
                 </p>
                 <p class="text-gray-700 text-sm max-w-md mx-auto">
-                  We are deeply grateful to everyone who has contributed to our mission. Your support makes a real difference in the lives of Cambodian children and communities. Thank you!
+                  We are deeply grateful to everyone who has contributed to our mission. Your support makes a real
+                  difference in the lives of Cambodian children and communities. Thank you!
                 </p>
               </div>
             </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -13,31 +12,24 @@ class VideoController extends Controller
         return response()->json(Video::all());
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'video_file' => 'required|mimes:mp4,mov,avi,wmv|max:51200', // Max 50MB
+            'video_file' => 'required|url', // Expecting a URL string now
             'description' => 'nullable|string',
         ]);
 
-        $path = $request->file('video_file')->store('videos', 'public');
-
         $video = Video::create([
-            'video_file' => $path,
+            'video_file' => $request->video_file,
             'description' => $request->description,
         ]);
 
         return response()->json([
-            'message' => 'Video uploaded successfully',
-            'data' => [
-                'video_file' => $video->video_file,
-                'description' => $video->description,
-                'url' => asset('storage/' . $path)
-            ],
+            'message' => 'Video link saved successfully',
+            'data' => $video,
+            'url' => $video->video_file, // The link itself
         ], 201);
     }
-
-
 
     public function show($id)
     {
@@ -49,17 +41,12 @@ class VideoController extends Controller
         $video = Video::findOrFail($id);
 
         $request->validate([
-            'video_file' => 'nullable|mimes:mp4,mov,avi,wmv|max:51200',
+            'video_file' => 'nullable|url',
             'description' => 'sometimes|nullable|string',
         ]);
 
-        if ($request->hasFile('video_file')) {
-            if ($video->video_file && Storage::disk('public')->exists($video->video_file)) {
-                Storage::disk('public')->delete($video->video_file);
-            }
-
-            $path = $request->file('video_file')->store('videos', 'public');
-            $video->video_file = $path;
+        if ($request->has('video_file')) {
+            $video->video_file = $request->input('video_file');
         }
 
         if ($request->has('description')) {
@@ -69,22 +56,17 @@ class VideoController extends Controller
         $video->save();
 
         return response()->json([
-            'message' => 'Video updated successfully',
+            'message' => 'Video link updated successfully',
             'data' => $video,
-            'url' => asset('storage/' . $video->video_file),
+            'url' => $video->video_file,
         ]);
     }
-
-
-
 
     public function destroy($id)
     {
         $video = Video::findOrFail($id);
-        Storage::disk('public')->delete($video->video_file);
         $video->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
     }
 }
-

@@ -39,7 +39,7 @@ onMounted(async () => {
   try {
     const res = await api.get('/images')
     photos.value = res.data
-    console.log(photos) 
+    // console.log(photos) 
   } catch (error) {
     message.value = 'Failed to load image.'
     console.error(error)

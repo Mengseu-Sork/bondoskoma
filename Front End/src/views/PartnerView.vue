@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="mt-6">
+    <div class="mt-6 container">
         <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
         Our Visitors
         </h1>

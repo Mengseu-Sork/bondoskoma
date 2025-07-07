@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-      </section>
+    </section>
 
       <!-- Programs Section -->
       <section class="py-16 bg-gray-100">
@@ -455,7 +455,7 @@
 
       <!-- Impact Section -->
       <section
-        class="py-16 bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-600 text-white"
+        class="py-16 bg-gradient-to-br from-blue-500 via-blue-500 to-blue-600 text-white"
       >
         <div class="max-w-6xl mx-auto px-8">
           <h2 class="text-4xl font-bold text-center mb-12 text-white">
@@ -465,7 +465,7 @@
             <div
               class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
             >
-              <div class="text-5xl font-bold mb-4 text-yellow-300">2019</div>
+              <div class="text-5xl font-bold mb-4 text-orange-300">2019</div>
               <h4 class="text-xl font-semibold mb-4">Target Year</h4>
               <p class="leading-relaxed opacity-90">
                 Full implementation of all programs by 2019
@@ -474,7 +474,7 @@
             <div
               class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
             >
-              <div class="text-5xl font-bold mb-4 text-yellow-300">6</div>
+              <div class="text-5xl font-bold mb-4 text-orange-300">6</div>
               <h4 class="text-xl font-semibold mb-4">Age Focus</h4>
               <p class="leading-relaxed opacity-90">
                 Children below 6 years old in target areas
@@ -483,7 +483,7 @@
             <div
               class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
             >
-              <div class="text-5xl font-bold mb-4 text-yellow-300">100%</div>
+              <div class="text-5xl font-bold mb-4 text-orange-300">100%</div>
               <h4 class="text-xl font-semibold mb-4">Coverage Goal</h4>
               <p class="leading-relaxed opacity-90">
                 Full potential and opportunity for all children
