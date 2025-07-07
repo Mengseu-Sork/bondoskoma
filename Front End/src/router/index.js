@@ -80,6 +80,11 @@ const router = createRouter({
       name: 'Jobs Announcement',
       component: () => import('../views/JobsAnnouncementView.vue'),
     },
+    {
+      path: '/admin/login',
+      name: 'admin-login',
+      component: () => import('../views/AdminLoginView.vue'),
+    },
   ],
 })
 
