@@ -85,6 +85,21 @@ const router = createRouter({
       name: 'admin-login',
       component: () => import('../views/AdminLoginView.vue'),
     },
+    {
+      path: '/admin/dashboard',
+      name: 'admin-dashboard',
+      component: () => import('../views/AdminDashboardView.vue'),
+    },
+    {
+      path: '/admin/users',
+      name: 'admin-users',
+      component: () => import('../views/AdminUserView.vue'),
+    },
+    {
+      path: '/admin/settings',
+      name: 'admin-settings',
+      component: () => import('../views/AdminSettingView.vue'),
+    },
   ],
 })
 

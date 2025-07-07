@@ -21,6 +21,7 @@ import Banner from './components/Banner.vue'
 import Footer from './components/Footer.vue'
 import Navbar from './components/Navbar.vue'
 
+
 const route = useRoute()
 
 // Define specific routes where you want to hide the layout
@@ -28,6 +29,8 @@ const hideLayout = computed(() => {
   const adminRoutes = [
     '/admin/login',
     '/admin/dashboard',
+    '/admin/programs',
+    '/admin/users',
     '/admin/settings'
     // Add more admin routes as needed
   ]

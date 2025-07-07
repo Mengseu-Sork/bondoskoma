@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-white">
     <!-- Vision & Mission Section -->
-    <section id="about" class="py-24 bg-white">
+    <section id="about" class="py-2 bg-white">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-20">
           <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Purpose</h2>
@@ -30,15 +30,15 @@
           </div>
         </div>
         <!-- Strategic Goal -->
-        <div class="bg-gray-50 rounded-3xl p-12 lg:p-16">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="bg-gray-100 rounded-3xl p-12 lg:p-16">
+          <div class="grid lg:grid-cols-2 gap- items-center">
             <div>
               <h3 class="text-4xl font-bold text-gray-900 mb-8">Strategic Goal</h3>
               <blockquote class="text-2xl text-gray-700 leading-relaxed border-l-4 border-gray-300 pl-6">
                 "By 2019, children and youths enjoy full potential of their rights in living with dignity to become human capital for sustainable development of the society."
               </blockquote>
             </div>
-            <div class="flex justify-center">
+            <div class="w-full flex justify-center">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73PV9jSPJNx-hfjw0lrEs44ZrGDoLoXhGbtY6zbP_oSCV7ddL2xM_7p6Fa9lDvTbH0f8&usqp=CAU" alt="Strategic Vision" class="w-full h-80 object-cover rounded-2xl shadow-xl">
             </div>
           </div>
@@ -46,7 +46,7 @@
       </div>
     </section>
     <!-- Core Values Section -->
-    <section id="values" class="py-24 bg-white">
+    <section id="values" class="py-8 bg-white">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-20">
           <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Core Values</h2>
@@ -134,14 +134,8 @@
       </div>
     </section>
     <!-- Our Partners Section -->
-    <section id="partners" class="py-24 bg-gray-50">
+    <section id="partners" class="py-24 bg-gray">
       <div>
-        <div class="text-center mb-20">
-          <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Partners</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            We are proud to collaborate with these organizations
-          </p>
-        </div>
       
           <PartnerView />
 
@@ -179,17 +173,7 @@ const scrollRight = () => {
 </script>
 
 <style scoped>
-.container {
-  @apply mx-auto px-4;
-}
 
-html {
-  scroll-behavior: smooth;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
 
 
 </style>

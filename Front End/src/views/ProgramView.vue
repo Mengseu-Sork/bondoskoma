@@ -454,44 +454,42 @@
       </section>
 
       <!-- Impact Section -->
-      <section
-        class="py-16 bg-gradient-to-br from-blue-500 via-blue-500 to-blue-600 text-white"
-      >
-        <div class="max-w-6xl mx-auto px-8">
-          <h2 class="text-4xl font-bold text-center mb-12 text-white">
-            Expected Impact
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-              class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
-            >
-              <div class="text-5xl font-bold mb-4 text-orange-300">2019</div>
-              <h4 class="text-xl font-semibold mb-4">Target Year</h4>
-              <p class="leading-relaxed opacity-90">
-                Full implementation of all programs by 2019
-              </p>
-            </div>
-            <div
-              class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
-            >
-              <div class="text-5xl font-bold mb-4 text-orange-300">6</div>
-              <h4 class="text-xl font-semibold mb-4">Age Focus</h4>
-              <p class="leading-relaxed opacity-90">
-                Children below 6 years old in target areas
-              </p>
-            </div>
-            <div
-              class="bg-white/10 rounded-2xl p-8 text-center backdrop-blur-sm border border-white/20"
-            >
-              <div class="text-5xl font-bold mb-4 text-orange-300">100%</div>
-              <h4 class="text-xl font-semibold mb-4">Coverage Goal</h4>
-              <p class="leading-relaxed opacity-90">
-                Full potential and opportunity for all children
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+<section class="py-16 bg-white text-slate-800">
+  <div class="max-w-6xl mx-auto px-8">
+    <h2 class="text-4xl font-bold text-center mb-12 text-slate-800">
+      Expected Impact
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
+        <div class="text-5xl font-bold mb-4 text-indigo-600">2019</div>
+        <h4 class="text-xl font-semibold mb-4">Target Year</h4>
+        <p class="leading-relaxed text-slate-600">
+          Full implementation of all programs by 2019
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
+        <div class="text-5xl font-bold mb-4 text-indigo-600">6</div>
+        <h4 class="text-xl font-semibold mb-4">Age Focus</h4>
+        <p class="leading-relaxed text-slate-600">
+          Children below 6 years old in target areas
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
+        <div class="text-5xl font-bold mb-4 text-indigo-600">100%</div>
+        <h4 class="text-xl font-semibold mb-4">Coverage Goal</h4>
+        <p class="leading-relaxed text-slate-600">
+          Full potential and opportunity for all children
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
     </main>
 
     <!-- Program Details Modal -->

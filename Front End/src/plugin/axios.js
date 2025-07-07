@@ -8,7 +8,7 @@ const apiInstance = axios.create({
     Accept: "application/json",
   },
 });
-// Ad d a request interceptor to include the beerer token if available
+
 apiInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token"); // Assuming you store the token in localStorage
