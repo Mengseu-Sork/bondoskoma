@@ -45,39 +45,44 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { getJobs, getJobById } from '@/api/job.js'
 import JobCard from '@/components/JobAnnouncement.vue'
-import jobs from '@/api/job.js'
 
+// Reactive job list
+const jobs = ref([])
 
-// Reactive selections for filters (dropdown inputs)
+// Fetch jobs on mount
+onMounted(async () => {
+  jobs.value = await getJobs()
+})
+
+// Reactive filter options
 const selectedDepartment = ref('All')
 const selectedDateOrder = ref('Date Posted')
 
-// Reactive applied filters to trigger filtering on SUBMIT click
+// Applied filters (after clicking submit)
 const appliedDepartment = ref('All')
 const appliedDateOrder = ref('Date Posted')
 
-// Apply filters button handler
+// Filter trigger
 function applyFilters() {
   appliedDepartment.value = selectedDepartment.value
   appliedDateOrder.value = selectedDateOrder.value
 }
 
-// Computed filtered jobs based on applied filters
+// Computed filtered and sorted jobs
 const filteredJobs = computed(() => {
-  let filtered = jobs
+  let filtered = jobs.value
 
-  // Filter by department
   if (appliedDepartment.value !== 'All') {
     filtered = filtered.filter(job => job.department === appliedDepartment.value)
   }
 
-  // Sort by date posted
   if (appliedDateOrder.value === 'Newest') {
-    filtered = filtered.slice().sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate))
+    filtered = filtered.slice().sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date))
   } else if (appliedDateOrder.value === 'Oldest') {
-    filtered = filtered.slice().sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate))
+    filtered = filtered.slice().sort((a, b) => new Date(a.posted_date) - new Date(b.posted_date))
   }
 
   return filtered

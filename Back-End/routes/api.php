@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\JobAnnouncementController;
-// use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\VideoController;
-use App\Models\JobAnnouncement;
+use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportsController;
 
@@ -41,6 +40,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
 // use App\Http\Controllers\NotificationController;
 // Route::middleware('auth:sanctum')->get('/admin', [AuthController::class, 'index']);
+Route::apiResource( 'jobs' , JobAnnouncementController::class);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/create_admin', [AuthController::class, 'store']);
+Route::apiResource('applies', ApplyController::class);
 
 Route::resource('notifications', NotificationController::class); 
 Route::apiResource('reports', ReportsController::class);
