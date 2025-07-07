@@ -134,7 +134,7 @@
       </div>
     </section>
     <!-- Our Partners Section -->
-    <section id="partners" class="py-24 bg-gray-50">
+    <section id="partners" class="py-24 bg-gray">
       <div>
       
           <PartnerView />
