@@ -112,6 +112,38 @@
               Users
             </div>
           </router-link>
+          <!-- Jobs -->
+          <router-link
+            to="/admin/jobsUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/jobsUsers' 
+                ? 'bg-green-50 text-green-700 border-r-4 border-green-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/jobsUsers' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 11V13M3 7H21V17H3V7ZM16 7V5A2 2 0 0014 3H10A2 2 0 008 5V7H16Z" />
+            </svg>
+            <span v-if="!isCollapsed" class="truncate">Jobs</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Jobs
+            </div>
+          </router-link>
 
           <!-- Settings -->
           <router-link
