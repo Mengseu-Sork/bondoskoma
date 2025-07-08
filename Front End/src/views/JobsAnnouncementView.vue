@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { getJobs, getJobById } from '@/api/job.js'
+import { getJobs} from '@/api/job.js'
 import JobCard from '@/components/JobAnnouncement.vue'
 
 // Reactive job list

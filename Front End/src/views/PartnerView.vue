@@ -1,6 +1,6 @@
 <template>
-    <div class="overflow-hidden whitespace-nowrap relative">
-        <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
+    <div class="overflow-hidden whitespace-nowrap relative ">
+        <h1 class="text-2xl w-fit uppercase py-4 ml-24 mb-4 border-b border-gray-400">
         Our Partner
         </h1>
         <div class="h-64 bg-yellow-400 flex items-center overflow-hidden w-full">
@@ -15,11 +15,11 @@
             </div>
         </div>
     </div>
-    <div class="mt-6 container">
+    <div class="mt-6 container max-w-7xl mx-auto">
         <h1 class="text-2xl w-fit uppercase py-4 ml-8 mb-4 border-b border-gray-400">
         Our Visitors
         </h1>
-        <div class="p-8">
+        <div class="p-6">
         <FlagCounter :visitors="visitorData" />
         </div>
     </div>
