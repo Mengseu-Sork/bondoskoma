@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-gray-50 to-white">
     <!-- Page Title -->
-    <div class="container mx-auto px-4 max-w-6xl pt-16 pb-8">
+    <div class="container mx-auto px-4 max-w-6xl">
       <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+        <h1 class="text-5xl md:text-5xl font-bold text-gray-900 tracking-tight">
           Our History
         </h1>
         <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Horizontal Timeline Section -->
-    <section class="py-24 bg-white relative overflow-hidden">
+    <section class="py-20 bg-white relative overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-5">
         <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0); background-size: 20px 20px;"></div>
