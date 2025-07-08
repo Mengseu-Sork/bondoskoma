@@ -13,13 +13,13 @@
           <div class="space-y-8">
             <div class="border-l-4 border-gray-900 pl-8">
               <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Vision</h3>
-              <p class="text-xl text-gray-700 leading-relaxed mb-8">
+              <p class="text-2xl text-gray-700 leading-relaxed mb-8">
                 Every child and youth enjoys full development potential with dignity and sustainability.
               </p>
             </div>
             <div class="border-l-4 border-gray-400 pl-8">
               <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
-              <p class="text-xl text-gray-700 leading-relaxed">
+              <p class="text-2xl text-gray-700 leading-relaxed">
                 To support human resource development and livelihoods improvement, enabling participation opportunities for communities, public institutions, civil society, the private sector and other relevant stakeholders.
               </p>
             </div>
@@ -30,15 +30,15 @@
           </div>
         </div>
         <!-- Strategic Goal -->
-        <div class="bg-gray-100 rounded-3xl p-12 lg:p-16">
+        <div class="w-fullgrid lg:grid-cols-2 gap-16 mb-20 items-center">
           <div class="grid lg:grid-cols-2 gap- items-center">
-            <div>
-              <h3 class="text-4xl font-bold text-gray-900 mb-8">Strategic Goal</h3>
-              <blockquote class="text-2xl text-gray-700 leading-relaxed border-l-4 border-gray-300 pl-6">
+            <div class="border-l-4 border-gray-300 pl-8">
+              <h3 class="text-3xl font-bold text-gray-900 mb-6">Strategic Goal</h3>
+              <p class="text-2xl text-gray-700 leading-relaxed ">
                 "By 2019, children and youths enjoy full potential of their rights in living with dignity to become human capital for sustainable development of the society."
-              </blockquote>
+              </p>
             </div>
-            <div class="w-full flex justify-center">
+            <div class="relative flex justify-center">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73PV9jSPJNx-hfjw0lrEs44ZrGDoLoXhGbtY6zbP_oSCV7ddL2xM_7p6Fa9lDvTbH0f8&usqp=CAU" alt="Strategic Vision" class="w-full h-80 object-cover rounded-2xl shadow-xl">
             </div>
           </div>
