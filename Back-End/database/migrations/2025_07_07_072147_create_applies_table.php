@@ -11,24 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_announcements', function (Blueprint $table) {
+        Schema::create('applies', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('posted_date');
-            $table->string('location');
-            $table->string('type');
-            $table->string('department');
-            $table->json('responsibilities');
-            $table->json('qualifications');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('cv_file');
+            $table->foreignId('job_announcements_id')->constrained('job_announcements')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_announcements');
+        Schema::dropIfExists('applies');
     }
 };

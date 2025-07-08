@@ -76,7 +76,7 @@ const router = createRouter({
       component: () => import('../views/JobsAnnouncementView.vue'),
     },
     {
-      path: '/jobs/:title',
+      path: '/jobs/:id',
       name: 'JobDetail',
       component: () => import('../views/DetailJobView.vue'),
     },
@@ -102,8 +102,6 @@ const router = createRouter({
     },
   ],
 })
-
-  
 // router.beforeEach((to, from, next) => {
 //   const isAuthenticated = !!localStorage.getItem('adminToken')
 //   const isAdminRoute = to.path.startsWith('/admin') && to.path !== '/admin/login'

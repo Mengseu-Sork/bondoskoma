@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_announcements', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('posted_date');
-            $table->string('location');
-            $table->string('type');
-            $table->string('department');
-            $table->json('responsibilities');
-            $table->json('qualifications');
+             $table->string('title');
+            $table->integer('year');
+            $table->text('description');
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_announcements');
+        Schema::dropIfExists('reports');
     }
 };
