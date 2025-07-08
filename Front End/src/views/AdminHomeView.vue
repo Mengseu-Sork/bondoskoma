@@ -141,7 +141,7 @@ const fetchItems = async () => {
   loading.value = true;
   try {
     const endpoint = activeTab.value === 'home' ? '/homes' : '/lifeskills';
-    const response = await apiInstance.get(endpoint, { timeout: 10000 });
+    const response = await apiInstance.get(endpoint, { timeout: 500 });
     items.value = response.data.data || [];
   } catch (error) {
     console.error(`Error fetching ${activeTab.value} data:`, error);
