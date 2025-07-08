@@ -82,7 +82,7 @@
 
           <!-- Users -->
           <router-link
-            to="/admin/users"
+            to="/admin/home"
             :class="[
               'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
               $route.path === '/admin/users' 
@@ -94,22 +94,25 @@
               :class="[
                 'flex-shrink-0 transition-colors duration-200',
                 isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
-                $route.path === '/admin/users' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+                $route.path === '/admin/home' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
               ]" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+            > 
+            <!-- icon hoem -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM9 22V12h6v10" />
+              
+
             </svg>
             
-            <span v-if="!isCollapsed" class="truncate">Users</span>
+            <span v-if="!isCollapsed" class="truncate">Home</span>
 
             <div 
               v-if="isCollapsed"
               class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
             >
-              Users
+              Home
             </div>
           </router-link>
           
@@ -213,19 +216,21 @@
                 : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
             ]"
           >
-            <svg
+            <svg 
               :class="[
                 'flex-shrink-0 transition-colors duration-200',
                 isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
                 $route.path === '/admin/jobsUsers' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
-              ]"
-              fill="none"
-              stroke="currentColor"
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
               viewBox="0 0 24 24"
-              >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 11V13M3 7H21V17H3V7ZM16 7V5A2 2 0 0014 3H10A2 2 0 008 5V7H16Z" />
+            > 
+            <!-- icon job -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0v4m0-4h4m-4 0H8m6-6a2 2 0 11-4 0 2 2 0 014 0zM5.5 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm16-1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+
             </svg>
+            
             <span v-if="!isCollapsed" class="truncate">Jobs</span>
 
             <div 
@@ -235,7 +240,8 @@
               Jobs
             </div>
           </router-link>
-
+          <!-- Jobs -->
+          
           <!-- Settings -->
           <router-link
             to="/admin/settings"
@@ -548,7 +554,7 @@ const userInitials = computed(() => {
 const currentPageTitle = computed(() => {
   const routeMap = {
     '/admin/dashboard': 'Dashboard',
-    '/admin/users': 'Users',
+    '/admin/home': 'Home',
     '/admin/settings': 'Settings'
   }
   return routeMap[route.path] || 'Admin'
