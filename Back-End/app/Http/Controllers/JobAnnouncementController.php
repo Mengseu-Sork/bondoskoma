@@ -30,6 +30,29 @@ class JobAnnouncementController extends Controller
             'qualifications' => json_encode($validated['qualifications']),
         ]);
     }
+<<<<<<< HEAD
+        public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'jd' => 'required|string',
+                'end_date' => 'required|date|after:today',
+            ]);
+            $job = JobAnnouncement::create($validated);
+            return response()->json([
+                'message' => 'Job announcement created successfully',
+                'data' => $job
+            ], 201);
+        }
+    public function update(Request $request, $id)   
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'jd' => 'required|string',
+        'end_date' => 'required|date|after:today',
+    ]);
+=======
+>>>>>>> 980bcff5e88ac751cfef912298b53e3c24bb83f7
 
     public function show(JobAnnouncement $job)
     {

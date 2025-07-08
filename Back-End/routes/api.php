@@ -11,6 +11,7 @@ use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,6 @@ Route::apiResource( 'jobs' , JobAnnouncementController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
 Route::apiResource('applies', ApplyController::class);
-Route::resource('notifications', NotificationController::class); 
 
+Route::resource('notifications', NotificationController::class); 
+Route::apiResource('reports', ReportsController::class);
