@@ -23,6 +23,13 @@ class Apply extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $appends = ['cv_url'];
+
+    public function getCvUrlAttribute()
+    {
+        return asset('storage/' . $this->cv_path);
+    }
+    
     public function jobAnnouncement()
     {
         return $this->belongsTo(JobAnnouncement::class, 'job_announcements_id');

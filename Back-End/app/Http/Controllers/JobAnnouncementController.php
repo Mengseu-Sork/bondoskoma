@@ -9,7 +9,12 @@ class JobAnnouncementController extends Controller
 {
     public function index()
     {
-        return JobAnnouncement::all();
+        $jobs = JobAnnouncement::all();
+        foreach ($jobs as $job) {
+            $job->responsibilities = json_decode($job->responsibilities);
+            $job->qualifications = json_decode($job->qualifications);
+        }
+        return $jobs;
     }
 
     public function store(Request $request)
@@ -25,39 +30,23 @@ class JobAnnouncementController extends Controller
         ]);
 
         return JobAnnouncement::create([
-            ...$validated,
+            'title' => $validated['title'],
+            'posted_date' => $validated['posted_date'],
+            'location' => $validated['location'],
+            'type' => $validated['type'],
+            'department' => $validated['department'],
             'responsibilities' => json_encode($validated['responsibilities']),
             'qualifications' => json_encode($validated['qualifications']),
         ]);
     }
-<<<<<<< HEAD
-        public function store(Request $request)
-        {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'jd' => 'required|string',
-                'end_date' => 'required|date|after:today',
-            ]);
-            $job = JobAnnouncement::create($validated);
-            return response()->json([
-                'message' => 'Job announcement created successfully',
-                'data' => $job
-            ], 201);
-        }
-    public function update(Request $request, $id)   
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'jd' => 'required|string',
-        'end_date' => 'required|date|after:today',
-    ]);
-=======
->>>>>>> 980bcff5e88ac751cfef912298b53e3c24bb83f7
 
     public function show(JobAnnouncement $job)
     {
+        $job->responsibilities = json_decode($job->responsibilities);
+        $job->qualifications = json_decode($job->qualifications);
         return $job;
     }
+
 
     public function update(Request $request, JobAnnouncement $job)
     {
