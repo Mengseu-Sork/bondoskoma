@@ -105,6 +105,16 @@ const router = createRouter({
       name: 'admin-photo',
       component: () => import('../views/PhotoBackEndVeiw.vue'),
     },
+    {
+      path: '/admin/jobsUsers',
+      name: 'admin-jobsUsers',
+      component: () => import('../views/AdminJobView.vue'),
+    },
+    {
+      path: '/admin/reports',
+      name: 'admin-reports',
+      component: () => import('../views/ReportAdminView.vue'),
+    },
   ],
 })
 // router.beforeEach((to, from, next) => {
