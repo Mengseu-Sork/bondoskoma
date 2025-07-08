@@ -33,40 +33,40 @@ class ReportsController extends Controller
 
         return response()->json(['data' => $report]);
     }
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:' . date('Y'),
-            'description' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'year' => 'required|integer|min:1900|max:' . date('Y'),
+        'description' => 'required|string',
+        'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // <-- changed here
+    ]);
 
-        $report = new Reports();
-        $report->title = $validated['title'];
-        $report->year = $validated['year'];
-        $report->description = $validated['description'];
+    $report = new Reports();
+    $report->title = $validated['title'];
+    $report->year = $validated['year'];
+    $report->description = $validated['description'];
 
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('reports', 'public');
-            $report->file_path = $filePath;
-        }
-
-        $report->save();
-
-        return response()->json([
-            'message' => 'Report created successfully.',
-            'data' => [
-                'id' => $report->id,
-                'title' => $report->title,
-                'year' => $report->year,
-                'description' => $report->description,
-                'file_path' => $report->file_path,
-                'file_url' => $report->file_path ? asset('storage/' . $report->file_path) : null
-            ]
-        ]);
+    if ($request->hasFile('file')) {
+        $filePath = $request->file('file')->store('reports', 'public');
+        $report->file_path = $filePath;
     }
-    public function update(Request $request, $id)
+
+    $report->save();
+
+    return response()->json([
+        'message' => 'Report created successfully.',
+        'data' => [
+            'id' => $report->id,
+            'title' => $report->title,
+            'year' => $report->year,
+            'description' => $report->description,
+            'file_path' => $report->file_path,
+            'file_url' => $report->file_path ? asset('storage/' . $report->file_path) : null
+        ]
+    ]);
+}
+ public function update(Request $request, $id)
     {
         $report = Reports::findOrFail($id);
 
@@ -82,23 +82,24 @@ class ReportsController extends Controller
         $report->description = $validated['description'];
 
         if ($request->hasFile('file')) {
-            // Delete old file if it exists
+            // Delete old file if exists
             if ($report->file_path && Storage::disk('public')->exists($report->file_path)) {
                 Storage::disk('public')->delete($report->file_path);
             }
 
+            // Store new file
             $filePath = $request->file('file')->store('reports', 'public');
             $report->file_path = $filePath;
         }
 
         $report->save();
 
-       return response()->json([
-    'validated' => $validated,
-    'file_check' => $request->hasFile('file'),
-    'path' => $report->file_path,
-    'message' => 'Updated successfully',
-]);
-
+        return response()->json([
+            'message' => 'Report updated successfully.',
+            'data' => $report,
+            'file_url' => $report->file_path ? asset('storage/' . $report->file_path) : null,
+        ]);
     }
 }
+
+
