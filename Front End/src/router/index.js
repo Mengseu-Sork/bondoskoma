@@ -100,6 +100,11 @@ const router = createRouter({
       name: 'admin-settings',
       component: () => import('../views/AdminSettingView.vue'),
     },
+    {
+      path: '/admin/photo',
+      name: 'admin-photo',
+      component: () => import('../views/PhotoBackEndVeiw.vue'),
+    },
   ],
 })
 // router.beforeEach((to, from, next) => {
