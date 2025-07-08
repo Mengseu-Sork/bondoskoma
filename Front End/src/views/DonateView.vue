@@ -1,319 +1,192 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
-      <div class="absolute inset-0 bg-black opacity-20"></div>
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-          Make a Difference Today
-        </h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
-          Your donation helps us provide education, healthcare, and hope to children and families in Cambodia
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button 
-            @click="scrollToSection('donation-options')"
-            class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Donate Now
-          </button>
-          <button 
-            @click="scrollToSection('impact')"
-            class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300"
-          >
-            See Our Impact
-          </button>
-        </div>
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col lg:flex-row justify-center items-start p-4 sm:p-6 lg:p-8 font-sans">
+    <!-- Main Donation Form -->
+    <div class="w-full lg:w-2/3 bg-white rounded-2xl shadow-xl p-6 sm:p-8 mb-6 lg:mb-0 lg:mr-6 transform transition-all duration-300 hover:shadow-2xl">
+      <!-- Warning Banner -->
+      <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6 text-sm flex items-center" role="alert">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h0a1 1 0 100-2v-3a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        Test Mode Enabled - No real live donations are processed
       </div>
-    </section>
 
-    <!-- Impact Statistics -->
-    <section id="impact" class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Your Impact in Numbers</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how your donations have transformed lives across Cambodia
-          </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div 
-            v-for="stat in impactStats" 
-            :key="stat.label"
-            class="text-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
-          >
-            <div class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">{{ stat.value }}</div>
-            <div class="text-gray-700 font-medium">{{ stat.label }}</div>
-            <div class="text-sm text-gray-500 mt-2">{{ stat.description }}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Donation Options -->
-    <section id="donation-options" class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Choose Your Way to Help</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Every contribution makes a difference. Select the option that works best for you.
-          </p>
-        </div>
-
-        <!-- Donation Type Tabs -->
-        <div class="flex flex-wrap justify-center mb-8 bg-white rounded-full p-2 shadow-lg max-w-md mx-auto">
+      <!-- Donation Amount Section -->
+      <div class="mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Support Our Cause</h2>
+        <div class="flex flex-wrap gap-3 mb-4">
           <button
-            v-for="type in donationTypes"
-            :key="type.id"
-            @click="activeDonationType = type.id"
+            v-for="amount in presetAmounts"
+            :key="amount"
+            @click="selectedAmount = amount; showCustomAmount = false"
             :class="[
-              'px-6 py-3 rounded-full font-medium transition-all duration-300',
-              activeDonationType === type.id
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-gray-600 hover:text-blue-600'
+              'px-5 py-3 rounded-xl text-base sm:text-lg font-semibold transition-all duration-200',
+              selectedAmount === amount
+                ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-md'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
             ]"
+            :aria-label="`Donate $${amount}`"
           >
-            {{ type.name }}
+            ${{ amount }}
+          </button>
+          <button
+            @click="showCustomAmount = !showCustomAmount; selectedAmount = null"
+            :class="[
+              'px-5 py-3 rounded-xl text-base sm:text-lg font-semibold transition-all duration-200',
+              showCustomAmount ? 'bg-gray-300 text-gray-800' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+            ]"
+            :aria-label="`Custom donation amount`"
+          >
+            Custom
           </button>
         </div>
+        <div v-if="showCustomAmount" class="mt-4">
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+            <input
+              v-model="customAmount"
+              type="number"
+              placeholder="Enter amount"
+              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base transition-all duration-200"
+              :aria-label="`Custom donation amount`"
+              @input="validateAmount"
+            />
+          </div>
+          <p v-if="amountError" class="text-red-500 text-sm mt-1">{{ amountError }}</p>
+        </div>
+        <div class="mt-4">
+          <label class="flex items-center">
+            <input v-model="isMonthly" type="checkbox" class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+            <span class="ml-2 text-sm text-gray-700">Make it a monthly donation</span>
+          </label>
+        </div>
+      </div>
 
-        <!-- One-Time Donation -->
-        <div v-if="activeDonationType === 'one-time'" class="max-w-4xl mx-auto">
-          <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Make a One-Time Donation</h3>
-            
-            <!-- Preset Amounts -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <button
-                v-for="amount in presetAmounts"
-                :key="amount"
-                @click="selectedAmount = amount"
-                :class="[
-                  'p-4 rounded-xl border-2 font-semibold transition-all duration-300 transform hover:scale-105',
-                  selectedAmount === amount
-                    ? 'border-blue-600 bg-blue-50 text-blue-600'
-                    : 'border-gray-200 hover:border-blue-300'
-                ]"
-              >
-                ${{ amount }}
-              </button>
-            </div>
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>Raised: $99,500</span>
+          <span>Goal: $100,000</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5">
+          <div class="bg-green-500 h-2.5 rounded-full" style="width: 99.5%"></div>
+        </div>
+      </div>
 
-            <!-- Custom Amount -->
-            <div class="mb-6">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Custom Amount</label>
-              <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">$</span>
-                <input
-                  v-model="customAmount"
-                  type="number"
-                  placeholder="Enter amount"
-                  class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                  @input="selectedAmount = null"
-                />
-              </div>
-            </div>
+      <!-- Payment Method Section -->
+      <div class="mb-6">
+        <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3">Payment Method</h3>
+        <select
+          v-model="paymentMethod"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base transition-all duration-200"
+          :aria-label="`Select payment method`"
+        >
+          <option value="text">Text Payment</option>
+          <option value="offline">Offline Donation</option>
+        </select>
+      </div>
 
-            <!-- Donation Purpose -->
-            <div class="mb-6">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Donation Purpose (Optional)</label>
-              <select 
-                v-model="donationPurpose"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">General Support</option>
-                <option value="education">Education Programs</option>
-                <option value="healthcare">Healthcare Services</option>
-                <option value="nutrition">Nutrition Programs</option>
-                <option value="infrastructure">Infrastructure Development</option>
-                <option value="emergency">Emergency Relief</option>
-              </select>
-            </div>
-
-            <!-- Donor Information -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                <input
-                  v-model="donorInfo.name"
-                  type="text"
-                  required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your full name"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                <input
-                  v-model="donorInfo.email"
-                  type="email"
-                  required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your email"
-                />
-              </div>
-            </div>
-
-            <!-- Anonymous Donation Option -->
-            <div class="mb-6">
-              <label class="flex items-center">
-                <input
-                  v-model="isAnonymous"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span class="ml-2 text-sm text-gray-700">Make this donation anonymous</span>
-              </label>
-            </div>
-
-            <!-- Donation Button -->
-            <button
-              @click="processDonation"
-              :disabled="!canDonate"
-              :class="[
-                'w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-300 transform',
-                canDonate
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105 shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              ]"
-            >
-              <span v-if="!isProcessing">
-                Donate ${{ finalAmount }} Now
-              </span>
-              <span v-else class="flex items-center justify-center">
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing...
-              </span>
-            </button>
+      <!-- Personal Info Section -->
+      <div class="mb-6">
+        <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3">Your Details</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+            <input
+              v-model="donorInfo.firstName"
+              type="text"
+              :class="['w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base transition-all duration-200', { 'border-red-500': formErrors.firstName }]"
+              placeholder="First Name"
+              :aria-label="`First name`"
+              @input="validateForm"
+            />
+            <p v-if="formErrors.firstName" class="text-red-500 text-sm mt-1">{{ formErrors.firstName }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+            <input
+              v-model="donorInfo.lastName"
+              type="text"
+              :class="['w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base transition-all duration-200', { 'border-red-500': formErrors.lastName }]"
+              placeholder="Last Name"
+              :aria-label="`Last name`"
+              @input="validateForm"
+            />
+            <p v-if="formErrors.lastName" class="text-red-500 text-sm mt-1">{{ formErrors.lastName }}</p>
           </div>
         </div>
+        <div class="mt-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            v-model="donorInfo.email"
+            type="email"
+            :class="['w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base transition-all duration-200', { 'border-red-500': formErrors.email }]"
+            placeholder="Email Address"
+            :aria-label="`Email address`"
+            @input="validateForm"
+          />
+          <p v-if="formErrors.email" class="text-red-500 text-sm mt-1">{{ formErrors.email }}</p>
+        </div>
+      </div>
 
-        <!-- Monthly Donation -->
-        <div v-if="activeDonationType === 'monthly'" class="max-w-4xl mx-auto">
-          <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Become a Monthly Supporter</h3>
-            
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <div class="flex items-center">
-                <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="text-blue-800 font-medium">Monthly donations provide sustainable support for our programs</span>
-              </div>
-            </div>
+      <!-- Donate Button -->
+      <button
+        @click="processDonation"
+        :disabled="!isFormValid"
+        :class="[
+          'w-full py-3 rounded-lg font-semibold text-white flex items-center justify-center transition-all duration-200',
+          isFormValid
+            ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800'
+            : 'bg-gray-400 cursor-not-allowed'
+        ]"
+        :aria-label="`Donate $${finalAmount} now`"
+      >
+        <span v-if="!isProcessing">Donate ${{ finalAmount }} Now</span>
+        <span v-else class="flex items-center">
+          <svg class="animate-spin mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Processing...
+        </span>
+      </button>
+    </div>
 
-            <!-- Monthly Amounts -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div
-                v-for="plan in monthlyPlans"
-                :key="plan.amount"
-                @click="selectedMonthlyPlan = plan"
-                :class="[
-                  'p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105',
-                  selectedMonthlyPlan?.amount === plan.amount
-                    ? 'border-blue-600 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300'
-                ]"
-              >
-                <div class="text-center">
-                  <div class="text-3xl font-bold text-blue-600 mb-2">${{ plan.amount }}</div>
-                  <div class="text-sm text-gray-600 mb-4">per month</div>
-                  <div class="text-sm font-medium text-gray-900 mb-2">{{ plan.impact }}</div>
-                  <div class="text-xs text-gray-500">{{ plan.description }}</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Monthly Donor Info -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                <input
-                  v-model="monthlyDonorInfo.name"
-                  type="text"
-                  required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your full name"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                <input
-                  v-model="monthlyDonorInfo.email"
-                  type="email"
-                  required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your email"
-                />
-              </div>
-            </div>
-
-            <button
-              @click="processMonthlyDonation"
-              :disabled="!selectedMonthlyPlan || !monthlyDonorInfo.name || !monthlyDonorInfo.email"
-              class="w-full py-4 px-6 rounded-lg font-semibold text-lg bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 transform hover:scale-105 shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
-            >
-              Start Monthly Donation of ${{ selectedMonthlyPlan?.amount || 0 }}
-            </button>
+    <!-- Sidebar with Campaign Info -->
+    <div class="w-full lg:w-1/3 bg-white rounded-2xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl">
+      <div class="mb-6">
+        <img src="https://via.placeholder.com/300x200" alt="Campaign Image" class="w-full rounded-xl mb-4 transition-opacity duration-300 hover:opacity-90">
+        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Raise Funds for Clean & Healthy Food</h3>
+        <p class="text-sm text-gray-600 mb-2">Raised: $99,500 / Goal: $100,000</p>
+        <button class="px-4 py-2 bg-yellow-400 text-white rounded-full text-sm font-medium hover:bg-yellow-500 transition-all duration-200">
+          Donation Details
+        </button>
+      </div>
+      <div class="border-t border-gray-200 pt-6">
+        <h4 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">Organizer</h4>
+        <div class="flex items-center mb-2">
+          <img src="https://via.placeholder.com/40" alt="Organizer" class="w-10 h-10 rounded-full mr-3 transition-transform duration-200 hover:scale-105">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Elgie A. Philips</p>
+            <p class="text-xs text-gray-500">352 5th Ave, New York</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Other Ways to Help -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Other Ways to Support Us</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            There are many ways to make a difference beyond monetary donations
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div
-            v-for="option in otherWaysToHelp"
-            :key="option.title"
-            class="text-center p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-          >
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="option.iconPath" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">{{ option.title }}</h3>
-            <p class="text-gray-600 mb-4">{{ option.description }}</p>
-            <router-link
-              :to="option.link"
-              class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Learn More
-              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
     <!-- Success Modal -->
-    <div v-if="showSuccessModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center transform transition-all duration-300 scale-100">
+    <div v-if="showSuccessModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" role="dialog" aria-labelledby="modal-title">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full text-center transform transition-all duration-300">
         <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-        <p class="text-gray-600 mb-6">Your donation has been processed successfully. You will receive a confirmation email shortly.</p>
+        <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+        <p class="text-gray-600 mb-6">Your donation of ${{ finalAmount }} has been processed successfully. Check your email for confirmation.</p>
         <button
           @click="showSuccessModal = false"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+          class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+          aria-label="Close modal"
         >
           Close
         </button>
@@ -323,203 +196,111 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 // Reactive data
-const activeDonationType = ref('one-time')
-const selectedAmount = ref(null)
+const selectedAmount = ref(25)
 const customAmount = ref('')
-const donationPurpose = ref('')
-const isAnonymous = ref(false)
+const showCustomAmount = ref(false)
+const paymentMethod = ref('text')
 const isProcessing = ref(false)
 const showSuccessModal = ref(false)
-const selectedMonthlyPlan = ref(null)
-
-// Donor information
+const isMonthly = ref(false)
 const donorInfo = ref({
-  name: '',
+  firstName: '',
+  lastName: '',
   email: ''
 })
-
-const monthlyDonorInfo = ref({
-  name: '',
+const formErrors = ref({
+  firstName: '',
+  lastName: '',
   email: ''
 })
+const amountError = ref('')
 
-// Static data
-const donationTypes = [
-  { id: 'one-time', name: 'One-Time' },
-  { id: 'monthly', name: 'Monthly' }
-]
+// Preset amounts
+const presetAmounts = [25, 50, 75, 100, 200]
 
-const presetAmounts = [25, 50, 100, 250]
+// Validation
+const validateAmount = () => {
+  amountError.value = customAmount.value && parseFloat(customAmount.value) <= 0 ? 'Amount must be greater than 0' : ''
+}
 
-const monthlyPlans = [
-  {
-    amount: 25,
-    impact: 'Supporter',
-    description: 'Provides school supplies for 2 children'
-  },
-  {
-    amount: 50,
-    impact: 'Advocate',
-    description: 'Funds a month of meals for 5 children'
-  },
-  {
-    amount: 100,
-    impact: 'Champion',
-    description: 'Supports healthcare for 10 families'
-  }
-]
+const validateForm = () => {
+  formErrors.value.firstName = !donorInfo.value.firstName ? 'First name is required' : ''
+  formErrors.value.lastName = !donorInfo.value.lastName ? 'Last name is required' : ''
+  formErrors.value.email = !donorInfo.value.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorInfo.value.email) ? 'Valid email is required' : ''
+}
 
-const impactStats = [
-  {
-    value: '2,500+',
-    label: 'Children Educated',
-    description: 'Since 1989'
-  },
-  {
-    value: '150+',
-    label: 'Communities Served',
-    description: 'Across Cambodia'
-  },
-  {
-    value: '$2.5M+',
-    label: 'Funds Raised',
-    description: 'For programs'
-  },
-  {
-    value: '35+',
-    label: 'Years of Service',
-    description: 'Making a difference'
-  }
-]
-
-const otherWaysToHelp = [
-  {
-    title: 'Volunteer',
-    description: 'Join our team and contribute your skills and time to make a direct impact.',
-    iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-    link: '/volunteer'
-  },
-  {
-    title: 'Partner with Us',
-    description: 'Explore partnership opportunities to amplify our impact together.',
-    iconPath: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6',
-    link: '/partner'
-  },
-  {
-    title: 'Spread the Word',
-    description: 'Share our mission with your network and help us reach more supporters.',
-    iconPath: 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
-    link: '/about'
-  }
-]
-
-// Computed properties
-const finalAmount = computed(() => {
-  return selectedAmount.value || parseFloat(customAmount.value) || 0
-})
-
-const canDonate = computed(() => {
-  return finalAmount.value > 0 && donorInfo.value.name && donorInfo.value.email
+const isFormValid = computed(() => {
+  return (selectedAmount.value > 0 || (customAmount.value && parseFloat(customAmount.value) > 0)) &&
+         !formErrors.value.firstName && !formErrors.value.lastName && !formErrors.value.email && !amountError.value
 })
 
 // Methods
-const scrollToSection = (sectionId) => {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' })
-  }
-}
-
 const processDonation = async () => {
-  if (!canDonate.value) return
-  
+  if (!isFormValid.value) {
+    validateForm()
+    return
+  }
+
   isProcessing.value = true
-  
   try {
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Here you would integrate with your payment processor
-    // (Stripe, PayPal, etc.)
-    
     showSuccessModal.value = true
-    
     // Reset form
-    selectedAmount.value = null
+    selectedAmount.value = 25
     customAmount.value = ''
-    donationPurpose.value = ''
-    donorInfo.value = { name: '', email: '' }
-    isAnonymous.value = false
-    
+    showCustomAmount.value = false
+    isMonthly.value = false
+    donorInfo.value = { firstName: '', lastName: '', email: '' }
+    formErrors.value = { firstName: '', lastName: '', email: '' }
+    amountError.value = ''
   } catch (error) {
-    console.error('Donation processing error:', error)
-    // Handle error (show error message)
+    console.error('Donation error:', error)
   } finally {
     isProcessing.value = false
   }
 }
 
-const processMonthlyDonation = async () => {
-  if (!selectedMonthlyPlan.value || !monthlyDonorInfo.value.name || !monthlyDonorInfo.value.email) return
-  
-  try {
-    // Simulate API call for monthly donation setup
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    showSuccessModal.value = true
-    
-    // Reset form
-    selectedMonthlyPlan.value = null
-    monthlyDonorInfo.value = { name: '', email: '' }
-    
-  } catch (error) {
-    console.error('Monthly donation setup error:', error)
-  }
-}
+// Watch for form changes
+watch(() => donorInfo.value, validateForm, { deep: true })
+watch(() => customAmount.value, validateAmount)
 </script>
 
 <style scoped>
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Custom transitions */
+.transition-all {
+  transition: all 0.3s ease-in-out;
 }
 
-.animate-fade-in {
-  animation: fade-in 1s ease-out;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom focus styles */
+/* Focus styles */
 input:focus,
 select:focus,
 button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.3);
 }
 
-/* Hover animations */
-.transform {
-  transition: transform 0.2s ease-in-out;
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .lg\\:flex-row {
+    flex-direction: column;
+  }
+  .lg\\:w-2\/3, .lg\\:w-1\/3 {
+    width: 100%;
+  }
+  .lg\\:mr-6 {
+    margin-right: 0;
+  }
 }
 
-.hover\:scale-105:hover {
-  transform: scale(1.05);
-}
-
-.hover\:-translate-y-2:hover {
-  transform: translateY(-0.5rem);
+@media (max-width: 640px) {
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+  .text-2xl {
+    font-size: 1.25rem;
+  }
 }
 </style>

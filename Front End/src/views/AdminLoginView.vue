@@ -189,7 +189,7 @@ const handleLogin = async () => {
     loginSuccess.value = res.data.message || 'Login successful! Redirecting...'
 
     setTimeout(() => {
-      router.push('/home')
+      router.push('/admin/dashboard')
     }, 1000)
   } catch (error) {
     if (error.response && error.response.status === 401) {
