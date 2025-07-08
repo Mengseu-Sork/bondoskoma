@@ -9,7 +9,12 @@ class JobAnnouncementController extends Controller
 {
     public function index()
     {
-        return JobAnnouncement::all();
+        $jobs = JobAnnouncement::all();
+        foreach ($jobs as $job) {
+            $job->responsibilities = json_decode($job->responsibilities);
+            $job->qualifications = json_decode($job->qualifications);
+        }
+        return $jobs;
     }
 
     public function store(Request $request)
@@ -25,7 +30,11 @@ class JobAnnouncementController extends Controller
         ]);
 
         return JobAnnouncement::create([
-            ...$validated,
+            'title' => $validated['title'],
+            'posted_date' => $validated['posted_date'],
+            'location' => $validated['location'],
+            'type' => $validated['type'],
+            'department' => $validated['department'],
             'responsibilities' => json_encode($validated['responsibilities']),
             'qualifications' => json_encode($validated['qualifications']),
         ]);
@@ -33,8 +42,11 @@ class JobAnnouncementController extends Controller
 
     public function show(JobAnnouncement $job)
     {
+        $job->responsibilities = json_decode($job->responsibilities);
+        $job->qualifications = json_decode($job->qualifications);
         return $job;
     }
+
 
     public function update(Request $request, JobAnnouncement $job)
     {

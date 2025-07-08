@@ -35,7 +35,7 @@
             >
               {{ header.label }}
             </th>
-            <th class="px-5 py-3 text-right text-sm font-semibold text-gray-700 uppercase tracking-wide">Download</th>
+            <th class="px-5 py-3 text-sm font-semibold text-gray-700 uppercase tracking-wide">Download</th>
           </tr>
         </thead>
 
@@ -67,7 +67,8 @@
             <td class="px-5 py-4 text-gray-700 whitespace-nowrap">{{ applicant.phone }}</td>
 
             <!-- Actions -->
-            <td class="px-5 py-4 ml-8 flex justify-center whitespace-nowrap">
+            <td class="px-5 py-4 mt-2 flex justify-center items-center whitespace-nowrap">
+              <div class="flex items-center gap-4">
                 <a
                   :href="applicant.cvUrl"
                   rel="noopener noreferrer"
@@ -84,6 +85,21 @@
                     />
                   </svg>
                 </a>
+                <button
+                  @click="Delete(applicant)"
+                  class=" text-red-600 rounded-md transition"
+                  title="Delete"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6"
+                    />
+                  </svg>
+                </button>
+              </div>
             </td>
           </tr>
 
@@ -131,7 +147,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { getApplies } from '@/api/applies'
+import { getApplies, deleteApply } from '@/api/applies'
 
 // State
 const applicants = ref([])
@@ -155,7 +171,8 @@ onMounted(async () => {
       email: applicant.email,
       phone: applicant.phone,
       position: applicant.job_announcement?.title || 'Unknown',
-      cvUrl: `/storage/${applicant.cv_path || 'default_cv.pdf'}`,
+      cvUrl: applicant.cv_url,
+      id: applicant.id,
     }))
   } catch (error) {
     console.error('Failed to load applicants:', error)
@@ -195,8 +212,17 @@ function getInitials(name) {
     .toUpperCase()
 }
 
-// Placeholder for viewing applicant detail
-function viewDetails(applicant) {
-  alert(`Viewing details for: ${applicant.fullName}`)
+// Delete applicant
+async function Delete(applicant) {
+  if (confirm(`Are you sure you want to delete ${applicant.fullName}'s application?`)) {
+    try {
+      await deleteApply(applicant.id)
+      applicants.value = applicants.value.filter(a => a.id !== applicant.id)
+      alert('Application deleted successfully.')
+    } catch (error) {
+      console.error('Failed to delete application:', error)
+      alert('Failed to delete application. Please try again later.')
+    }
+  }
 }
 </script>

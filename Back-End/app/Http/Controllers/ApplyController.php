@@ -46,12 +46,13 @@ class ApplyController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'cv_file' => $originalFilename,
-            'cv_path' => $path,
+            'cv_path' => $path
         ]);
 
         return response()->json([
             'message' => 'Application created',
             'application' => $application,
+            'cv_url' => asset('storage/' . $path),
         ], 201);
     }
 

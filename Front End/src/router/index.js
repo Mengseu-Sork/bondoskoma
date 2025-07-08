@@ -100,6 +100,11 @@ const router = createRouter({
       name: 'admin-settings',
       component: () => import('../views/AdminSettingView.vue'),
     },
+    {
+      path: '/admin/jobsUsers',
+      name: 'admin-jobsUsers',
+      component: () => import('../views/AdminJobView.vue'),
+    },
   ],
 })
 // router.beforeEach((to, from, next) => {
