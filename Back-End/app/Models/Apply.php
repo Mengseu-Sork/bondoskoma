@@ -16,6 +16,7 @@ class Apply extends Model
         'email',
         'phone',
         'cv_file',
+        'cv_path',
     ];
     protected $casts = [
         'created_at' => 'datetime',
@@ -24,6 +25,19 @@ class Apply extends Model
 
     public function jobAnnouncement()
     {
-        return $this->belongsTo(JobAnnouncement::class);
+        return $this->belongsTo(JobAnnouncement::class, 'job_announcements_id');
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        $date = date('d-m-Y', strtotime($value));
+        $day = date('l', strtotime($value));
+        return $day . ', ' . $date;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $date = date('F d, Y', strtotime($value));
+        $day = date('l', strtotime($value));
+        return $day . ', ' . $date;
     }
 }

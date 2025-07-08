@@ -10,14 +10,14 @@ class ApplyController extends Controller
     // GET /applies
     public function index()
     {
-        $applications = Apply::with('job_announcement')->get();
+        $applications = Apply::with('jobAnnouncement')->get();
         return response()->json($applications);
     }
 
     // GET /applies/{id}
     public function show($id)
     {
-        $application = Apply::with('job_announcement')->find($id);
+        $application = Apply::with('jobAnnouncement')->findOrFail($id);
         if (!$application) {
             return response()->json(['message' => 'Application not found'], 404);
         }
@@ -36,7 +36,7 @@ class ApplyController extends Controller
         ]);
 
         // Store the file
-        $request->file('cv')->store('cvs', 'public');
+        $path = $request->file('cv')->store('cvs', 'public');
         $originalFilename = $request->file('cv')->getClientOriginalName();
 
         // Save record
@@ -46,6 +46,7 @@ class ApplyController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'cv_file' => $originalFilename,
+            'cv_path' => $path,
         ]);
 
         return response()->json([
@@ -65,5 +66,6 @@ class ApplyController extends Controller
 
         return response()->json(['message' => 'Application deleted']);
     }
+
 }
 

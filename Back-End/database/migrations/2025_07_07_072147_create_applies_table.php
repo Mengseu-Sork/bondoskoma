@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('cv_file');
+            $table->string('cv_path')->nullable();
             $table->foreignId('job_announcements_id')->constrained('job_announcements')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
