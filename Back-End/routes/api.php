@@ -41,6 +41,10 @@ Route::apiResource( 'job' , JobAnnouncementController::class);
 Route::get('/admin', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
+Route::put('/admin/{id}', [AuthController::class, 'update']);
+Route::post('/admin/verify', [AuthController::class, 'verifyCredentials']);
+
+
 // use App\Http\Controllers\NotificationController;
 // Route::middleware('auth:sanctum')->get('/admin', [AuthController::class, 'index']);
 Route::apiResource( 'jobs' , JobAnnouncementController::class);
