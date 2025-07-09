@@ -27,9 +27,7 @@
               </div>
             </div>
           </div>
-          <div v-if="programs.length > 0" class="text-center mt-12">
-            <button @click="loadMorePrograms" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-md hover:shadow-lg">LOAD MORE PROGRAMS</button>
-          </div>
+       
         </div>
       </section>
 

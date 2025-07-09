@@ -17,9 +17,10 @@
           </div>
           <div class="relative">
             <img
-              src="https://www.bandoskomar.org/wp-content/uploads/2017/10/sub-banner.jpg"
-              alt="Happy children in classroom"
+              :src="imageUrl(homeData?.image)"
+              alt="Welcome Section Image"
               class="rounded-3xl shadow-2xl w-full h-96 object-cover border-4 border-blue-100"
+              @error="onImageError"
             />
           </div>
         </div>
@@ -115,6 +116,7 @@ import apiInstance from '@/plugin/axios';
 const mockHomeData = {
   paragraph1: 'Welcome to our association dedicated to empowering children through education and support.',
   paragraph2: 'We strive to create a nurturing environment for all our students.',
+  image: 'programs/welcome-image.jpg', // Mock image path
 };
 
 const mockLifeSkills = [
@@ -134,6 +136,18 @@ const instagramPosts = ref([
   { image: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/Library.jpg' },
   { image: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/agri-farm1-__.jpg' },
 ]);
+
+// Construct full image URL
+const imageUrl = (imagePath) => {
+  const baseUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  return imagePath ? `${baseUrl}/storage/${imagePath}` : 'https://via.placeholder.com/150';
+};
+
+// Image error handler
+const onImageError = (event) => {
+  console.error('Image failed to load:', event.target.src);
+  event.target.src = 'https://via.placeholder.com/150'; // Fallback image
+};
 
 onMounted(async () => {
   // Fetch Home Data
