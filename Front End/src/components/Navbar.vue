@@ -219,7 +219,6 @@ const translations = {
     history: 'History',
     about: 'About Us',
     program: 'Our Program',
-    hr: 'HR',
     info: 'Info & Resources',
     involved: 'Get Involved',
     gallery: 'Gallery',
@@ -239,7 +238,6 @@ const translations = {
     history: 'ប្រវត្តិ',
     about: 'អំពីពួកយើង',
     program: 'កម្មវិធីរបស់យើង',
-    hr: 'ធនធានមនុស្ស',
     info: 'ព័ត៌មាន និងធនធាន',
     involved: 'ចូលរួម',
     gallery: 'វិចិត្រសាល',
@@ -275,7 +273,6 @@ const navItems = [
   { name: 'history', path: '/history' },
   { name: 'about', path: '/about' },
   { name: 'program', path: '/our-program' },
-  { name: 'hr', path: '/hr' }
 ]
 
 const dropdowns = [
