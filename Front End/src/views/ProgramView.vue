@@ -7,9 +7,13 @@
       <!-- Country Goal Section -->
       <section class="py-20 bg-gradient-to-br from-slate-50 to-white">
         <div class="max-w-7xl mx-auto px-6 md:px-10">
-          <div
-            class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200"
-          >
+          <div>
+                    <div class="text-center mb-20">
+          <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Country Goal</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            children and youths enjoy full potential of their rights in living with dignity to become human capital for sustainable development of the society.
+          </p>
+        </div>
             <div class="md:grid md:grid-cols-2">
               <!-- Left Side: Image -->
               <div class="h-64 md:h-full">
@@ -26,7 +30,7 @@
                   <h2
                     class="text-4xl font-extrabold text-slate-800 text-center md:text-left"
                   >
-                    Our Country Goal
+                    Bandos Komar
                   </h2>
                 </div>
 
@@ -57,46 +61,108 @@
             </div>
           </div>
         </div>
-    </section>
+      </section>
 
       <!-- Programs Section -->
-      <section class="py-16 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-8">
-          <h2
-            class="text-4xl font-bold text-center mb-16 text-gray-800 tracking-wide"
-          >
-            OUR PROGRAMS FOR CHILDREN
-          </h2>
+      <section
+        class="py-20 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden"
+      >
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+          <div
+            class="absolute inset-0"
+            style="
+              background-image: radial-gradient(
+                circle at 2px 2px,
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 0
+              );
+              background-size: 30px 30px;
+            "
+          ></div>
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div class="max-w-7xl mx-auto px-8 relative">
+          <!-- Enhanced Header -->
+          <div class="text-center mb-20">
+            <h2
+              class="text-3xl md:text-4xl font-bold mb-6 text-gray-800 tracking-wide"
+            >
+              OUR PROGRAMS FOR CHILDREN
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-orange-400 to-blue-500 mx-auto rounded-full mb-6"
+            ></div>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Empowering children and families through comprehensive support
+              programs designed to create lasting positive change in communities
+              across Cambodia.
+            </p>
+          </div>
+
+          <!-- Enhanced Program Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
             <!-- Help to Mothers Card -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="relative">
+            <div
+              class="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+            >
+              <div class="relative overflow-hidden">
                 <img
                   src="https://thislife.ngo/wp-content/uploads/2020/06/Website-banner-d38.jpg"
                   alt="Help to Mothers Program"
-                  class="w-full h-64 object-cover"
+                  class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                <!-- Gradient Overlay -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+                ></div>
+
                 <button
-                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   DONATE NOW
                 </button>
+
+                <!-- Program Badge -->
+                <div
+                  class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full"
+                >
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Maternal Care</span
+                  >
+                </div>
               </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">
+
+              <div class="p-8">
+                <h3
+                  class="text-xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300"
+                >
                   HELP TO MOTHERS
                 </h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">
+                <p class="text-gray-600 mb-6 leading-relaxed text-sm">
                   We support mothers by providing access to essential services
                   such as maternal healthcare, nutrition, early childhood
-                  education, and parenting training. we invest in the health and
+                  education, and parenting training. We invest in the health and
                   future of the next generation.
                 </p>
 
+                <!-- Stats -->
+                <div
+                  class="flex justify-between items-center mb-6 p-3 bg-gray-50 rounded-lg"
+                >
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-blue-600">500+</div>
+                    <div class="text-xs text-gray-500">Mothers Helped</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-green-600">15</div>
+                    <div class="text-xs text-gray-500">Communities</div>
+                  </div>
+                </div>
+
                 <button
                   @click="openModal('help-mothers')"
-                  class="bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded font-semibold transition-colors"
+                  class="w-full bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   VIEW DETAILS
                 </button>
@@ -104,33 +170,66 @@
             </div>
 
             <!-- Child Support Card -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="relative">
+            <div
+              class="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+            >
+              <div class="relative overflow-hidden">
                 <img
                   src="https://cambojanews.com/wp-content/uploads/2024/10/2024-10-21-19.06.28.jpg"
                   alt="Child Support Program"
-                  class="w-full h-64 object-cover"
+                  class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                <!-- Gradient Overlay -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+                ></div>
+
                 <button
-                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   DONATE NOW
                 </button>
+
+                <!-- Program Badge -->
+                <div
+                  class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full"
+                >
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Child Welfare</span
+                  >
+                </div>
               </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">
+
+              <div class="p-8">
+                <h3
+                  class="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-600 transition-colors duration-300"
+                >
                   CHILD SUPPORT
                 </h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">
+                <p class="text-gray-600 mb-6 leading-relaxed text-sm">
                   We are committed to ensuring that every child has the
                   opportunity to grow up in a safe, healthy, and supportive
                   environment. Our child support programs provide access to
-                  education, healthcare, nutrition, emotional care.
+                  education, healthcare, nutrition, and emotional care.
                 </p>
+
+                <!-- Stats -->
+                <div
+                  class="flex justify-between items-center mb-6 p-3 bg-gray-50 rounded-lg"
+                >
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-green-600">1,200+</div>
+                    <div class="text-xs text-gray-500">Children Supported</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-purple-600">25</div>
+                    <div class="text-xs text-gray-500">Programs</div>
+                  </div>
+                </div>
 
                 <button
                   @click="openModal('child-support')"
-                  class="bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded font-semibold transition-colors"
+                  class="w-full bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   VIEW DETAILS
                 </button>
@@ -138,45 +237,71 @@
             </div>
 
             <!-- New School Card -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="relative">
+            <div
+              class="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+            >
+              <div class="relative overflow-hidden">
                 <img
                   src="https://cdn.businessday.ng/2020/03/UN0149769_4.jpg"
                   alt="New School Program"
-                  class="w-full h-64 object-cover"
+                  class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                <!-- Gradient Overlay -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+                ></div>
+
                 <button
-                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  class="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   DONATE NOW
                 </button>
+
+                <!-- Program Badge -->
+                <div
+                  class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full"
+                >
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Education</span
+                  >
+                </div>
               </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">NEW SCHOOL</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">
+
+              <div class="p-8">
+                <h3
+                  class="text-xl font-bold text-gray-800 mb-4 group-hover:text-purple-600 transition-colors duration-300"
+                >
+                  NEW SCHOOL
+                </h3>
+                <p class="text-gray-600 mb-6 leading-relaxed text-sm">
                   Our new school initiative aims to expand access to quality
                   education for children in underserved communities. With safe
                   classrooms, trained teachers, and inclusive learning
                   materials, we provide a nurturing environment.
                 </p>
 
+                <!-- Stats -->
+                <div
+                  class="flex justify-between items-center mb-6 p-3 bg-gray-50 rounded-lg"
+                >
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-purple-600">8</div>
+                    <div class="text-xs text-gray-500">New Schools</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold text-orange-600">800+</div>
+                    <div class="text-xs text-gray-500">Students</div>
+                  </div>
+                </div>
+
                 <button
                   @click="openModal('new-school')"
-                  class="bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded font-semibold transition-colors"
+                  class="w-full bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   VIEW DETAILS
                 </button>
               </div>
             </div>
-          </div>
-
-          <!-- More Programs Button -->
-          <div class="text-center">
-            <button
-              class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors"
-            >
-              MORE PROGRAMS
-            </button>
           </div>
         </div>
       </section>
@@ -454,42 +579,47 @@
       </section>
 
       <!-- Impact Section -->
-<section class="py-16 bg-white text-slate-800">
-  <div class="max-w-6xl mx-auto px-8">
-    <h2 class="text-4xl font-bold text-center mb-12 text-slate-800">
-      Expected Impact
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
-        <div class="text-5xl font-bold mb-4 text-indigo-600">2019</div>
-        <h4 class="text-xl font-semibold mb-4">Target Year</h4>
-        <p class="leading-relaxed text-slate-600">
-          Full implementation of all programs by 2019
-        </p>
-      </div>
+      <section class="py-16 bg-white text-slate-800">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-bold text-center mb-12 text-slate-800">
+            Expected Impact
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div
+              class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200"
+            >
+              <div class="text-5xl font-bold mb-4 text-indigo-600">2019</div>
+              <h4 class="text-xl font-semibold mb-4">Target Year</h4>
+              <p class="leading-relaxed text-slate-600">
+                Full implementation of all programs by 2019
+              </p>
+            </div>
 
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
-        <div class="text-5xl font-bold mb-4 text-indigo-600">6</div>
-        <h4 class="text-xl font-semibold mb-4">Age Focus</h4>
-        <p class="leading-relaxed text-slate-600">
-          Children below 6 years old in target areas
-        </p>
-      </div>
+            <!-- Card 2 -->
+            <div
+              class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200"
+            >
+              <div class="text-5xl font-bold mb-4 text-indigo-600">6</div>
+              <h4 class="text-xl font-semibold mb-4">Age Focus</h4>
+              <p class="leading-relaxed text-slate-600">
+                Children below 6 years old in target areas
+              </p>
+            </div>
 
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200">
-        <div class="text-5xl font-bold mb-4 text-indigo-600">100%</div>
-        <h4 class="text-xl font-semibold mb-4">Coverage Goal</h4>
-        <p class="leading-relaxed text-slate-600">
-          Full potential and opportunity for all children
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
+            <!-- Card 3 -->
+            <div
+              class="bg-white rounded-2xl p-8 text-center shadow-md border border-slate-200"
+            >
+              <div class="text-5xl font-bold mb-4 text-indigo-600">100%</div>
+              <h4 class="text-xl font-semibold mb-4">Coverage Goal</h4>
+              <p class="leading-relaxed text-slate-600">
+                Full potential and opportunity for all children
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Program Details Modal -->
