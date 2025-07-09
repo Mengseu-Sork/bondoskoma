@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('volunteers', function (Blueprint $table) {
             $table->id();
-            $table->text('paragraph1')->nullable();
-            $table->text('paragraph2')->nullable();
-            // add image
+            $table->string('name');
+            $table->string('role');
+            $table->text('bio')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
-        });
-    }
+            });
+        }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('homes');
+        Schema::dropIfExists('volunteers');
     }
 };

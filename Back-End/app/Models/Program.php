@@ -5,22 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class Home extends Model
+class Program extends Model
 {
     protected $fillable = [
-        'paragraph1',
-        'paragraph2',
+        'title',
+        'description',
         'image',
     ];
-     protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
 
+    // Automatically append this attribute when returning JSON
     protected $appends = ['image_url'];
 
+    /**
+     * Accessor to get the full image URL
+     */
     public function getImageUrlAttribute()
     {
+        // Return full image URL or null if not set
         return $this->image ? Storage::url($this->image) : null;
     }
 }

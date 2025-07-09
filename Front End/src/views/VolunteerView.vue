@@ -1,6 +1,6 @@
 <template>
  <h1 class="text-2xl font-bold text-center">Our Volunteer</h1>
-  <div class="flex flex-wrap justify-center gap-6 pt-16">
+  <div class="flex flex-wrap p-8 gap-6 pt-16">
     <div
       v-for="(person, index) in profiles"
       :key="index"
@@ -9,7 +9,7 @@
       <!-- Profile Image -->
       <div class="absolute -top-12 left-1/2 transform -translate-x-1/2">
         <img
-          :src="person.image"
+          :src="person.image_url"
           alt="Profile"
           class="w-24 h-24 object-cover rounded-full border-4 border-white shadow-md"
         />
@@ -24,7 +24,7 @@
       <!-- Description Box with fixed height -->
       <div class="h-[72px] mt-3 overflow-hidden">
         <p class="text-gray-500 text-sm line-clamp-3">
-          {{ person.description }}
+          {{ person.bio }}
         </p>
       </div>
 
@@ -51,76 +51,32 @@
 
         <div class="text-center">
           <img
-            :src="selectedProfile.image"
+            :src="selectedProfile.image_url"
             alt="Profile"
             class="w-24 h-24 object-cover rounded-full border-4 border-white mx-auto shadow"
           />
           <h3 class="text-xl font-bold mt-4">{{ selectedProfile.name }}</h3>
           <p class="text-gray-500 text-sm">{{ selectedProfile.role }}</p>
-          <p class="text-gray-600 mt-4 text-sm">{{ selectedProfile.description }}</p>
+          <p class="text-gray-600 mt-4 text-sm">{{ selectedProfile.bio }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "ProfileCardList",
-  data() {
-    return {
-      profiles: [
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, stays on budget, and exceeds expectations. Passionate about teamwork and innovation.",
-        },
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, stays on budget, and exceeds expectations. Passionate about teamwork and innovation.",
-        },
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, stays on budget, and exceeds expectations. Passionate about teamwork and innovation.",
-        },
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, stays on budget, and exceeds expectations. Passionate about teamwork and innovation.",
-        },
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, stays on budget, and exceeds expectations. Passionate about teamwork and innovation.",
-        },
-        {
-          image: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", // Replace with actual image/base64
-          name: "Samoun Suon",
-          role: "Project Leader",
-          description:
-            "A detail-oriented leader who ensures every project meets deadlines, ",
-        },
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getVolunteers } from '@/api/volunteer'
 
-      ],
-      selectedProfile: null, 
-    };
-  },
-  methods: {
-    openModal(profile) {
-      this.selectedProfile = profile;
-    },
-  },
-};
+const profiles = ref([])
+const selectedProfile = ref(null)
+
+const openModal = (person) => {
+  selectedProfile.value = person
+}
+
+// Fetch volunteers from API
+onMounted(async () => {
+  profiles.value = await getVolunteers()
+})
 </script>

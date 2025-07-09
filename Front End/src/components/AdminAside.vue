@@ -82,7 +82,7 @@
 
           <!-- Users -->
           <router-link
-            to="/admin/users"
+            to="/admin/home"
             :class="[
               'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
               $route.path === '/admin/users' 
@@ -94,7 +94,49 @@
               :class="[
                 'flex-shrink-0 transition-colors duration-200',
                 isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
-                $route.path === '/admin/users' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+                $route.path === '/admin/home' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            > 
+            <!-- icon hoem -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM9 22V12h6v10" />
+              
+
+            </svg>
+            
+            <span v-if="!isCollapsed" class="truncate">Home</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Home
+            </div>
+          </router-link>
+          
+
+
+
+
+
+          
+
+ <router-link
+            to="/admin/photo"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/photo' 
+                ? 'bg-green-50 text-green-700 border-r-4 border-green-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg 
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/photo' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
               ]" 
               fill="none" 
               stroke="currentColor" 
@@ -103,16 +145,204 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
             </svg>
             
-            <span v-if="!isCollapsed" class="truncate">Users</span>
+            <span v-if="!isCollapsed" class="truncate">photo</span>
 
             <div 
               v-if="isCollapsed"
               class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
             >
-              Users
+              photo
             </div>
           </router-link>
 
+
+
+
+
+
+
+
+          
+
+ <router-link
+            to="/admin/reports"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/reports' 
+                ? 'bg-green-50 text-green-700 border-r-4 border-green-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg 
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/reports' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+            </svg>
+            
+            <span v-if="!isCollapsed" class="truncate">reports</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              reports
+            </div>
+          </router-link>
+
+<!-- Video -->
+          <router-link
+            to="/admin/videoUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/videoUsers' 
+                ? 'bg-red-50 text-red-700 border-r-4 border-red-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            ▶️
+            <span v-if="!isCollapsed" class="truncate ml-3">Video</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Video
+            </div>
+          </router-link>
+
+          <!-- Volunteer -->
+          <router-link
+            to="/admin/VolunteesUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/VolunteesUsers' 
+                ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m6-4a4 4 0 11-8 0 4 4 0 018 0zm6 4a4 4 0 10-8 0 4 4 0 008 0z"
+              />
+            </svg>
+            <span v-if="!isCollapsed" class="truncate ml-3">Voluntees</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Voluntees
+            </div>
+          </router-link>
+
+          <!-- Volunteer -->
+          <router-link
+            to="/admin/hr"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/hr' 
+                ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m6-4a4 4 0 11-8 0 4 4 0 018 0zm6 4a4 4 0 10-8 0 4 4 0 008 0z"
+              />
+            </svg>
+            <span v-if="!isCollapsed" class="truncate ml-3">HR</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              HR
+            </div>
+          </router-link>
+
+
+
+
+
+
+
+
+
+
+          <!-- Jobs -->
+          <router-link
+            to="/admin/jobsUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/jobsUsers' 
+                ? 'bg-green-50 text-green-700 border-r-4 border-green-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg 
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/jobsUsers' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            > 
+            <!-- icon job -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0v4m0-4h4m-4 0H8m6-6a2 2 0 11-4 0 2 2 0 014 0zM5.5 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm16-1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+
+            </svg>
+            
+            <span v-if="!isCollapsed" class="truncate">Jobs</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Jobs
+            </div>
+          </router-link>
+          <router-link
+            to="/admin/programs"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/programs' 
+                ? 'bg-green-50 text-green-700 border-r-4 border-green-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg 
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/programs' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            > 
+           <!-- icon program -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0v4m0-4h4m-4 0H8m6-6a2 2 0 11-4 0 2 2 0 014 0zM5.5 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm16-1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+            </svg>
+            
+            <span v-if="!isCollapsed" class="truncate">Programs</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Programs
+            </div>
+          </router-link>
+          
           <!-- Settings -->
           <router-link
             to="/admin/settings"
@@ -305,16 +535,18 @@
                 <!-- Menu items -->
                 <div class="py-2">
                   <!-- Profile -->
-                  <button
-                    @click="goToProfile"
+                 <router-link
+                    to="/admin/profile-edit"
+                    @click="showUserMenu = false"
                     class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                   >
                     <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Profile Settings
-                  </button>
+                    Profile Edit
+                  </router-link>
 
+                  
                   <!-- Settings -->
                   <router-link
                     to="/admin/settings"
@@ -425,7 +657,7 @@ const userInitials = computed(() => {
 const currentPageTitle = computed(() => {
   const routeMap = {
     '/admin/dashboard': 'Dashboard',
-    '/admin/users': 'Users',
+    '/admin/home': 'Home',
     '/admin/settings': 'Settings'
   }
   return routeMap[route.path] || 'Admin'
