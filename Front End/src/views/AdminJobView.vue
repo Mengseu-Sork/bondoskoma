@@ -1,6 +1,6 @@
 <template>
   <AdminLayout>
-    <div class="h-full">
+    <div class="h-full bg-white">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl px-8 py-6 font-bold text-gray-800">Job Management</h2>
         <button @click="openCreateForm" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 mr-6 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2">
@@ -31,7 +31,7 @@
       <table class="min-w-full bg-white border rounded-lg">
         <thead class="bg-gray-100">
           <tr>
-            <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-8 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <input 
                     type="checkbox" 
                     v-model="selectAll"
@@ -49,7 +49,7 @@
         </thead>
         <tbody>
           <tr v-for="job in filteredJobs" :key="job.id" class="border-t hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-8 py-4 whitespace-nowrap">
                   <input 
                     type="checkbox" 
                     :value="job.id"

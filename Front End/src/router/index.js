@@ -31,11 +31,6 @@ const router = createRouter({
       component: () => import('../views/HistoryView.vue'),
     },
     {
-      path: '/hr',
-      name: 'hr',
-      component: () => import('../views/HrView.vue'),
-    },
-    {
       path: '/kid-art',
       name: 'kid-art',
       component: () => import('../views/KidArtView.vue'),
@@ -90,11 +85,7 @@ const router = createRouter({
       name: 'admin-dashboard',
       component: () => import('../views/AdminDashboardView.vue'),
     },
-    {
-      path: '/admin/users',
-      name: 'admin-users',
-      component: () => import('../views/AdminUserView.vue'),
-    },
+   
     {
       path: '/admin/settings',
       name: 'admin-settings',
@@ -120,6 +111,26 @@ const router = createRouter({
       path: '/admin/reports',
       name: 'admin-reports',
       component: () => import('../views/ReportAdminView.vue'),
+    },
+    {
+      path: '/admin/programs',
+      name: 'admin-programs',
+      component: () => import('../views/AdminProgramView.vue'),
+    },
+    {
+      path: '/admin/videoUsers',
+      name: 'admin-videoUsers',
+      component: () => import('../views/AdminVideoView.vue'),
+    },
+    {
+      path: '/admin/VolunteesUsers',
+      name: 'admin-VolunteesUsers',
+      component: () => import('../views/AdminVolunteeView.vue'),
+    },
+    {
+      path: '/admin/hr',
+      name: 'admin-hr',
+      component: () => import('../views/HrView.vue'),
     },
   ],
 })
