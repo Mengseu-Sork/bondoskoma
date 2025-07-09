@@ -13,6 +13,7 @@ use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\LifeSkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource( 'homes' , HomeController::class);
+Route::apiResource( 'lifeskills' , LifeSkillController::class);
 Route::apiResource( 'images' , ImageController::class);
 Route::apiResource( 'videos' , VideoController::class);
 Route::apiResource( 'partner' , PartnersController::class);
