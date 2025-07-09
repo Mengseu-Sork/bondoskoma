@@ -90,11 +90,7 @@ const router = createRouter({
       name: 'admin-dashboard',
       component: () => import('../views/AdminDashboardView.vue'),
     },
-    {
-      path: '/admin/users',
-      name: 'admin-users',
-      component: () => import('../views/AdminUserView.vue'),
-    },
+   
     {
       path: '/admin/settings',
       name: 'admin-settings',
@@ -109,6 +105,11 @@ const router = createRouter({
       path: '/admin/jobsUsers',
       name: 'admin-jobsUsers',
       component: () => import('../views/AdminJobView.vue'),
+    },
+    {
+      path: '/admin/programs',
+      name: 'admin-programs',
+      component: () => import('../views/AdminProgramView.vue'),
     },
   ],
 })

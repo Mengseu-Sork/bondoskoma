@@ -10,10 +10,10 @@
             </h2>
             <div v-if="loading" class="text-blue-500 text-lg">Loading...</div>
             <div v-else-if="homeData" class="space-y-5 text-gray-700 leading-relaxed text-lg">
-              <p>{{ homeData.paragraph1 }}</p>
-              <p>{{ homeData.paragraph2 }}</p>
+              <p>{{ homeData.paragraph1 || 'No paragraph 1 available' }}</p>
+              <p>{{ homeData.paragraph2 || 'No paragraph 2 available' }}</p>
             </div>
-            <div v-else class="text-red-600 text-lg">No data found.</div>
+            <div v-else class="text-red-600 text-lg">No data found. Check API or configuration.</div>
           </div>
           <div class="relative">
             <img
@@ -39,11 +39,11 @@
             <div v-else-if="lifeSkills.length > 0" class="space-y-6">
               <ul class="list-disc pl-6 space-y-3 text-gray-700">
                 <li v-for="(skill, index) in lifeSkills" :key="skill.id" class="text-xl">
-                  <span class="font-bold text-blue-700 text-2xl">{{ skill.title }}:</span>{{ skill.description }}
+                  <span class="font-bold text-blue-700 text-2xl">{{ skill.title || 'Untitled' }}:</span> {{ skill.description || 'No description' }}
                 </li>
               </ul>
             </div>
-            <div v-else class="text-red-600 text-lg">No life skills found.</div>
+            <div v-else class="text-red-600 text-lg">No life skills found. Check API or configuration.</div>
           </div>
           <div class="flex flex-col gap-6">
             <img
@@ -111,6 +111,17 @@
 import { ref, onMounted } from 'vue';
 import apiInstance from '@/plugin/axios';
 
+// Mock data for testing (remove after API is fixed)
+const mockHomeData = {
+  paragraph1: 'Welcome to our association dedicated to empowering children through education and support.',
+  paragraph2: 'We strive to create a nurturing environment for all our students.',
+};
+
+const mockLifeSkills = [
+  { id: 1, title: 'Communication', description: 'Learn to express ideas clearly.' },
+  { id: 2, title: 'Teamwork', description: 'Work effectively with others.' },
+];
+
 const homeData = ref(null);
 const loading = ref(true);
 const lifeSkills = ref([]);
@@ -128,19 +139,22 @@ onMounted(async () => {
   // Fetch Home Data
   try {
     console.log("Starting API request to /homes...");
-    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL || 'No VITE_API_URL set');
     const response = await apiInstance.get('/homes', {
       timeout: 10000,
     });
     console.log("✅ Home response:", response);
     console.log("✅ Home response data:", response.data);
-    const items = response.data.data;
-    console.log("Home items:", items);
-    if (items && Array.isArray(items) && items.length > 0) {
-      homeData.value = items[0];
+
+    // Handle different data structures
+    const data = response.data.data || response.data;
+    if (data && (Array.isArray(data) ? data.length > 0 : data)) {
+      homeData.value = Array.isArray(data) ? data[0] : data;
       console.log("✅ Assigned homeData:", homeData.value);
     } else {
-      console.warn("⚠️ No home items found or invalid data structure:", items);
+      console.warn("⚠️ No home data found or invalid structure:", data);
+      // Fallback to mock data if API fails
+      homeData.value = mockHomeData;
     }
   } catch (error) {
     console.error("❌ Error fetching home data:", {
@@ -149,6 +163,8 @@ onMounted(async () => {
       data: error.response?.data,
       url: error.config?.url,
     });
+    // Fallback to mock data on error
+    homeData.value = mockHomeData;
   } finally {
     console.log("Home loading complete, setting loading to false");
     loading.value = false;
@@ -157,19 +173,22 @@ onMounted(async () => {
   // Fetch Life Skills Data
   try {
     console.log("Starting API request to /lifeskills...");
-    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL || 'No VITE_API_URL set');
     const response = await apiInstance.get('/lifeskills', {
       timeout: 10000,
     });
     console.log("✅ LifeSkills response:", response);
     console.log("✅ LifeSkills response data:", response.data);
-    const lifeSkillsData = response.data.data;
-    console.log("LifeSkills items:", lifeSkillsData);
-    if (lifeSkillsData && Array.isArray(lifeSkillsData)) {
-      lifeSkills.value = lifeSkillsData;
+
+    // Handle different data structures
+    const data = response.data.data || response.data;
+    if (data && Array.isArray(data)) {
+      lifeSkills.value = data;
       console.log("✅ Assigned lifeSkills:", lifeSkills.value);
     } else {
-      console.warn("⚠️ No life skills found or invalid data structure:", lifeSkillsData);
+      console.warn("⚠️ No life skills data found or invalid structure:", data);
+      // Fallback to mock data if API fails
+      lifeSkills.value = mockLifeSkills;
     }
   } catch (error) {
     console.error("❌ Error fetching life skills data:", {
@@ -178,6 +197,8 @@ onMounted(async () => {
       data: error.response?.data,
       url: error.config?.url,
     });
+    // Fallback to mock data on error
+    lifeSkills.value = mockLifeSkills;
   } finally {
     console.log("LifeSkills loading complete, setting lifeSkillsLoading to false");
     lifeSkillsLoading.value = false;
