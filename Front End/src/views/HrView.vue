@@ -1,5 +1,6 @@
 <template>
-  <div class="p-6 bg-white rounded-2xl max-w-6xl mx-auto shadow-lg mb-8 border border-gray-200">
+  <AdminAside>
+  <div class="p-6 bg-white shadow-lg mb-8 border border-gray-200">
     <!-- Header -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
       <div>
@@ -143,11 +144,13 @@
       </div>
     </div>
   </div>
+  </AdminAside>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getApplies, deleteApply } from '@/api/applies'
+import AdminAside from '@/components/AdminAside.vue'
 
 // State
 const applicants = ref([])
