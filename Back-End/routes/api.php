@@ -14,6 +14,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\LifeSkillController;
+use App\Http\Controllers\EnhancementController;
+use App\Http\Controllers\StrategyController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +53,6 @@ Route::apiResource('applies', ApplyController::class);
 Route::resource('notifications', NotificationController::class); 
 Route::apiResource('reports', ReportsController::class);
 Route::apiResource('volunteers', VolunteerController::class);
+Route::apiResource('enhancements', EnhancementController::class);
+Route::apiResource('strategies', StrategyController::class);
+Route::apiResource('programs', ProgramController::class);
