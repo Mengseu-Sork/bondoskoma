@@ -11,7 +11,7 @@
                     <div class="text-center mb-20">
           <h2 class="text-5xl font-bold text-gray-900 mb-6">Our Country Goal</h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            children and youths enjoy full potential of their rights in living with dignity to become human capital for sustainable development of the society.
+            Children and youths enjoy full potential of their rights in living with dignity to become human capital for sustainable development of the society.
           </p>
         </div>
             <div class="md:grid md:grid-cols-2">
@@ -48,7 +48,7 @@
                   <h3 class="text-xl font-semibold text-slate-800 mb-2">
                     Goal Justification
                   </h3>
-                  <p class="text-slate-600 leading-relaxed">
+                  <p class="text-slate-600 leading-relaxed text-lg">
                     To enable children and youths to exercise their rights with
                     dignity, it is essential to provide them with quality and
                     equitable education so that they become agent of change of
