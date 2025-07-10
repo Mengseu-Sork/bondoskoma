@@ -3,7 +3,7 @@
     <!-- Page Title -->
     <div class="container mx-auto px-4 max-w-6xl">
       <div class="text-center">
-        <h1 class="text-5xl md:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+        <h1 class="text-5xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2">
           Our History
         </h1>
         <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"></div>
@@ -142,7 +142,7 @@
     <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
             Our Legacy Today
           </h2>
           <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"></div>
