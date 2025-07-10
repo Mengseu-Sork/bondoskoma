@@ -60,3 +60,4 @@ Route::apiResource('volunteers', VolunteerController::class);
 Route::apiResource('enhancements', EnhancementController::class);
 Route::apiResource('strategies', StrategyController::class);
 Route::apiResource('programs', ProgramController::class);
+Route::apiResource('contact', ContactController::class);
