@@ -132,6 +132,11 @@ const routes = [
     name: 'profile-edit',
     component: () => import('../views/FormUPdateProfileAdmin.vue'),
   },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('../views/ContactView.vue'),
+  },
 ]
 
 const router = createRouter({
