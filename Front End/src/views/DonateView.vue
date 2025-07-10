@@ -184,12 +184,19 @@
         <p class="text-sm text-gray-600 mb-2">Raised: $99,500 / Goal: $100,000</p>
       </div>
       <div class="border-t border-gray-200 pt-6">
-        <h4 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">Payment QR</h4>
-        <div class="flex items-center mb-2 justify-center">
-          <img src="/Qr.jpg" alt="" class="w-32 h-32 rounded-lg shadow-md" />
-        </div>
+        <h4 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">Thank You For Supporting</h4>
+        <p class="text-sm text-gray-700 leading-relaxed mb-4">
+          Thanks to your incredible support, we are just steps away from reaching our goal. Your donations have helped us provide nutritious meals, clean drinking water, and essential food supplies to hundreds of families struggling with hunger.
+        </p>
+        <p class="text-sm text-gray-700 leading-relaxed mb-4">
+          Every act of kindness—big or small—brings hope and health to communities that need it most. Your compassion fuels our mission and shows what we can achieve when we come together for a greater purpose.
+        </p>
+        <p class="text-sm text-gray-700 leading-relaxed mb-6">
+          We deeply appreciate your generosity. If you'd like to continue supporting or help us reach the final $500, please consider sharing our campaign or making a final contribution. Together, we can make a lasting impact.
+        </p>
       </div>
     </div>
+
 
     <!-- Success Modal -->
     <div v-if="showSuccessModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" role="dialog" aria-labelledby="modal-title">
@@ -294,6 +301,7 @@ function validateForm() {
     validateAmount()
   );
 }
+
 
 // Computed overall form validity
 const isFormValid = computed(() => validateForm());

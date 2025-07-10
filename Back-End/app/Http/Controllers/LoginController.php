@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
         public function store(Request $request)
-{
+    {
     $validated = $request->validate([
         'email' => 'required|string|email|unique:admins,email',
         'password' => 'required|string|min:6',
@@ -23,5 +23,5 @@ class LoginController extends Controller
         'message' => 'Admin created successfully',
         'data' => $admin,
     ], 201);
-}
+    }
 }

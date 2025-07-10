@@ -9,10 +9,11 @@ class DonetController extends Controller
 {
     public function index()
     {
-        return response()->json(Donet::all());
+        // Return all donations except those marked deleted
+        $donations = Donet::where('status', '!=', Donet::STATUS_DELETED)->get();
+        return response()->json($donations);
     }
 
-    // Store new donation
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -24,22 +25,42 @@ class DonetController extends Controller
             'email' => 'nullable|email|max:100',
         ]);
 
+        // Set default status to pending
+        $validated['status'] = Donet::STATUS_PENDING;
+
         $donation = Donet::create($validated);
         return response()->json($donation, 201);
     }
 
-    // Show specific donation
     public function show($id)
     {
         $donation = Donet::findOrFail($id);
+
+        // Optionally hide deleted donations
+        if ($donation->isDeleted()) {
+            return response()->json(['message' => 'Donation not found'], 404);
+        }
+
         return response()->json($donation);
     }
 
-    // Delete donation
+    // Soft delete by setting status to deleted
     public function destroy($id)
     {
         $donation = Donet::findOrFail($id);
-        $donation->delete();
+        $donation->status = Donet::STATUS_DELETED;
+        $donation->save();
+
         return response()->json(['message' => 'Donation deleted successfully']);
+    }
+
+    // Confirm donation (for example, after payment verification)
+    public function confirm($id)
+    {
+        $donation = Donet::findOrFail($id);
+        $donation->status = Donet::STATUS_CONFIRMED;
+        $donation->save();
+
+        return response()->json(['message' => 'Donation confirmed successfully']);
     }
 }

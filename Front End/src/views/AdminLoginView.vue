@@ -186,6 +186,9 @@ const handleLogin = async () => {
       password: loginForm.value.password,
     })
 
+    // Save the token into localStorage so router guard can check it
+    localStorage.setItem('adminToken', res.data.token)
+
     loginSuccess.value = res.data.message || 'Login successful! Redirecting...'
 
     setTimeout(() => {

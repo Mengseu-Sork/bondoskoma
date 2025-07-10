@@ -29,3 +29,9 @@ export const deleteDonet = async (id) => {
   const response = await api.delete(`/donations/${id}`);
   return response.data;
 };
+
+// Confirm a donet
+export const confirmDonet = async (id) => {
+  const response = await api.patch(`/donations/${id}/confirm`);
+  return response.data;
+};

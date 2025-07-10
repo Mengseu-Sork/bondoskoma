@@ -39,6 +39,8 @@ const hideLayout = computed(() => {
     '/admin/videoUsers',
     '/admin/VolunteesUsers',
     '/admin/hr',
+    '/admin/profile-edit',
+    '/admin/donations',
     // Add more admin routes as needed
   ]
   

@@ -1,6 +1,7 @@
 <template>
   <div :class="{ 'khmer-font': currentLang.code === 'kh' }">
-    <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-xl sticky top-0 z-50 backdrop-blur-md border-b border-blue-900/40">
+   <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-xl sticky top-0 z-50 backdrop-blur-md border-b border-blue-900/40">
+        <!-- Existing nav content -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Logo Section -->
@@ -82,7 +83,7 @@
           <div class="hidden lg:flex items-center space-x-3">
             <router-link 
               to="/donate"
-              class="bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wide flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200 border border-orange-300 hover:scale-105"
+              class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wide flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200 border border-blue-300 hover:scale-105"
             >
               <span>{{ t.donate }}</span>
             </router-link>
@@ -197,7 +198,7 @@
           <div class="pt-4 border-t border-blue-700">
             <router-link 
               to="/donate"
-              class="block w-full text-center bg-gradient-to-r from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center shadow-md hover:shadow-lg border border-orange-300 hover:scale-105"
+              class="block w-full text-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center shadow-md hover:shadow-lg border border-blue-500 hover:scale-105"
               @click="mobileMenuOpen = false"
             >
               <span>{{ t.donate }}</span>
@@ -231,7 +232,8 @@ const translations = {
     videos: 'Videos',
     'kids-art': "Kids' Art",
     donate: 'Donate',
-    adminLogin: 'Admin'
+    adminLogin: 'Admin',
+    contact: 'contact'
   },
   kh: {
     home: 'ទំព័រដើម',
@@ -282,6 +284,7 @@ const dropdowns = [
       { name: 'jobs', path: '/jobs' },
       { name: 'reports', path: '/report' },
       { name: 'partners', path: '/partner' },
+      { name: 'contact', path: '/contact' },
     ]
   },
   {
@@ -428,4 +431,13 @@ nav {
 .khmer-font * {
   font-family: 'Noto Sans Khmer', 'Battambang', Arial, Helvetica, sans-serif !important;
 }
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-clip: padding-box;
+} 
 </style>

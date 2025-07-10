@@ -14,11 +14,43 @@ class Donet extends Model
         'payment_method',
         'first_name',
         'last_name',
-        'email'
+        'email',
+        'status',
     ];
+
+    const STATUS_PENDING = 'pending';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_DELETED = 'deleted';
     protected $casts = [
-        'amount' => 'decimal:2',
         'is_monthly' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-    protected $table = 'donets';
+    public function isPending()
+    {
+        return $this->status === self::STATUS_PENDING;
+    }
+
+    public function isConfirmed()
+    {
+        return $this->status === self::STATUS_CONFIRMED;
+    }
+
+    public function isDeleted()
+    {
+        return $this->status === self::STATUS_DELETED;
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        $date = date('d-m-Y', strtotime($value));
+        $day = date('l', strtotime($value));
+        return $day . ', ' . $date;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $date = date('F d, Y', strtotime($value));
+        $day = date('l', strtotime($value));
+        return $day . ', ' . $date;
+    }
 }

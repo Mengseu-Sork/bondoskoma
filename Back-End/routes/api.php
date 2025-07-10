@@ -15,6 +15,10 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\DonetController;
 
+use App\Http\Controllers\LifeSkillController;
+use App\Http\Controllers\EnhancementController;
+use App\Http\Controllers\StrategyController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource( 'homes' , HomeController::class);
+Route::apiResource( 'lifeskills' , LifeSkillController::class);
 Route::apiResource( 'images' , ImageController::class);
 Route::apiResource( 'videos' , VideoController::class);
 Route::apiResource( 'partner' , PartnersController::class);
@@ -41,6 +46,10 @@ Route::apiResource( 'job' , JobAnnouncementController::class);
 Route::get('/admin', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/create_admin', [AuthController::class, 'store']);
+Route::put('/admin/{id}', [AuthController::class, 'update']);
+Route::post('/admin/verify', [AuthController::class, 'verifyCredentials']);
+
+
 // use App\Http\Controllers\NotificationController;
 // Route::middleware('auth:sanctum')->get('/admin', [AuthController::class, 'index']);
 Route::apiResource( 'jobs' , JobAnnouncementController::class);
@@ -51,3 +60,8 @@ Route::resource('notifications', NotificationController::class);
 Route::apiResource('reports', ReportsController::class);
 Route::apiResource('volunteers', VolunteerController::class);
 Route::apiResource('donations', DonetController::class);
+Route::apiResource('enhancements', EnhancementController::class);
+Route::apiResource('strategies', StrategyController::class);
+Route::apiResource('programs', ProgramController::class);
+Route::apiResource('contact', ContactController::class);
+Route::patch('donations/{id}/confirm', [DonetController::class, 'confirm']);

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->text('paragraph1')->nullable();
-            $table->text('paragraph2')->nullable();
-            // add image
-            $table->string('image')->nullable();
+            $table->string('title');             // Program title
+            $table->text('description');         // Program description or strategies
+            $table->string('image')->nullable(); // Image path or filename (optional)
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('homes');
+        Schema::dropIfExists('programs');
     }
 };

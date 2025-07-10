@@ -40,10 +40,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 // Banner images for slideshow
 const currentSlide = ref(0)
 const bannerImages = ref([
-  { src: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/Bandos-Komar-org_1.jpg', alt: 'Children learning' },
-  { src: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/Library.jpg', alt: 'Library activities' },
+  { src: './src/images/Banner1.png', alt: 'Children learning' },
+  { src: './src/images/Banner2.png', alt: 'Library activities' },
   { src: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/sub-banner.jpg', alt: 'Community event' },
-  { src: 'https://www.bandoskomar.org/wp-content/uploads/2017/10/agri-farm1-__.jpg', alt: 'Agricultural project' }
+  { src: './src/images/Banner.png', alt: 'Agricultural project' }
 ])
 
 const prevSlide = () => {
