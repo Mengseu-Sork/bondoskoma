@@ -13,6 +13,8 @@ use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\DonetController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +50,4 @@ Route::apiResource('applies', ApplyController::class);
 Route::resource('notifications', NotificationController::class); 
 Route::apiResource('reports', ReportsController::class);
 Route::apiResource('volunteers', VolunteerController::class);
+Route::apiResource('donations', DonetController::class);
