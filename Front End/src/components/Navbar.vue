@@ -231,7 +231,8 @@ const translations = {
     videos: 'Videos',
     'kids-art': "Kids' Art",
     donate: 'Donate',
-    adminLogin: 'Admin'
+    adminLogin: 'Admin',
+    contact: 'contact'
   },
   kh: {
     home: 'ទំព័រដើម',
@@ -282,6 +283,7 @@ const dropdowns = [
       { name: 'jobs', path: '/jobs' },
       { name: 'reports', path: '/report' },
       { name: 'partners', path: '/partner' },
+      { name: 'contact', path: '/contact' },
     ]
   },
   {
