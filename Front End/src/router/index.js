@@ -137,6 +137,11 @@ const routes = [
     name: 'contact',
     component: () => import('../views/ContactView.vue'),
   },
+  {
+    path: '/admin/notification',
+    name: 'admin-notification',
+    component: () => import('../views/NotificationView.vue'),
+  },
 ]
 
 const router = createRouter({
