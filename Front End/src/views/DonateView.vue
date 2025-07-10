@@ -180,21 +180,13 @@
     <!-- Sidebar with Campaign Info -->
     <div class="w-full lg:w-1/3 bg-white rounded-2xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl">
       <div class="mb-6">
-        <img loading="lazy" src="https://via.placeholder.com/300x200" alt="Campaign Image" class="w-full rounded-xl mb-4 transition-opacity duration-300 hover:opacity-90">
         <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Raise Funds for Clean & Healthy Food</h3>
         <p class="text-sm text-gray-600 mb-2">Raised: $99,500 / Goal: $100,000</p>
-        <button class="px-4 py-2 bg-yellow-400 text-white rounded-full text-sm font-medium hover:bg-yellow-500 transition-all duration-300">
-          Donation Details
-        </button>
       </div>
       <div class="border-t border-gray-200 pt-6">
-        <h4 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">Organizer</h4>
-        <div class="flex items-center mb-2">
-          <img loading="lazy" src="https://via.placeholder.com/40" alt="Organizer" class="w-10 h-10 rounded-full mr-3 transition-transform duration-300 hover:scale-105">
-          <div>
-            <p class="text-sm font-medium text-gray-900">Elgie A. Philips</p>
-            <p class="text-xs text-gray-500">352 5th Ave, New York</p>
-          </div>
+        <h4 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">Payment QR</h4>
+        <div class="flex items-center mb-2 justify-center">
+          <img src="/Qr.jpg" alt="" class="w-32 h-32 rounded-lg shadow-md" />
         </div>
       </div>
     </div>
@@ -208,7 +200,7 @@
           </svg>
         </div>
         <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-        <p class="text-gray-600 mb-6">Your donation of ${{ finalAmount }} has been processed successfully. Check your email for confirmation.</p>
+        <p class="text-gray-600 mb-6">Your donation of ${{ confirmedAmount }} has been processed successfully. Check your email for confirmation.</p>
         <button
           @click="showSuccessModal = false"
           class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
@@ -223,157 +215,125 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed } from 'vue';
+import { createDonet } from '@/api/donation';
 
-// Reactive data
-const selectedAmount = ref(25)
-const customAmount = ref('')
-const showCustomAmount = ref(false)
-const paymentMethod = ref('text')
-const isProcessing = ref(false)
-const showSuccessModal = ref(false)
-const isMonthly = ref(false)
-const donorInfo = ref({
+// Preset donation amounts
+const presetAmounts = [10, 25, 50, 100];
+
+// State variables
+const selectedAmount = ref(null);
+const showCustomAmount = ref(false);
+const customAmount = ref('');
+const amountError = ref('');
+const isMonthly = ref(false);
+const paymentMethod = ref('text');
+const isProcessing = ref(false);
+const showSuccessModal = ref(false);
+const confirmedAmount = ref(0); // ✅ Keeps value for success modal
+
+// Donor information
+const donorInfo = reactive({
   firstName: '',
   lastName: '',
-  email: ''
-})
-const formErrors = ref({
+  email: '',
+});
+
+// Form errors
+const formErrors = reactive({
   firstName: '',
   lastName: '',
-  email: ''
-})
-const amountError = ref('')
-const impactMessage = ref('')
-const isScrolled = ref(false)
-const progress = ref(99.5)
+  email: '',
+});
 
-// Preset amounts
-const presetAmounts = [25, 50, 75, 100, 200]
-
-// Impact messages based on amount
-const impactMap = {
-  25: 'Feeds 5 children for a day',
-  50: 'Provides clean water for a week',
-  75: 'Supports education for 2 children',
-  100: 'Funds healthcare for a family',
-  200: 'Builds a community project'
-}
-
-// Validation
-const validateAmount = () => {
-  amountError.value = customAmount.value && parseFloat(customAmount.value) <= 0 ? 'Amount must be greater than 0' : ''
-}
-
-const validateForm = () => {
-  formErrors.value.firstName = !donorInfo.value.firstName && paymentMethod.value !== 'guest' ? 'First name is required' : ''
-  formErrors.value.lastName = !donorInfo.value.lastName && paymentMethod.value !== 'guest' ? 'Last name is required' : ''
-  formErrors.value.email = !donorInfo.value.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorInfo.value.email) ? 'Valid email is required' : ''
-}
-
-const isFormValid = computed(() => {
-  return (selectedAmount.value > 0 || (customAmount.value && parseFloat(customAmount.value) > 0)) &&
-         (!formErrors.value.firstName && !formErrors.value.lastName && !formErrors.value.email) || paymentMethod.value === 'guest'
-})
-
-// Impact calculation
-const updateImpact = () => {
-  const amount = selectedAmount.value || (customAmount.value ? parseFloat(customAmount.value) : 0)
-  impactMessage.value = amount ? impactMap[Math.max(...Object.keys(impactMap).filter(k => k <= amount))] || `Supports ${amount} days of impact` : ''
-}
-
+// Computed amount from selection or custom input
 const finalAmount = computed(() => {
-  return selectedAmount.value || (customAmount.value ? parseFloat(customAmount.value) : 0)
-})
+  if (showCustomAmount.value) {
+    return Number(customAmount.value) || 0;
+  }
+  return selectedAmount.value || 0;
+});
 
-// Scroll handling
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+// Validate donation amount
+function validateAmount() {
+  amountError.value = '';
+  if (finalAmount.value <= 0) {
+    amountError.value = 'Please enter an amount greater than zero.';
+    return false;
+  }
+  return true;
 }
 
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 100
-}
+// Validate donor form
+function validateForm() {
+  // Reset form errors
+  formErrors.firstName = '';
+  formErrors.lastName = '';
+  formErrors.email = '';
 
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-  updateImpact()
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-
-// Methods
-const processDonation = async () => {
-  if (!isFormValid.value) {
-    validateForm()
-    return
+  // Validate donor fields unless guest
+  if (paymentMethod.value !== 'guest') {
+    if (!donorInfo.firstName.trim()) {
+      formErrors.firstName = 'First name is required.';
+    }
+    if (!donorInfo.lastName.trim()) {
+      formErrors.lastName = 'Last name is required.';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!donorInfo.email.trim()) {
+      formErrors.email = 'Email is required.';
+    } else if (!emailRegex.test(donorInfo.email)) {
+      formErrors.email = 'Email is invalid.';
+    }
   }
 
-  isProcessing.value = true
+  return (
+    !formErrors.firstName &&
+    !formErrors.lastName &&
+    !formErrors.email &&
+    validateAmount()
+  );
+}
+
+// Computed overall form validity
+const isFormValid = computed(() => validateForm());
+
+// Submit donation
+async function processDonation() {
+  if (!validateForm()) return;
+
+  isProcessing.value = true;
+
+  const donationPayload = {
+    amount: finalAmount.value,
+    is_monthly: isMonthly.value,
+    payment_method: paymentMethod.value,
+    first_name: donorInfo.firstName.trim() || null,
+    last_name: donorInfo.lastName.trim() || null,
+    email: donorInfo.email.trim() || null,
+  };
+
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    showSuccessModal.value = true
-    // Reset form
-    selectedAmount.value = 25
-    customAmount.value = ''
-    showCustomAmount.value = false
-    isMonthly.value = false
-    donorInfo.value = { firstName: '', lastName: '', email: '' }
-    formErrors.value = { firstName: '', lastName: '', email: '' }
-    amountError.value = ''
-    paymentMethod.value = 'text'
+    await createDonet(donationPayload);
+
+    // ✅ Save the donated amount before reset
+    confirmedAmount.value = finalAmount.value;
+
+    showSuccessModal.value = true;
+
+    // Reset form state
+    selectedAmount.value = null;
+    showCustomAmount.value = false;
+    customAmount.value = '';
+    isMonthly.value = false;
+    paymentMethod.value = 'text';
+    donorInfo.firstName = '';
+    donorInfo.lastName = '';
+    donorInfo.email = '';
   } catch (error) {
-    console.error('Donation error:', error)
+    alert('Donation failed: ' + (error.message || 'Please try again.'));
   } finally {
-    isProcessing.value = false
+    isProcessing.value = false;
   }
 }
-
-// Watch for form changes
-watch(() => donorInfo.value, validateForm, { deep: true })
-watch(() => customAmount.value, validateAmount)
-watch(() => [selectedAmount.value, customAmount.value, isMonthly.value], updateImpact)
 </script>
-
-<style scoped>
-/* Custom transitions */
-.transition-all {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Focus styles */
-input:focus,
-select:focus,
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .lg\\:flex-row {
-    flex-direction: column;
-  }
-  .lg\\:w-2\/3, .lg\\:w-1\/3 {
-    width: 100%;
-  }
-  .lg\\:mr-6 {
-    margin-right: 0;
-  }
-}
-
-@media (max-width: 640px) {
-  .text-3xl {
-    font-size: 1.5rem;
-  }
-  .text-2xl {
-    font-size: 1.25rem;
-  }
-  .px-5 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-</style>

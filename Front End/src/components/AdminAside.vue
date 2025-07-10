@@ -272,6 +272,84 @@
               Programs
             </div>
           </router-link>
+          <!-- Video -->
+          <router-link
+            to="/admin/videoUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/videoUsers' 
+                ? 'bg-red-50 text-red-700 border-r-4 border-red-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            ▶️
+            <span v-if="!isCollapsed" class="truncate ml-3">Video</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Video
+            </div>
+          </router-link>
+
+          <!-- Volunteer -->
+          <router-link
+            to="/admin/VolunteesUsers"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/VolunteesUsers' 
+                ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m6-4a4 4 0 11-8 0 4 4 0 018 0zm6 4a4 4 0 10-8 0 4 4 0 008 0z"
+              />
+            </svg>
+            <span v-if="!isCollapsed" class="truncate ml-3">Voluntees</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              Voluntees
+            </div>
+          </router-link>
+
+          <!-- HR -->
+          <router-link
+            to="/admin/hr"
+            :class="[
+              'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative',
+              $route.path === '/admin/hr' 
+                ? 'bg-yellow-50 text-yellow-700 border-r-4 border-yellow-500 shadow-sm' 
+                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+            ]"      
+          >
+            <svg 
+              :class="[
+                'flex-shrink-0 transition-colors duration-200',
+                isCollapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3',
+                $route.path === '/admin/hr' ? 'text-yellow-600' : 'text-gray-400 group-hover:text-gray-600'
+              ]" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0v4m0-4h4m-4 0H8m6-6a2 2 0 11-4 0 2 2 0 014 0zM5.5 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm16-1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+            </svg>
+            
+            <span v-if="!isCollapsed" class="truncate">HR</span>
+
+            <div 
+              v-if="isCollapsed"
+              class="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50"
+            >
+              HR
+            </div>      
+          </router-link>
           
           <!-- Settings -->
           <router-link
