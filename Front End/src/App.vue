@@ -41,6 +41,7 @@ const hideLayout = computed(() => {
     '/admin/hr',
     '/admin/profile-edit',
     '/admin/donations',
+    '/admin/notification',
     // Add more admin routes as needed
   ]
   

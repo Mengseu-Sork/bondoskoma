@@ -1,3 +1,4 @@
+```vue
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Sidebar -->
@@ -447,8 +448,22 @@
             </div>
 
             <!-- Notifications -->
-            <div class="relative">
-             
+            <div class="relative notifications-dropdown">
+              <button 
+                @click="toggleNotifications"
+                class="relative p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 rounded-lg hover:bg-gray-50"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+                </svg>
+                <!-- Notification badge -->
+                <span
+                  v-if="unreadCount > 0"
+                  class="absolute -top-1 -right-1 min-w-[1.25rem] h-5 bg-red-500 text-white text-xs font-medium rounded-full flex items-center justify-center"
+                >
+                  {{ unreadCount }}
+                </span>
+              </button>
 
               <!-- Notifications Dropdown -->
               <div
@@ -470,17 +485,24 @@
                         notification.read ? 'bg-gray-300' : 'bg-blue-500'
                       ]"></div>
                       <div class="flex-1">
-                        <p class="text-sm font-medium text-gray-900">{{ notification.title }}</p>
-                        <p class="text-xs text-gray-600 mt-1">{{ notification.message }}</p>
+                        <p class="text-sm font-medium text-gray-900">{{ notification.name }}</p>
+                        <p class="text-xs text-gray-600 mt-1 line-clamp-2">{{ notification.paragraph }}</p>
                         <p class="text-xs text-gray-500 mt-1">{{ notification.time }}</p>
                       </div>
                     </div>
                   </div>
+                  <div v-if="notifications.length === 0" class="px-4 py-3 text-center text-gray-500">
+                    No notifications available.
+                  </div>
                 </div>
                 <div class="px-4 py-2 border-t border-gray-100">
-                  <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                  <router-link
+                    to="/admin/notification"
+                    @click="showNotifications = false"
+                    class="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
                     View all notifications
-                  </button>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -627,12 +649,18 @@
       class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
       @click="closeMobileSidebar"
     ></div>
+
+    <!-- Toast Notifications -->
+    <div v-if="toastMessage" class="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg">
+      {{ toastMessage }}
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import api from '@/plugin/axios'
 
 const router = useRouter()
 const route = useRoute()
@@ -645,6 +673,8 @@ const showNotifications = ref(false)
 const showMobileOverlay = ref(false)
 const searchQuery = ref('')
 const userDropdown = ref(null)
+const notifications = ref([])
+const toastMessage = ref('')
 
 // Current user info
 const currentUser = ref({
@@ -661,6 +691,11 @@ const userInitials = computed(() => {
     .toUpperCase()
 })
 
+// Compute unread notifications count
+const unreadCount = computed(() => {
+  return notifications.value.filter(n => !n.read).length
+})
+
 // Get current page title based on route
 const currentPageTitle = computed(() => {
   const routeMap = {
@@ -674,35 +709,49 @@ const currentPageTitle = computed(() => {
     '/admin/jobsUsers': 'Jobs',
     '/admin/programs': 'Programs',
     '/admin/settings': 'Settings',
-    '/admin/profile-edit': 'Profile Edit'
+    '/admin/profile-edit': 'Profile Edit',
+    '/admin/notification': 'Notifications'
   }
   return routeMap[route.path] || 'Admin'
 })
 
-// Sample notifications
-const notifications = ref([
-  {
-    id: 1,
-    title: 'New user registered',
-    message: 'John Doe has created a new account',
-    time: '2 minutes ago',
-    read: false
-  },
-  {
-    id: 2,
-    title: 'System update',
-    message: 'System maintenance completed successfully',
-    time: '1 hour ago',
-    read: false
-  },
-  {
-    id: 3,
-    title: 'Backup completed',
-    message: 'Daily backup has been completed',
-    time: '3 hours ago',
-    read: true
+// Load read and deleted statuses from localStorage
+const loadReadStatuses = () => {
+  return JSON.parse(localStorage.getItem('notificationReadStatuses') || '{}')
+}
+const loadDeletedIds = () => {
+  return JSON.parse(localStorage.getItem('deletedNotificationIds') || '[]')
+}
+
+// Fetch notifications from API
+const fetchNotifications = async () => {
+  try {
+    const response = await api.get('/contact')
+    const readStatuses = loadReadStatuses()
+    const deletedIds = loadDeletedIds()
+    notifications.value = response.data.contact
+      .filter(contact => !deletedIds.includes(contact.id))
+      .map(contact => ({
+        id: contact.id,
+        name: contact.name,
+        paragraph: contact.paragraph,
+        phone: contact.phone,
+        time: new Date(contact.created_at).toLocaleString(),
+        read: readStatuses[contact.id] || false
+      }))
+  } catch (error) {
+    console.error('Error fetching notifications:', error)
+    showToast('Failed to fetch notifications.')
   }
-])
+}
+
+// Show toast message
+const showToast = (message) => {
+  toastMessage.value = message
+  setTimeout(() => {
+    toastMessage.value = ''
+  }, 3000)
+}
 
 // Methods
 const toggleSidebar = () => {
@@ -725,6 +774,10 @@ const closeMobileSidebar = () => {
   showMobileOverlay.value = false
 }
 
+const toggleNotifications = () => {
+  showNotifications.value = !showNotifications.value
+}
+
 const goToProfile = () => {
   showUserMenu.value = false
   console.log('Go to profile')
@@ -737,14 +790,12 @@ const showHelp = () => {
 
 const logout = () => {
   showUserMenu.value = false
-  
   if (confirm('Are you sure you want to logout?')) {
     localStorage.removeItem('adminToken')
     localStorage.removeItem('adminLoggedIn')
     localStorage.removeItem('adminRole')
     localStorage.removeItem('adminPermissions')
     localStorage.removeItem('adminUser')
-    
     router.push('/admin/login')
   }
 }
@@ -773,6 +824,7 @@ const loadSidebarState = () => {
 
 onMounted(() => {
   loadSidebarState()
+  fetchNotifications()
   document.addEventListener('click', handleClickOutside)
 })
 
@@ -780,3 +832,4 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+```

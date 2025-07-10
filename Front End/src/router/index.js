@@ -142,6 +142,11 @@ const routes = [
     name: 'admin-donations',
     component: () => import('../views/AdminDonationView.vue'),
   },
+  {
+    path: '/admin/notification',
+    name: 'admin-notification',
+    component: () => import('../views/NotificationView.vue'),
+  },
 ]
 
 const router = createRouter({
