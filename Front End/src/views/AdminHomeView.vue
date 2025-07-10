@@ -2,8 +2,9 @@
   <admin-aside>
     <div :class="['min-h-screen p-6', isCollapsed ? 'ml-16' : '']" v-if="layoutReady" :style="{ transition: 'margin-left 0.3s ease' }">
       <!-- Header with Gradient -->
-      <div class="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 rounded-lg mb-6 shadow-lg">
-        <h1 class="text-3xl font-extrabold tracking-wide animate-fade-in">Admin Home</h1>
+      <div class="bg-white p-6 rounded-lg mb-6 shadow-lg border border-gray-100">
+        <h1 class="text-3xl font-bold tracking-wide text-gray-900">Admin Dashboard</h1>
+        <p class="text-gray-600 mt-1">Manage Home and Lifeskills</p>
       </div>
 
       <!-- Notification Area -->
@@ -78,6 +79,7 @@
                   Description
                   <span class="ml-1">{{ sortKey === 'description' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}</span>
                 </th>
+                <th class="p-4 border-b-2 border-gray-200 text-gray-700 font-medium">Image</th>
                 <th class="p-4 border-b-2 border-gray-200 text-gray-700 font-medium">Actions</th>
               </tr>
             </thead>
@@ -87,6 +89,9 @@
                 <td v-if="activeTab === 'home'" class="p-4 border-r text-gray-800">{{ item.paragraph2 || 'N/A' }}</td>
                 <td v-if="activeTab === 'lifeskills'" class="p-4 border-r text-gray-800">{{ item.title || 'N/A' }}</td>
                 <td v-if="activeTab === 'lifeskills'" class="p-4 border-r text-gray-800">{{ truncateText(item.description, 50) || 'N/A' }}</td>
+                <td class="p-4">
+                  <img :src="imageUrl(item.image)" alt="Item Image" class="w-16 h-16 object-cover rounded" @error="onImageError" />
+                </td>
                 <td class="p-4 flex space-x-2">
                   <button @click="editItem(item)" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition duration-200 flex items-center">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +116,7 @@
       <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 w-full max-w-md">
           <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ isEditing ? 'Edit' : 'Create' }} {{ activeTab === 'home' ? 'Home Content' : 'Life Skill' }}</h2>
-          <form @submit.prevent="handleSubmit" class="space-y-4">
+          <form @submit.prevent="handleSubmit" class="space-y-4" enctype="multipart/form-data">
             <div v-if="activeTab === 'home'">
               <label class="block text-sm font-medium text-gray-700">Paragraph 1</label>
               <textarea
@@ -127,6 +132,14 @@
                 rows="4"
                 required
               ></textarea>
+              <label class="block text-sm font-medium text-gray-700 mt-3">Image</label>
+              <input
+                type="file"
+                @change="handleImageUpload"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                accept="image/*"
+              />
+              <img v-if="formData.imagePreview" :src="formData.imagePreview" alt="Preview" class="w-32 h-32 object-cover mt-2 rounded" />
             </div>
             <div v-if="activeTab === 'lifeskills'">
               <label class="block text-sm font-medium text-gray-700">Title</label>
@@ -143,6 +156,14 @@
                 rows="4"
                 required
               ></textarea>
+              <label class="block text-sm font-medium text-gray-700 mt-3">Image</label>
+              <input
+                type="file"
+                @change="handleImageUpload"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                accept="image/*"
+              />
+              <img v-if="formData.imagePreview" :src="formData.imagePreview" alt="Preview" class="w-32 h-32 object-cover mt-2 rounded" />
             </div>
             <div class="flex justify-end space-x-3">
               <button
@@ -185,7 +206,9 @@ const formData = ref({
   paragraph1: '',
   paragraph2: '',
   title: '',
-  description: ''
+  description: '',
+  image: '',
+  imagePreview: ''
 });
 const notification = ref({
   message: '',
@@ -219,6 +242,24 @@ const sort = (key) => {
   }
 };
 
+const imageUrl = (imagePath) => {
+  const baseUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  return imagePath ? `${baseUrl}/storage/${imagePath}` : 'https://via.placeholder.com/150';
+};
+
+const onImageError = (event) => {
+  console.error('Image failed to load:', event.target.src);
+  event.target.src = 'https://via.placeholder.com/150'; // Fallback image
+};
+
+const handleImageUpload = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    formData.value.image = file;
+    formData.value.imagePreview = URL.createObjectURL(file); // Preview the uploaded image
+  }
+};
+
 const fetchItems = async () => {
   loading.value = true;
   try {
@@ -241,19 +282,19 @@ const fetchItems = async () => {
 
 const openCreateModal = () => {
   isEditing.value = false;
-  formData.value = { id: null, paragraph1: '', paragraph2: '', title: '', description: '' };
+  formData.value = { id: null, paragraph1: '', paragraph2: '', title: '', description: '', image: '', imagePreview: '' };
   showModal.value = true;
 };
 
 const editItem = (item) => {
   isEditing.value = true;
-  formData.value = { ...item };
+  formData.value = { ...item, imagePreview: item.image ? imageUrl(item.image) : '' };
   showModal.value = true;
 };
 
 const closeModal = () => {
   showModal.value = false;
-  formData.value = { id: null, paragraph1: '', paragraph2: '', title: '', description: '' };
+  formData.value = { id: null, paragraph1: '', paragraph2: '', title: '', description: '', image: '', imagePreview: '' };
 };
 
 const handleSubmit = async () => {
@@ -262,11 +303,22 @@ const handleSubmit = async () => {
     const endpoint = activeTab.value === 'home' ? '/homes' : '/lifeskills';
     const method = isEditing.value ? 'put' : 'post';
     const url = isEditing.value ? `${endpoint}/${formData.value.id}` : endpoint;
-    const payload = activeTab.value === 'home'
-      ? { paragraph1: formData.value.paragraph1, paragraph2: formData.value.paragraph2 }
-      : { title: formData.value.title, description: formData.value.description };
 
-    const response = await apiInstance[method](url, payload);
+    const payload = new FormData();
+    if (activeTab.value === 'home') {
+      payload.append('paragraph1', formData.value.paragraph1);
+      payload.append('paragraph2', formData.value.paragraph2);
+    } else {
+      payload.append('title', formData.value.title);
+      payload.append('description', formData.value.description);
+    }
+    if (formData.value.image instanceof File) {
+      payload.append('image', formData.value.image);
+    }
+
+    const response = await apiInstance[method](url, payload, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
     console.log(`Submit Response for ${method} ${url}:`, response.data); // Debug log
     await fetchItems();
     closeModal();

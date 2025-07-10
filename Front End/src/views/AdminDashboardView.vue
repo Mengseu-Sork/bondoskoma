@@ -63,47 +63,6 @@
           </router-link>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div class="p-6 border-b border-gray-200">
-            <div class="flex justify-between items-center">
-              <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
-              <router-link
-                to="/admin/analytics"
-                class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors duration-200"
-              >
-                View All →
-              </router-link>
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="space-y-4">
-              <div
-                v-for="activity in recentActivities"
-                :key="activity.id"
-                class="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200"
-              >
-                <div :class="[
-                  'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
-                  activity.bgColor
-                ]">
-                  <component :is="activity.icon" :class="['w-4 h-4', activity.iconColor]" />
-                </div>
-                <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
-                  <p class="text-sm text-gray-600">{{ activity.description }}</p>
-                  <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
-                </div>
-                <router-link
-                  :to="activity.link"
-                  class="text-blue-600 hover:text-blue-700 text-sm font-medium"
-                >
-                  View
-                </router-link>
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   </div>
@@ -162,42 +121,18 @@ const quickLinks = [
     hoverBg: 'bg-blue-200',
     iconColor: 'text-blue-600'
   },
-  {
-    title: 'User Management',
-    description: 'Manage admin users and permissions',
-    route: '/admin/users',
-    icon: 'UsersIcon',
-    bgColor: 'bg-green-100',
-    hoverBg: 'bg-green-200',
-    iconColor: 'text-green-600'
-  },
+
   {
     title: 'Content Pages',
     description: 'Edit website pages and content',
-    route: '/admin/pages',
+    route: '/',
     icon: 'PagesIcon',
     bgColor: 'bg-purple-100',
     hoverBg: 'bg-purple-200',
     iconColor: 'text-purple-600'
   },
-  {
-    title: 'Media Library',
-    description: 'Upload and manage images and files',
-    route: '/admin/media',
-    icon: 'MediaIcon',
-    bgColor: 'bg-yellow-100',
-    hoverBg: 'bg-yellow-200',
-    iconColor: 'text-yellow-600'
-  },
-  {
-    title: 'Analytics',
-    description: 'View detailed reports and statistics',
-    route: '/admin/analytics',
-    icon: 'AnalyticsIcon',
-    bgColor: 'bg-red-100',
-    hoverBg: 'bg-red-200',
-    iconColor: 'text-red-600'
-  },
+
+  
   {
     title: 'Settings',
     description: 'Configure system settings',

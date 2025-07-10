@@ -1,6 +1,7 @@
 <template>
   <div :class="{ 'khmer-font': currentLang.code === 'kh' }">
-    <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-xl sticky top-0 z-50 backdrop-blur-md border-b border-blue-900/40">
+   <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-xl sticky top-0 z-50 backdrop-blur-md border-b border-blue-900/40">
+        <!-- Existing nav content -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Logo Section -->
@@ -430,4 +431,13 @@ nav {
 .khmer-font * {
   font-family: 'Noto Sans Khmer', 'Battambang', Arial, Helvetica, sans-serif !important;
 }
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-clip: padding-box;
+} 
 </style>
